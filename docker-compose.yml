@@ -1,0 +1,32 @@
+version: "3"
+services:
+  php_recipes:
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    image: php:latest
+    working_dir: /application
+    depends_on:
+      - db
+    volumes:
+      - .:/application
+      - ./docker/php/php-ini-overrides.ini:/etc/php/8.2/fpm/conf.d/99-overrides.ini
+    networks:
+      proxy:
+        ipv4_address: 10.200.18.2
+
+  db:
+    image: mysql
+    volumes:
+      - ./../data/recipes/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=recipes
+      - MYSQL_HOST=127.0.0.1
+    networks:
+      proxy:
+        ipv4_address: 10.200.18.3
+
+networks:
+  proxy:
+    external: true

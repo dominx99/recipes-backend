@@ -1,5 +1,4 @@
-
-###> symfony/framework-bundle ###
+/.env
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -7,4 +6,7 @@
 /public/bundles/
 /var/
 /vendor/
-###< symfony/framework-bundle ###
+
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+
