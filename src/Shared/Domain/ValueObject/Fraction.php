@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
-use Doctrine\Common\Cache\Psr6\InvalidArgument;
 use InvalidArgumentException;
 
 final class Fraction
@@ -17,7 +16,7 @@ final class Fraction
     {
         $values = explode(' ', $this->fraction);
 
-        if (count($values) === 1) {
+        if (1 === count($values)) {
             return $this->fractionToNumber($this->fraction);
         }
 
@@ -38,7 +37,7 @@ final class Fraction
             throw new InvalidArgumentException('It is not a fraction');
         }
 
-        if (count($parts) == 1) {
+        if (1 == count($parts)) {
             return $fraction;
         }
 

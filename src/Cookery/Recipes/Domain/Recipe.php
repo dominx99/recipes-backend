@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Cookery\Recipes\Domain;
 
-use App\Cookery\Ingredients\Domain\Ingredient;
-use App\Cookery\Ingredients\Domain\IngredientInterface;
-use App\Ingredients\IngredientCollection;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\Common\Collections\Collection;
@@ -23,28 +20,28 @@ class Recipe implements RecipeInterface, AggregateRoot
     #[ORM\Column(name: 'name', type: 'string')]
     private string $name;
 
-    #[OneToMany(targetEntity: Ingredient::class, mappedBy: 'recipe', cascade: ['persist'])]
-    private Collection $ingredients;
+    #[OneToMany(targetEntity: RecipeComponent::class, mappedBy: 'recipe', cascade: ['persist'])]
+    private Collection $components;
 
     private function __construct(
         string $id,
         string $name,
-        IngredientCollection $ingredients
+        RecipeComponentCollection $components
     ) {
         $this->id = $id;
         $this->name = $name;
-        $this->ingredients = $ingredients;
+        $this->components = $components;
     }
 
     public static function new(
         string $id,
         string $name,
-        IngredientCollection $ingredients
+        RecipeComponentCollection $components
     ): RecipeInterface {
         return new Recipe(
             $id,
             $name,
-            $ingredients
+            $components
         );
     }
 
@@ -53,8 +50,8 @@ class Recipe implements RecipeInterface, AggregateRoot
         return self::new(
             (string) Uuid::random(),
             $recipe->name(),
-            $recipe->ingredients()->map(
-                fn (IngredientInterface $ingredient) => Ingredient::fromIngredient($ingredient),
+            $recipe->components()->map(
+                fn (RecipeComponentInterface $component) => RecipeComponent::fromComponent($component),
             )
         );
     }
@@ -69,8 +66,8 @@ class Recipe implements RecipeInterface, AggregateRoot
         return $this->name;
     }
 
-    public function ingredients(): IngredientCollection
+    public function components(): RecipeComponentCollection
     {
-        return $this->ingredients;
+        return $this->components;
     }
 }

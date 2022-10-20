@@ -6,15 +6,15 @@ namespace App\Import\Domain;
 
 use App\Cookery\Ingredients\Domain\IngredientInterface;
 use App\Cookery\Measures\Domain\Measure;
-use App\Shared\Domain\Enum\Unit;
+use App\Cookery\Measures\Domain\Unit;
 use App\Shared\Domain\ValueObject\Fraction;
+use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 
-final class TabatkinsIngredientAdapter implements IngredientInterface
+final class TabatkinsRecipeComponentAdapter implements RecipeComponentInterface
 {
-    private string $name;
-    private ?Measure $measure;
+    private array $rawIngredient;
 
-    public function __construct(private string $ingredient)
+    public function __construct(array $rawIngredient)
     {
         $units = sprintf('%s|', implode('|', Unit::values()));
         preg_match(
@@ -25,19 +25,18 @@ final class TabatkinsIngredientAdapter implements IngredientInterface
 
         $this->name = isset($matches[7]) ? trim($matches[7]) : '';
         $this->evaluateMeasure($matches[1] ?? null, $matches[6] ?? null);
+        $this->rawIngredient = $rawIngredient;
     }
 
-    public function measure(): ?Measure
+    public function ingredient(): IngredientInterface
     {
-        return $this->measure;
     }
 
-    public function name(): string
+    public function measure(): Measure
     {
-        return $this->name;
     }
 
-    private function evaluateMeasure(?string $fraction, ?string $unit): void
+    private function evaluateMeasure(): void
     {
         $unit = strtolower($unit ?? '');
 

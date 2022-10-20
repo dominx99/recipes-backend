@@ -6,7 +6,5 @@ namespace App\Cookery\Ingredients\Domain;
 
 interface IngredientInterface
 {
-    public function measure(): ?IngredientMeasure;
-
     public function name(): string;
 }

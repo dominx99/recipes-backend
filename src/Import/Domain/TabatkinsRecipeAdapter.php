@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Import\Infrastructure\Adapter;
+namespace App\Import\Domain;
 
-use App\Cookery\Ingredients\Domain\IngredientInterface;
+use App\Cookery\Recipes\Domain\RecipeComponentCollection;
 use App\Cookery\Recipes\Domain\RecipeInterface;
 use App\Import\Domain\TabatkinsIngredientAdapter;
 use App\Ingredients\IngredientCollection;
-use App\Shared\Domain\Enum\Unit;
 
 final class TabatkinsRecipeAdapter implements RecipeInterface
 {
@@ -16,10 +15,10 @@ final class TabatkinsRecipeAdapter implements RecipeInterface
 
     public function __construct(private array $recipe)
     {
-        $this->ingredients = new IngredientCollection(array_map(
-            fn (string $ingredient) => new TabatkinsIngredientAdapter($ingredient),
-            $recipe['ingredients']
-        ));
+        // $this->ingredients = new IngredientCollection(array_map(
+        //     fn (string $ingredient) => new TabatkinsIngredientAdapter($ingredient),
+        //     $recipe['ingredients']
+        // ));
     }
 
     public function name(): string
@@ -30,5 +29,10 @@ final class TabatkinsRecipeAdapter implements RecipeInterface
     public function ingredients(): IngredientCollection
     {
         return $this->ingredients;
+    }
+
+    public function components(): RecipeComponentCollection
+    {
+        return new RecipeComponentCollection();
     }
 }

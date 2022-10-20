@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Import\Domain;
 
-use App\Import\Infrastructure\Importer\TabatkinsRecipeImporter;
+use App\Import\Infrastructure\Importer\TabatkinsImporter;
 
 final class TabatkinsRecipeSource implements RecipeSource
 {
@@ -15,6 +15,6 @@ final class TabatkinsRecipeSource implements RecipeSource
 
     public function importer(): string
     {
-        return TabatkinsRecipeImporter::class;
+        return TabatkinsImporter::class;
     }
 }
