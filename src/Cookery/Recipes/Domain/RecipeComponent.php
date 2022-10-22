@@ -21,20 +21,21 @@ final class RecipeComponent implements RecipeComponentInterface
     #[ORM\JoinColumn(name: 'recipe_id', referencedColumnName: 'id', nullable: false)]
     private RecipeInterface $recipe;
 
-    #[ORM\OneToOne(targetEntity: Ingredient::class)]
+    #[ORM\ManyToOne(targetEntity: Ingredient::class)]
+    #[ORM\JoinColumn(name: 'ingredient_id', referencedColumnName: 'id', nullable: false, unique: false)]
     private IngredientInterface $ingredient;
 
     #[ORM\Embedded(class: Measure::class, columnPrefix: false)]
-    private Measure $measure;
+    private ?Measure $measure;
 
-    private function __construct(string $id, IngredientInterface $ingredient, Measure $measure)
+    private function __construct(string $id, IngredientInterface $ingredient, ?Measure $measure)
     {
         $this->id = $id;
         $this->ingredient = $ingredient;
         $this->measure = $measure;
     }
 
-    public static function new(string $id, IngredientInterface $ingredient, Measure $measure): RecipeComponentInterface
+    public static function new(string $id, IngredientInterface $ingredient, ?Measure $measure): RecipeComponentInterface
     {
         return new RecipeComponent($id, $ingredient, $measure);
     }
@@ -58,8 +59,13 @@ final class RecipeComponent implements RecipeComponentInterface
         return $this->ingredient;
     }
 
-    public function measure(): Measure
+    public function measure(): ?Measure
     {
         return $this->measure;
+    }
+
+    public function setRecipe(Recipe $recipe): void
+    {
+        $this->recipe = $recipe;
     }
 }

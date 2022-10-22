@@ -38,6 +38,11 @@ final class DOMElementToRecipeAdapter implements RecipeInterface
         return new RecipeComponentCollection();
     }
 
+    public function externalIdentifier(): string
+    {
+        return '1';
+    }
+
     // public function ingredients(): IngredientCollection
     // {
     //     $ingredientElements = array_values(filter(

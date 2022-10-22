@@ -28,4 +28,9 @@ final class TabatkinsRecipeAdapter implements RecipeInterface
     {
         return $this->components;
     }
+
+    public function externalIdentifier(): string
+    {
+        return sprintf('%s.%s', 'tabatkins', $this->recipe['id']);
+    }
 }
