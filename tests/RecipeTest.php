@@ -15,14 +15,13 @@ final class RecipeTest
             new Item('bread'),
         ]);
 
-        $recipeMatcher = new RecipeMatcher();
+        $ingredients = $ingredientsRepository->findByStorage($storage);
+        $recipes = $recipesRepository->findByIngredients($ingredients);
 
-        $recipeMatcher->addIngredients(map(
-            fn (Item $item) => new StorageItemToIngredientAdapter($item),
-            $storage
-        ));
-        $recipeMatcher->addBook(new RecipeBook($recipes));
+        $completeMatcher = new CompleteRecipesMatcher($recipes, $ingredients);
+        $incompleteMatcher = new InCompleteRecipesMatcher($recipes, $ingredients, 3);
 
-        $recipes = $cook->matchRecipes();
+        $matchingRecipes = apply($completeMatcher, []);
+        $almostMatchingRecipes = apply($incompleteMatcher, []);
     }
 }
