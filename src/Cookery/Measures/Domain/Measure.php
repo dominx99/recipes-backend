@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace App\Cookery\Measures\Domain;
 
+use App\Shared\Domain\Enum\Unit;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\ManyToOne;
 
 #[ORM\Embeddable()]
 final class Measure
 {
-    #[ManyToOne(targetEntity: Unit::class)]
+    #[ORM\Column(name: 'unit', enumType: 'string', nullable: true)]
     private ?Unit $unit;
 
-    #[Column(name: 'numericQuantity', type: 'string', nullable: true)]
+    #[ORM\Column(name: 'numeric_quantity', type: 'string', nullable: true)]
     private ?string $numericQuantity;
 
-    #[Column(name: 'formattedQuantity', type: 'string', nullable: true)]
+    #[ORM\Column(name: 'formatted_quantity', type: 'string', nullable: true)]
     private ?string $formattedQuantity;
 
     public function __construct(?Unit $unit, ?string $numericQuantity, ?string $formattedQuantity)

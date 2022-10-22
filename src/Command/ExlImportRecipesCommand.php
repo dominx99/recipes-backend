@@ -3,10 +3,10 @@
 namespace App\Command;
 
 use App\Cookery\Recipes\Domain\Recipe;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Crawler\CrawlerAttributes;
 use App\Crawler\DOMElementToRecipeAdapter;
 use App\Enum\RootNodeEnum;
-use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Shared\Domain\ValueObject\Uuid;
 use DOMAttr;
 use DOMElement;

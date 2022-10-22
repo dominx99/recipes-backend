@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Cookery\Ingredients\Domain;
 
-use App\Cookery\Ingredients\Domain\IngredientInterface;
 use App\Shared\Domain\Collection\Collection;
 
 final class IngredientCollection extends Collection

@@ -89,6 +89,12 @@ class Recipe implements RecipeInterface, AggregateRoot
 
     public function components(): RecipeComponentCollection
     {
+        if ($this->components instanceof RecipeComponentCollection) {
+            return $this->components;
+        }
+
+        $this->components = new RecipeComponentCollection($this->components->toArray());
+
         return $this->components;
     }
 }

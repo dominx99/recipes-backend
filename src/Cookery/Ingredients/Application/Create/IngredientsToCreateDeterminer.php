@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Cookery\Ingredients\Application\Create;
 
 use App\Cookery\Ingredients\Domain\Ingredient;
-use App\Cookery\Ingredients\Domain\IngredientInterface;
 use App\Cookery\Ingredients\Domain\IngredientCollection;
+use App\Cookery\Ingredients\Domain\IngredientInterface;
 
 final class IngredientsToCreateDeterminer
 {

@@ -7,10 +7,10 @@ namespace App\Cookery\Recipes\Application\Create;
 use App\Cookery\Ingredients\Domain\IngredientInterface;
 use App\Cookery\Ingredients\Domain\IngredientRepository;
 use App\Cookery\Recipes\Domain\Recipe;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeComponent;
 use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 use App\Cookery\Recipes\Domain\RecipeInterface;
-use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Shared\Domain\ValueObject\Uuid;
 use InvalidArgumentException;
 

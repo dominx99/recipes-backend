@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
 #[ORM\Entity()]
-final class Ingredient implements IngredientInterface, AggregateRoot
+class Ingredient implements IngredientInterface, AggregateRoot
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]

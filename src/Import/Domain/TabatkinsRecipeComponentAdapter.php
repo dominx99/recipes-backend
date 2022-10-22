@@ -7,7 +7,6 @@ namespace App\Import\Domain;
 use App\Cookery\Ingredients\Domain\Ingredient;
 use App\Cookery\Ingredients\Domain\IngredientInterface;
 use App\Cookery\Measures\Domain\Measure;
-use App\Cookery\Measures\Domain\Unit as UnitEntity;
 use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 use App\Shared\Domain\Enum\Unit;
 use App\Shared\Domain\ValueObject\Fraction;
@@ -54,7 +53,7 @@ final class TabatkinsRecipeComponentAdapter implements RecipeComponentInterface
             return null;
         }
 
-        $unit = UnitEntity::new((string) Uuid::random(), Unit::tryFrom($unit) ?? Unit::NONE);
+        $unit = Unit::tryFrom($unit) ?? Unit::NONE;
 
         $formattedQuantity = trim($fraction);
         $numericQuantity = (new Fraction($formattedQuantity))->toNumber();

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Import\Infrastructure\Importer;
 
+use App\Cookery\Ingredients\Domain\IngredientCollection;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 use App\Cookery\Recipes\Domain\RecipeInterface;
 use App\Import\Application\IngredientsImporter;
 use App\Import\Application\RecipesImporter;
 use App\Import\Domain\RecipeImporter;
 use App\Import\Domain\TabatkinsRecipeAdapter;
-use App\Cookery\Ingredients\Domain\IngredientCollection;
-use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Shared\Domain\Utils;
 
 use function Lambdish\Phunctional\apply;
