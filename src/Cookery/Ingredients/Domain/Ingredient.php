@@ -7,6 +7,7 @@ namespace App\Cookery\Ingredients\Domain;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 #[ORM\Entity()]
 final class Ingredient implements IngredientInterface, AggregateRoot
@@ -30,7 +31,11 @@ final class Ingredient implements IngredientInterface, AggregateRoot
         ?string $id,
         ?string $name,
     ): Ingredient {
-        return new Ingredient($id, $name);
+        if (!$name || strlen($name) < 2) {
+            throw new InvalidArgumentException('Ingredient should have at least 2 characters');
+        }
+
+        return new Ingredient($id, strtolower($name));
     }
 
     public static function fromIngredient(IngredientInterface $ingredient): Ingredient

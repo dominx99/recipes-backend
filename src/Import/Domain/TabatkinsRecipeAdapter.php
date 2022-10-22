@@ -6,19 +6,17 @@ namespace App\Import\Domain;
 
 use App\Cookery\Recipes\Domain\RecipeComponentCollection;
 use App\Cookery\Recipes\Domain\RecipeInterface;
-use App\Import\Domain\TabatkinsIngredientAdapter;
-use App\Ingredients\IngredientCollection;
 
 final class TabatkinsRecipeAdapter implements RecipeInterface
 {
-    private IngredientCollection $ingredients;
+    private RecipeComponentCollection $components;
 
     public function __construct(private array $recipe)
     {
-        // $this->ingredients = new IngredientCollection(array_map(
-        //     fn (string $ingredient) => new TabatkinsIngredientAdapter($ingredient),
-        //     $recipe['ingredients']
-        // ));
+        $this->components = new RecipeComponentCollection(array_map(
+            fn (string $ingredient) => new TabatkinsRecipeComponentAdapter($ingredient),
+            $recipe['ingredients']
+        ));
     }
 
     public function name(): string
@@ -26,13 +24,8 @@ final class TabatkinsRecipeAdapter implements RecipeInterface
         return $this->recipe['name'];
     }
 
-    public function ingredients(): IngredientCollection
-    {
-        return $this->ingredients;
-    }
-
     public function components(): RecipeComponentCollection
     {
-        return new RecipeComponentCollection();
+        return $this->components;
     }
 }

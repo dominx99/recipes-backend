@@ -14,10 +14,9 @@ final class IngredientsToCreateDeterminer
         IngredientCollection $existingIngredients,
         IngredientCollection $newIngredients
     ): IngredientCollection {
-        return $newIngredients->filter(fn (IngredientInterface $newIngredient) =>
-            !$existingIngredients->exists(
-                fn (IngredientInterface $existingIngredient) => $newIngredient->name() === $existingIngredient->name()
-            )
+        return $newIngredients->filter(fn (IngredientInterface $newIngredient) => !$existingIngredients->exists(
+            fn ($key, IngredientInterface $existingIngredient) => $newIngredient->name() === $existingIngredient->name()
+        )
         )->map(fn (IngredientInterface $ingredient) => Ingredient::fromIngredient($ingredient));
     }
 }

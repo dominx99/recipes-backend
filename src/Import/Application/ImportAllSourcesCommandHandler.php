@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Import\Application;
 
-use App\Cookery\Recipes\Application\Create\RecipeCreator;
 use App\Import\Domain\RecipeSource;
 use App\Import\Domain\TabatkinsRecipeSource;
 

@@ -10,5 +10,6 @@ use App\Shared\Domain\AggregateRoot;
 interface IngredientRepository
 {
     public function all(): IngredientCollection;
+
     public function save(AggregateRoot $ingredient): void;
 }

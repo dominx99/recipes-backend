@@ -15,12 +15,17 @@ final class Unit
     private string $id;
 
     #[ORM\Column(name: 'name', enumType: UnitEnum::class)]
-    private string $name;
+    private UnitEnum $name;
 
-    public function __construct(string $id, UnitEnum $name)
+    private function __construct(string $id, UnitEnum $name)
     {
         $this->id = $id;
         $this->name = $name;
+    }
+
+    public static function new(string $id, UnitEnum $name): Unit
+    {
+        return new Unit($id, $name);
     }
 
     public function id(): string
@@ -28,7 +33,7 @@ final class Unit
         return $this->id;
     }
 
-    public function name(): string
+    public function name(): UnitEnum
     {
         return $this->name;
     }

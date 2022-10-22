@@ -11,5 +11,5 @@ interface RecipeComponentInterface
 {
     public function ingredient(): IngredientInterface;
 
-    public function measure(): Measure;
+    public function measure(): ?Measure;
 }

@@ -45,7 +45,7 @@ final class TabatkinsImporter implements RecipeImporter
             $recipes
         );
 
-        apply($this->ingredientsImporter, [$ingredients]);
+        apply($this->ingredientsImporter, [$ingredients->unique()]);
         apply($this->recipesImporter, [$recipes]);
     }
 }
