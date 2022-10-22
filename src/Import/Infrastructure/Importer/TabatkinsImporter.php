@@ -10,8 +10,8 @@ use App\Import\Application\IngredientsImporter;
 use App\Import\Application\RecipesImporter;
 use App\Import\Domain\RecipeImporter;
 use App\Import\Domain\TabatkinsRecipeAdapter;
-use App\Ingredients\IngredientCollection;
-use App\Recipes\Domain\RecipeCollection;
+use App\Cookery\Ingredients\Domain\IngredientCollection;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Shared\Domain\Utils;
 
 use function Lambdish\Phunctional\apply;

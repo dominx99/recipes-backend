@@ -10,7 +10,7 @@ use App\Cookery\Recipes\Application\Updator\RecipesToUpdateDeterminer;
 use App\Cookery\Recipes\Application\Updator\RecipeUpdator;
 use App\Cookery\Recipes\Domain\RecipeInterface;
 use App\Cookery\Recipes\Domain\RecipeRepository;
-use App\Recipes\Domain\RecipeCollection;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 
 use function Lambdish\Phunctional\apply;
 use function Lambdish\Phunctional\each;

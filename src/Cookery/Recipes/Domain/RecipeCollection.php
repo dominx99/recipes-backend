@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Recipes\Domain;
+namespace App\Cookery\Recipes\Domain;
 
 use App\Shared\Domain\Collection\Collection;
 

@@ -8,7 +8,7 @@ use App\Cookery\Ingredients\Application\Create\IngredientCreator;
 use App\Cookery\Ingredients\Application\Create\IngredientsToCreateDeterminer;
 use App\Cookery\Ingredients\Domain\IngredientInterface;
 use App\Cookery\Ingredients\Domain\IngredientRepository;
-use App\Ingredients\IngredientCollection;
+use App\Cookery\Ingredients\Domain\IngredientCollection;
 
 use function Lambdish\Phunctional\apply;
 use function Lambdish\Phunctional\each;

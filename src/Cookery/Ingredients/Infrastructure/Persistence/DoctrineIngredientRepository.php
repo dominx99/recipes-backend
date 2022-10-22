@@ -6,7 +6,7 @@ namespace App\Cookery\Ingredients\Infrastructure\Persistence;
 
 use App\Cookery\Ingredients\Domain\Ingredient;
 use App\Cookery\Ingredients\Domain\IngredientRepository;
-use App\Ingredients\IngredientCollection;
+use App\Cookery\Ingredients\Domain\IngredientCollection;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Infrastructure\Persistence\DoctrineRepository;
 

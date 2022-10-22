@@ -6,7 +6,7 @@ namespace App\Cookery\Ingredients\Application\Create;
 
 use App\Cookery\Ingredients\Domain\Ingredient;
 use App\Cookery\Ingredients\Domain\IngredientInterface;
-use App\Ingredients\IngredientCollection;
+use App\Cookery\Ingredients\Domain\IngredientCollection;
 
 final class IngredientsToCreateDeterminer
 {

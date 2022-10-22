@@ -6,7 +6,7 @@ use App\Cookery\Recipes\Domain\Recipe;
 use App\Crawler\CrawlerAttributes;
 use App\Crawler\DOMElementToRecipeAdapter;
 use App\Enum\RootNodeEnum;
-use App\Recipes\Domain\RecipeCollection;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Shared\Domain\ValueObject\Uuid;
 use DOMAttr;
 use DOMElement;

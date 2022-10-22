@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Cookery\Recipes\Application\Updator;
 
-use App\Recipes\Domain\RecipeCollection;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 
 final class RecipesToUpdateDeterminer
 {

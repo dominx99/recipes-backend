@@ -10,7 +10,7 @@ use App\Cookery\Recipes\Domain\Recipe;
 use App\Cookery\Recipes\Domain\RecipeComponent;
 use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 use App\Cookery\Recipes\Domain\RecipeInterface;
-use App\Recipes\Domain\RecipeCollection;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Shared\Domain\ValueObject\Uuid;
 use InvalidArgumentException;
 
