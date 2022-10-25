@@ -10,8 +10,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
-      - "traefik.http.routers.recipes_api.rule=Host(`${DOMAIN}`)"
-      - "traefik.http.routers.recipes_api.tls.certresolver=lets_encrypt_resolver"
+      - "traefik.http.routers.recipes_backend.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.recipes_backend.tls.certresolver=lets_encrypt_resolver"
     networks:
       proxy:
         ipv4_address: 10.200.18.2

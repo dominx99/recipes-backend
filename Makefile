@@ -122,7 +122,7 @@ fixtures:
 	@docker-compose exec $(recipes-php-service) $(recipes-console-location) doctrine:fixtures:load
 
 .PHONY: refresh-database
-refresh-database: remove-database create-database migrate fixtures
+refresh-database: remove-database create-database migrate
 
 .PHONY: refresh-repository
 refresh-repository:
@@ -138,3 +138,5 @@ command import:
 	docker-compose exec $(recipes-php-service) $(recipes-console-location) $(CMD)
 
 import: CMD=import:all
+
+restart: down up
