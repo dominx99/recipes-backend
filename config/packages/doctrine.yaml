@@ -18,6 +18,11 @@ doctrine:
               is_bundle: false
               dir: '%kernel.project_dir%/src/Cookery/Measures/Domain'
               prefix: 'App\Cookery\Measures\Domain'
+            Tags:
+              is_bundle: false
+              dir: '%kernel.project_dir%/src/Cookery/Tags/Domain'
+              prefix: 'App\Cookery\Tags\Domain'
+
 
 when@test:
     doctrine:

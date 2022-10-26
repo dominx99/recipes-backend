@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace App\Cookery\Recipes\Http;
 
 use App\Cookery\Ingredients\Domain\IngredientRepository;
-use App\Cookery\Recipes\Application\Match\CompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\IncompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Shared\Http\Symfony\ApiController;
-use Symfony\Component\HttpFoundation\Request;
 
 use function Lambdish\Phunctional\apply;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
