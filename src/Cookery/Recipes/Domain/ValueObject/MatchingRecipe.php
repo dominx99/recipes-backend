@@ -9,9 +9,9 @@ use Assert\Assertion;
 
 final class MatchingRecipe
 {
-    public function __construct(private RecipeInterface $recipe, private int $matchingIngredientsCount)
+    public function __construct(private RecipeInterface $recipe, private int $matchingElementsCount)
     {
-        Assertion::between($matchingIngredientsCount, 0, $recipe->components()->count());
+        Assertion::between($matchingElementsCount, 0, $recipe->components()->count());
     }
 
     public function recipe(): RecipeInterface
@@ -19,8 +19,8 @@ final class MatchingRecipe
         return $this->recipe;
     }
 
-    public function matchingIngredientsCount(): int
+    public function matchingElementsCount(): int
     {
-        return $this->matchingIngredientsCount;
+        return $this->matchingElementsCount;
     }
 }

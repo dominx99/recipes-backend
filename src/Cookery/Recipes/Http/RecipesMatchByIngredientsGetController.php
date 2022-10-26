@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Cookery\Recipes\Http;
 
-use App\Cookery\Ingredients\Domain\IngredientRepository;
 use App\Cookery\Recipes\Application\Match\IncompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
 use App\Cookery\Recipes\Domain\RecipeRepository;
+use App\Cookery\Tags\Domain\Tag;
+use App\Cookery\Tags\Domain\TagRepository;
+use App\Shared\Domain\Collection\ArrayCollection;
 use App\Shared\Http\Symfony\ApiController;
+use Doctrine\Common\Collections\Criteria;
 
 use function Lambdish\Phunctional\apply;
 
@@ -20,23 +23,29 @@ final class RecipesMatchByIngredientsGetController extends ApiController
 {
     public function __construct(
         private RecipeRepository $recipeRepository,
-        private IngredientRepository $ingredientRepository
+        private TagRepository $tagRepository
     ) {
     }
 
-    #[Route('api/v1/recipes/match-by-ingredients', methods: ['GET'])]
+    #[Route('api/v1/recipes/match-by-tags', methods: ['GET'])]
     public function __invoke(Request $request): Response
     {
-        $ingredients = $request->get('ingredients') ?? [];
+        $tags = $request->get('tags') ?? [];
 
         $matcher = new RecipesMatcherComposite(
             new IncompleteRecipesMatcher(1),
         );
 
-        $ingredients = $this->ingredientRepository->matching($ingredients);
-        $recipes = $this->recipeRepository->all();
+        $tags = $this->tagRepository->matching(
+            Criteria::create()->where(
+                Criteria::expr()->in('name', $tags)
+            )
+        );
 
-        $collection = apply($matcher, [$recipes, $ingredients]);
+        $tagNames = new ArrayCollection($tags->map(fn (Tag $tag) => $tag->name())->toArray());
+
+        $recipes = $this->recipeRepository->all();
+        $collection = apply($matcher, [$recipes, $tagNames]);
 
         return $this->respond($collection->toArray());
     }

@@ -15,8 +15,8 @@ final class Tag
     #[ORM\Column(type: 'uuid', unique: true)]
     private string $id;
 
-    #[ORM\Embedded(class: TagName::class, columnPrefix: false)]
-    private TagName $name;
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    private string $name;
 
     #[ORM\OneToMany(targetEntity: Tag::class, mappedBy: 'parent', cascade: ['persist'], fetch: 'EAGER')]
     #[MaxDepth(2)]
@@ -26,7 +26,7 @@ final class Tag
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id')]
     private Tag $parent;
 
-    private function __construct(string $id, TagName $name, ?Collection $synonyms = null)
+    private function __construct(string $id, string $name, ?Collection $synonyms = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -40,7 +40,7 @@ final class Tag
         }
     }
 
-    public static function new(string $id, TagName $name, ?Collection $synonyms = null): Tag
+    public static function new(string $id, string $name, ?Collection $synonyms = null): Tag
     {
         return new Tag($id, $name, $synonyms);
     }
@@ -50,7 +50,7 @@ final class Tag
         return $this->id;
     }
 
-    public function name(): TagName
+    public function name(): string
     {
         return $this->name;
     }
