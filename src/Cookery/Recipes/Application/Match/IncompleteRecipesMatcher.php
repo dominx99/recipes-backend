@@ -7,11 +7,12 @@ namespace App\Cookery\Recipes\Application\Match;
 use App\Cookery\Ingredients\Domain\IngredientCollection;
 use App\Cookery\Ingredients\Domain\IngredientComparator;
 use App\Cookery\Ingredients\Domain\IngredientInterface;
+use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeComponent;
 use App\Cookery\Recipes\Domain\RecipeInterface;
 use App\Cookery\Recipes\Domain\RecipesMatcher;
-use App\Cookery\Recipes\Domain\ValueObject\RecipesBook;
+use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
 
 use function Lambdish\Phunctional\apply;
 
@@ -21,37 +22,29 @@ final class IncompleteRecipesMatcher implements RecipesMatcher
     {
     }
 
-    public function __invoke(RecipeCollection $recipes, IngredientCollection $ingredients): RecipesBook
+    public function __invoke(RecipeCollection $recipes, IngredientCollection $ingredients): MatchingRecipeCollection
     {
-        $book = new RecipesBook();
-
-        $book->add('incomplete', $this->match($recipes, $ingredients));
-
-        return $book;
-    }
-
-    private function match(RecipeCollection $recipes, IngredientCollection $ingredients): RecipeCollection
-    {
-        return $recipes->filter(function (RecipeInterface $recipe) use ($ingredients) {
+        return new MatchingRecipeCollection($recipes->map(function (RecipeInterface $recipe) use ($ingredients) {
             $matchingIngredientsCount = 0;
 
             $recipe->components()->forAll(function ($key, RecipeComponent $component) use ($ingredients, &$matchingIngredientsCount) {
                 $exists = $ingredients->exists(
-                    fn ($key, IngredientInterface $ingredient) => apply(new IngredientComparator($ingredient, $component->ingredient()), []
-                        )
+                    fn ($key, IngredientInterface $ingredient) => apply(
+                        new IngredientComparator($ingredient, $component->ingredient()), []
+                    )
                 );
 
-                if (!$exists) {
+                if ($exists) {
                     ++$matchingIngredientsCount;
                 }
 
                 return true;
             });
 
-            return
-                $matchingIngredientsCount >= count($recipe->components())
-                || $matchingIngredientsCount >= $this->minimumComponentsCount
-            ;
-        });
+            return new MatchingRecipe($recipe, $matchingIngredientsCount);
+        })
+            ->filter(fn (MatchingRecipe $matchingRecipe) => $matchingRecipe->matchingIngredientsCount() >= $this->minimumComponentsCount)
+            ->toArray()
+        );
     }
 }

@@ -8,12 +8,11 @@ use App\Cookery\Ingredients\Domain\IngredientRepository;
 use App\Cookery\Recipes\Application\Match\CompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\IncompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
-use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Shared\Http\Symfony\ApiController;
+use Symfony\Component\HttpFoundation\Request;
 
 use function Lambdish\Phunctional\apply;
-use function Lambdish\Phunctional\map;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,23 +26,19 @@ final class RecipesMatchByIngredientsGetController extends ApiController
     }
 
     #[Route('api/v1/recipes/match-by-ingredients', methods: ['GET'])]
-    public function __invoke(): Response
+    public function __invoke(Request $request): Response
     {
+        $ingredients = $request->get('ingredients') ?? [];
+
         $matcher = new RecipesMatcherComposite(
-            new CompleteRecipesMatcher(),
-            new IncompleteRecipesMatcher(3),
+            new IncompleteRecipesMatcher(1),
         );
 
-        $ingredients = $this->ingredientRepository->matching();
+        $ingredients = $this->ingredientRepository->matching($ingredients);
         $recipes = $this->recipeRepository->all();
 
-        $book = apply($matcher, [$recipes, $ingredients]);
+        $collection = apply($matcher, [$recipes, $ingredients]);
 
-        $formattedResult = array_combine(
-            $book->keys(),
-            map(fn (RecipeCollection $recipes) => $recipes->getValues(), $book->values()),
-        );
-
-        return $this->respond($formattedResult);
+        return $this->respond($collection->toArray());
     }
 }

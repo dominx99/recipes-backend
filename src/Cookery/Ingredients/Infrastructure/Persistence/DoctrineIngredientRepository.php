@@ -23,22 +23,11 @@ final class DoctrineIngredientRepository extends DoctrineRepository implements I
         $this->persist($ingredient);
     }
 
-    public function matching(): IngredientCollection
+    public function matching(array $ingredients): IngredientCollection
     {
         return new IngredientCollection($this->repository(Ingredient::class)->matching(
             Criteria::create()->andWhere(
-                Criteria::expr()->in('name', [
-                    'salt',
-                    'pita breads',
-                    'feta',
-                    'sugar',
-                    'honey',
-                    'ice',
-                    'fresh lemon juice',
-                    'halved strawberries or chopped pineapple',
-                    'banana',
-                    'cinnamon',
-                ])
+                Criteria::expr()->in('name', $ingredients)
             ),
         )->toArray());
     }

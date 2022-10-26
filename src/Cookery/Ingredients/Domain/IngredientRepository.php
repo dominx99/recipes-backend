@@ -10,7 +10,7 @@ interface IngredientRepository
 {
     public function all(): IngredientCollection;
 
-    public function matching(): IngredientCollection;
+    public function matching(array $ingredients): IngredientCollection;
 
     public function save(AggregateRoot $ingredient): void;
 }

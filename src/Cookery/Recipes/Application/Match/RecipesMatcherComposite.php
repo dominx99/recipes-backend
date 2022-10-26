@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Cookery\Recipes\Application\Match;
 
 use App\Cookery\Ingredients\Domain\IngredientCollection;
+use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipesMatcher;
-use App\Cookery\Recipes\Domain\ValueObject\RecipesBook;
 
 use function Lambdish\Phunctional\apply;
 
@@ -23,14 +23,14 @@ final class RecipesMatcherComposite implements RecipesMatcher
         $this->children = $children;
     }
 
-    public function __invoke(RecipeCollection $recipes, IngredientCollection $ingredients): RecipesBook
+    public function __invoke(RecipeCollection $recipes, IngredientCollection $ingredients): MatchingRecipeCollection
     {
-        $book = new RecipesBook();
+        $collection = new MatchingRecipeCollection();
 
         foreach ($this->children as $matcher) {
-            $book = $book->merge(apply($matcher, [$recipes, $ingredients]));
+            $collection = $collection->merge(apply($matcher, [$recipes, $ingredients]));
         }
 
-        return $book;
+        return $collection;
     }
 }

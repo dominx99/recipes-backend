@@ -8,4 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 abstract class Collection extends ArrayCollection
 {
+    public function merge(Collection $collection): Collection
+    {
+        return new static(array_merge($this->toArray(), $collection->toArray()));
+    }
 }
