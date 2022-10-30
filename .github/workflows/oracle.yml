@@ -41,7 +41,7 @@ jobs:
           url: https://cbrv5qwdaaet6-management.kms.eu-frankfurt-1.oraclecloud.com
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            ocid1.vaultsecret.oc1.eu-frankfurt-1.amaaaaaapkp7ahyavb3pjq3nf7pg3woxandnnyrhqatrarmt6spzxphz423a | RECIPES_DB_NAME
+            ocid1.vaultsecret.oc1.eu-frankfurt-1.amaaaaaapkp7ahyavb3pjq3nf7pg3woxandnnyrhqatrarmt6spzxphz423a/2 | RECIPES_DB_NAME
       -
         name: Build and push
         uses: docker/bake-action@v2
