@@ -35,11 +35,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
-      - name: Retrieve the OCID of a named compartment in tenancy
-        uses: oracle-actions/run-oci-cli-command@v1.1
-        id: find-compartment-id
-        with:
-          command: 'vault secret get --secret-id ocid1.vaultsecret.oc1.eu-frankfurt-1.amaaaaaapkp7ahyavb3pjq3nf7pg3woxandnnyrhqatrarmt6spzxphz423a'
 
       - name: Import Secrets
         uses: hashicorp/vault-action@v2
