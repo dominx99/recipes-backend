@@ -35,6 +35,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
+      - name: Import Secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://cbrv5qwdaaet6-management.kms.eu-frankfurt-1.oraclecloud.com
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            RECIPES_DB_NAME
       -
         name: Build and push
         uses: docker/bake-action@v2
