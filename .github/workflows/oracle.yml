@@ -42,7 +42,9 @@ jobs:
           push: true
           files: 'docker-compose.prod.yml'
           targets: 'php_recipes,nginx'
-          set: 'php_recipes.platform=linux/arm64'
+          set: |
+            'php_recipes.platform=linux/arm64'
+            'nginx.platform=linux/arm64'
 
       # - name: Retrieve the OCID of a named compartment in tenancy
       #   uses: oracle-actions/run-oci-cli-command@v1.1

@@ -157,3 +157,10 @@ buildabc:
 	docker run -it -d --name recipes_php test-php
 	docker run -it -d --name recipes_nginx test-nginx
 	docker run -it -d -e MYSQL_ROOT_PASSWORD=root -e MYSQL_ROOT_PASSWORD=recipes -e MYSQL_HOST=127.0.0.1 -v /workspace/recipes/data/recipes/mysql:/var/lib/mysql --name db mysql
+
+abc:
+	docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
+	sudo docker pull ghcr.io/dominx99/recipes-php:latest
+	sudo docker pull ghcr.io/dominx99/recipes-nginx:latest
+	sudo docker run -it -d ghcr.io/dominx99/recipes-nginx:latest
+	sudo docker run -it -d ghcr.io/dominx99/recipes-php:latest
