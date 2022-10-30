@@ -41,7 +41,7 @@ jobs:
         with:
           push: true
           files: 'docker-compose.prod.yml'
-          targets: 'php_recipes'
+          targets: 'php_recipes,nginx,db'
           set: 'php_recipes.platform=linux/arm64'
 
       # - name: Retrieve the OCID of a named compartment in tenancy
