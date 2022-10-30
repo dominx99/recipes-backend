@@ -32,6 +32,7 @@ jobs:
         name: Build and push
         uses: docker/bake-action@v2
         with:
+          files: 'docker-compose.prod.yml'
           targets: 'php_recipes'
           set: 'php_recipes.platform=linux/arm64'
 
