@@ -20,6 +20,9 @@ jobs:
       OCI_CLI_REGION: ${{ secrets.OCI_REGION }}
     steps:
       -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
