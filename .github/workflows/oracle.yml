@@ -39,10 +39,10 @@ jobs:
       - name: Import Secrets
         uses: hashicorp/vault-action@v2
         with:
-          url: https://secrets.vaults.eu-frankfurt-1.oci.oraclecloud.com
+          url: https://secrets.vaults.eu-frankfurt-1.oci.oraclecloud.com/20190301/secretbundles
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            20190301/secretbundles/ocid1.vaultsecret.oc1.eu-frankfurt-1.amaaaaaapkp7ahyavb3pjq3nf7pg3woxandnnyrhqatrarmt6spzxphz423a 3 | RECIPES_DB_NAME
+            ocid1.vaultsecret.oc1.eu-frankfurt-1.amaaaaaapkp7ahyavb3pjq3nf7pg3woxandnnyrhqatrarmt6spzxphz423a 3 | RECIPES_DB_NAME
       -
         name: Build and push
         uses: docker/bake-action@v2
