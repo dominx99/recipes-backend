@@ -13,7 +13,14 @@ RUN apk --update upgrade \
 
 COPY ./ /application
 
+EXPOSE 9000
+
 FROM nginx:alpine AS nginx
 COPY --from=php /application /application
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
 
 FROM mysql as mysql

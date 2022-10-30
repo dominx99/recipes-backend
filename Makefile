@@ -140,3 +140,20 @@ command import:
 import: CMD=import:all
 
 restart: down up
+
+prod:
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/arm64/v8 docker-compose -f docker-compose.prod.yml up -d --build
+	docker tag dominx99:recipes-php ghcr.io/dominx99/recipes-php:1.0.0
+	docker tag api-nginx ghcr.io/dominx99/recipes-nginx:1.0.0
+	docker tag api-db ghcr.io/dominx99/recipes-db:1.0.0
+	docker push ghcr.io/dominx99/recipes-php:1.0.0
+	docker push ghcr.io/dominx99/recipes-nginx:1.0.0
+	docker push ghcr.io/dominx99/recipes-db:1.0.0
+
+buildabc:
+	dm down
+	docker build -t test-php -f ./docker/php/prod/Dockerfile --target php .
+	docker build -t test-nginx -f ./docker/php/prod/Dockerfile --target nginx .
+	docker run -it -d --name recipes_php test-php
+	docker run -it -d --name recipes_nginx test-nginx
+	docker run -it -d -e MYSQL_ROOT_PASSWORD=root -e MYSQL_ROOT_PASSWORD=recipes -e MYSQL_HOST=127.0.0.1 -v /workspace/recipes/data/recipes/mysql:/var/lib/mysql --name db mysql

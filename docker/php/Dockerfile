@@ -1,4 +1,4 @@
-FROM php:8.1.6-fpm-alpine
+FROM php:8.1.6-fpm-alpine as php
 WORKDIR /application
 
 COPY --from=composer:2.3.7 /usr/bin/composer /usr/bin/composer
