@@ -152,8 +152,8 @@ prod:
 
 buildabc:
 	dm down
-	# docker build -t test-php -f ./docker/php/Dockerfile-prod --target php .
-	# docker build -t test-nginx -f ./docker/php/Dockerfile-prod --target nginx .
+	docker build -t test-php -f ./docker/php/Dockerfile-prod --target php .
+	docker build -t test-nginx -f ./docker/php/Dockerfile-prod --target nginx .
 	docker run -it -d --network proxy --ip 10.200.18.2 --name recipes_php test-php
 	docker run -it -d --network proxy --ip 10.200.18.3 --name recipes_nginx test-nginx
 	docker run -it -d --network proxy --ip 10.200.18.4 \

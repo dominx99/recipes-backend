@@ -5,6 +5,13 @@ WORKDIR /application
 COPY ./ /application
 COPY ./docker/php/php-ini-overrides.ini /etc/php/8.1/fpm/conf.d/99-overrides.ini
 
+USER root
+
+RUN composer install --no-scripts --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
+RUN composer dump-autoload --optimize --classmap-authoritative
+
+USER docker
+
 FROM nginx:alpine AS nginx
 
 COPY ./docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
