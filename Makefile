@@ -152,11 +152,16 @@ prod:
 
 buildabc:
 	dm down
-	docker build -t test-php -f ./docker/php/prod/Dockerfile --target php .
-	docker build -t test-nginx -f ./docker/php/prod/Dockerfile --target nginx .
-	docker run -it -d --name recipes_php test-php
-	docker run -it -d --name recipes_nginx test-nginx
-	docker run -it -d -e MYSQL_ROOT_PASSWORD=root -e MYSQL_ROOT_PASSWORD=recipes -e MYSQL_HOST=127.0.0.1 -v /workspace/recipes/data/recipes/mysql:/var/lib/mysql --name db mysql
+	# docker build -t test-php -f ./docker/php/Dockerfile-prod --target php .
+	# docker build -t test-nginx -f ./docker/php/Dockerfile-prod --target nginx .
+	docker run -it -d --network proxy --ip 10.200.18.2 --name recipes_php test-php
+	docker run -it -d --network proxy --ip 10.200.18.3 --name recipes_nginx test-nginx
+	docker run -it -d --network proxy --ip 10.200.18.4 \
+		-e MYSQL_ROOT_PASSWORD=root \
+		-e MYSQL_ROOT_PASSWORD=recipes \
+		-e MYSQL_HOST=127.0.0.1 \
+		-v /workspace/recipes/data/recipes/mysql:/var/lib/mysql \
+		--name db mysql
 
 abc:
 	docker stop $(docker ps -aq) && docker rm $(docker ps -aq)

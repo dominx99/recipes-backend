@@ -3,8 +3,9 @@ FROM thecodingmachine/php:rc3167271323-8.1-v4-fpm as php
 WORKDIR /application
 
 COPY ./ /application
+COPY ./docker/php/php-ini-overrides.ini /etc/php/8.1/fpm/conf.d/99-overrides.ini
 
 FROM nginx:alpine AS nginx
-COPY --from=php /application /application
 
-FROM mysql as mysql
+COPY ./docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=php /application /application
