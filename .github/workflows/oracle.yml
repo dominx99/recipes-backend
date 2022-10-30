@@ -26,7 +26,8 @@ jobs:
         name: Build and push
         uses: docker/bake-action@v2
         with:
-          files: 'docker-compose.prod.yml'
+          files: |
+            './docker-compose.prod.yml'
           targets: 'php_recipes'
 
       - name: Retrieve the OCID of a named compartment in tenancy
