@@ -39,10 +39,10 @@ jobs:
       - name: Import Secrets
         uses: hashicorp/vault-action@v2
         with:
-          url: https://secrets.vaults.eu-frankfurt-1.oci.oraclecloud.com/20190301/secretbundles
+          url: vault.chylo.pl:8200
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            RECIPES_DB_NAME 3 | RECIPES_DB_NAME
+            secret/recipes/backend test
       -
         name: Build and push
         uses: docker/bake-action@v2
