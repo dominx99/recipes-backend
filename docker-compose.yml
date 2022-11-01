@@ -6,7 +6,7 @@ services:
       - .:/application
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - php_recipes
+      - recipes_php
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
@@ -16,7 +16,7 @@ services:
       proxy:
         ipv4_address: 10.200.18.2
 
-  php_recipes:
+  recipes_php:
     build:
       context: ./
       dockerfile: ./docker/php/Dockerfile
