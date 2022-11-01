@@ -47,7 +47,8 @@ jobs:
             secret/data/recipes/backend APP_SECRET | APP_SECRET ;
             secret/data/recipes/backend DATABASE_URL | DATABASE_URL ;
             secret/data/recipes/backend CORS_ALLOW_ORIGIN | CORS_ALLOW_ORIGIN ;
-          run: 'envsubst < .env.tmpl > .env'
+      - name: Copy env
+        run: 'envsubst < .env.tmpl > .env'
       -
         name: Build and push
         uses: docker/bake-action@v2
