@@ -43,7 +43,8 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             secret/data/recipes/backend DATABASE_URL
-          run: 'envsubst < .env.tmpl > .env'
+      - name: Copy env
+        run: 'envsubst < .env.tmpl > .env'
       -
         name: Build and push
         uses: docker/bake-action@v2
