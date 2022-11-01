@@ -1,20 +1,15 @@
 FROM thecodingmachine/php:rc3167271323-8.1-v4-fpm as php
 
-COPY --from=composer:2.3.7 /usr/bin/composer /usr/bin/composer
-COPY --from=php:8.1 /usr/local/bin/php /usr/local/sbin/php
+COPY --from=composer:2.3.7 --chown=docker:docker /usr/bin/composer /usr/bin/composer
 
 WORKDIR /application
 
-COPY ./ /application
-COPY ./.env /application/.env
-COPY ./docker/php/php-ini-overrides.ini /etc/php/8.1/fpm/conf.d/99-overrides.ini
-
-USER root
+COPY --chown=docker:docker ./ /application
+COPY --chown=docker:docker ./.env /application/.env
+COPY --chown=docker:docker ./docker/php/php-ini-overrides.ini /etc/php/8.1/fpm/conf.d/99-overrides.ini
 
 RUN composer install --no-scripts --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
 RUN composer dump-autoload --optimize --classmap-authoritative
-
-USER docker
 
 FROM nginx:alpine AS nginx
 
