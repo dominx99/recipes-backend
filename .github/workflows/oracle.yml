@@ -39,10 +39,10 @@ jobs:
       - name: Import Secrets
         uses: hashicorp/vault-action@v2
         with:
-          url: http://vault.chylo.pl:8200
+          url: http://vault.chylo.pl:8880
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            secret/recipes/backend test
+            secret/data/recipes/backend DATABASE_URL
       -
         name: Build and push
         uses: docker/bake-action@v2
