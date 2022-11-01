@@ -46,7 +46,7 @@ jobs:
             secret/data/recipes/backend APP_ENV ;
             secret/data/recipes/backend APP_SECRET ;
             secret/data/recipes/backend DATABASE_URL ;
-            secret/data/recipes/backend CORS_ALLOW_ORIGIN
+            secret/data/recipes/backend CORS_ALLOW_ORIGIN ;
       - name: Copy env
         run: 'envsubst < .env.tmpl > .env'
       -
