@@ -51,7 +51,7 @@ jobs:
         with:
           push: true
           files: 'docker-compose.prod.yml'
-          targets: 'recipes_php,nginx'
+          targets: 'recipes_php,recipes_nginx'
           set: |
             recipes_php.platform=linux/arm64
             nginx.platform=linux/arm64
