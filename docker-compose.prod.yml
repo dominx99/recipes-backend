@@ -40,10 +40,6 @@ services:
       proxy:
         ipv4_address: 10.200.18.4
 
-secrets:
-  recipes_db_root_password:
-    external: true
-
 networks:
   proxy:
     external: true
