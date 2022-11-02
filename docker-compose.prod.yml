@@ -46,6 +46,7 @@ services:
 
 secrets:
   recipes_db_root_password:
+    external: true
 
 networks:
   proxy:
