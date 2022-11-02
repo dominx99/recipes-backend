@@ -34,12 +34,8 @@ services:
     image: mysql
     volumes:
       - ./../data/recipes/mysql:/var/lib/mysql
-    secrets:
-      - recipes_db_root_password
-    environment:
-      - MYSQL_ROOT_PASSWORD=/run/secrets/recipes_db_root_password
-      - MYSQL_DATABASE=recipes
-      - MYSQL_HOST=127.0.0.1
+    env_file:
+      - .env
     networks:
       proxy:
         ipv4_address: 10.200.18.4

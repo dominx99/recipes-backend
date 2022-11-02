@@ -41,6 +41,7 @@ jobs:
             secret/data/recipes/backend APP_SECRET | APP_SECRET ;
             secret/data/recipes/backend DATABASE_URL | DATABASE_URL ;
             secret/data/recipes/backend CORS_ALLOW_ORIGIN | CORS_ALLOW_ORIGIN ;
+            secret/data/recipes/backend DATABASE_PASSWORD | DATABASE_PASSWORD ;
 
       - name: Copy env
         run: 'envsubst < .env.tmpl > .env'
@@ -56,13 +57,16 @@ jobs:
             recipes_php.platform=linux/arm64
             recipes_nginx.platform=linux/arm64
 
+      - name: Copy env
+        run: 'envsubst < .env.db.tmpl > .env'
+
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.INSTANCE_HOST }}
           key: ${{ secrets.INSTANCE_PRIVATE_KEY }}
           username: opc
-          source: "docker-compose.prod.yml"
+          source: "docker-compose.prod.yml,.env"
           target: "/home/opc/workspace/recipes/api/"
 
       - name: 'Start App'
