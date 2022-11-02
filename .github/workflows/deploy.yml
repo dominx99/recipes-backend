@@ -77,5 +77,6 @@ jobs:
           username: opc
           script: |
             cd workspace/recipes/api
+            mv docker-compose.prod.yml docker-compose.yml
             docker-compose pull
-            docker-compose -f docker-compose.prod.yml up -d
+            docker-compose up -d
