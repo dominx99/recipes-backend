@@ -56,7 +56,6 @@ jobs:
             recipes_php.platform=linux/arm64
             recipes_nginx.platform=linux/arm64
 
-      - uses: actions/checkout@master
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
