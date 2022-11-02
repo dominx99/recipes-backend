@@ -12,12 +12,6 @@ jobs:
   my-instances:
     runs-on: ubuntu-latest
     name: List the display name and shape of the instances in my compartment
-    # env:
-    #   OCI_CLI_USER: ${{ secrets.OCI_USER_OCID }}
-    #   OCI_CLI_TENANCY: ${{ secrets.OCI_TENANCY_OCID }}
-    #   OCI_CLI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
-    #   OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_KEY_CONTENT }}
-    #   OCI_CLI_REGION: ${{ secrets.OCI_REGION }}
     steps:
       -
         name: Checkout
@@ -47,8 +41,10 @@ jobs:
             secret/data/recipes/backend APP_SECRET | APP_SECRET ;
             secret/data/recipes/backend DATABASE_URL | DATABASE_URL ;
             secret/data/recipes/backend CORS_ALLOW_ORIGIN | CORS_ALLOW_ORIGIN ;
+
       - name: Copy env
         run: 'envsubst < .env.tmpl > .env'
+
       -
         name: Build and push
         uses: docker/bake-action@v2
@@ -60,16 +56,22 @@ jobs:
             recipes_php.platform=linux/arm64
             nginx.platform=linux/arm64
 
-      # - name: Retrieve the OCID of a named compartment in tenancy
-      #   uses: oracle-actions/run-oci-cli-command@v1.1
-      #   id: find-compartment-id
-      #   with:
-      #     command: 'iam compartment list'
-      #
-      # - name: 'Start App'
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.INSTANCE_IP }}
-      #     username: opc
-      #     key: ${{ secrets.OCI_PRIVATE_KEY }}
-      #     script: |
+      - uses: actions/checkout@master
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.INSTANCE_HOST }}
+          key: ${{ secrets.INSTANCE_PRIVATE_KEY }}
+          username: opc
+          source: "docker-compose.prod.yml"
+          target: "/home/opc/workspace/recipes/api/docker-compose.yml"
+
+      - name: 'Start App'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.INSTANCE_HOST }}
+          key: ${{ secrets.INSTANCE_PRIVATE_KEY }}
+          username: opc
+          script: |
+            cd workspace/recipes/api
+            docker-compose up -d
