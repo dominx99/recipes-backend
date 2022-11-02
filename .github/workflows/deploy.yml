@@ -54,7 +54,7 @@ jobs:
           targets: 'recipes_php,recipes_nginx'
           set: |
             recipes_php.platform=linux/arm64
-            nginx.platform=linux/arm64
+            recipes_nginx.platform=linux/arm64
 
       - uses: actions/checkout@master
       - name: copy file via ssh password
