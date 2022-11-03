@@ -1,7 +1,26 @@
 version: "3"
 services:
+  recipes_php:
+    build:
+      context: ./
+      target: php
+      dockerfile: ./docker/php/Dockerfile
+    entrypoint: "./docker-entrypoint.dev"
+    working_dir: /application
+    depends_on:
+      - recipes_db
+    volumes:
+      - .:/application
+      - ./docker/php/php-ini-overrides.ini:/etc/php/8.2/fpm/conf.d/99-overrides.ini
+    networks:
+      proxy:
+        ipv4_address: 10.200.18.3
+
   recipes_nginx:
-    image: nginx:alpine
+    build:
+      context: ./
+      target: nginx
+      dockerfile: ./docker/php/Dockerfile
     volumes:
       - .:/application
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
@@ -15,21 +34,6 @@ services:
     networks:
       proxy:
         ipv4_address: 10.200.18.2
-
-  recipes_php:
-    build:
-      context: ./
-      dockerfile: ./docker/php/Dockerfile
-    image: php:latest
-    working_dir: /application
-    depends_on:
-      - recipes_db
-    volumes:
-      - .:/application
-      - ./docker/php/php-ini-overrides.ini:/etc/php/8.2/fpm/conf.d/99-overrides.ini
-    networks:
-      proxy:
-        ipv4_address: 10.200.18.3
 
   recipes_db:
     image: mysql
