@@ -1,12 +1,11 @@
-FROM php:8.1.6-fpm-alpine as php
+FROM thecodingmachine/php:rc3167271323-8.1-v4-fpm as php
+
+COPY --from=composer:2.3.7 --chown=docker:docker /usr/bin/composer /usr/bin/composer
+COPY --from=thecodingmachine/php:rc3167271323-8.1-v4-fpm /usr/bin/php /usr/local/sbin/php
+
 WORKDIR /application
 
-COPY --from=composer:2.3.7 /usr/bin/composer /usr/bin/composer
+RUN composer install --no-scripts --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
+RUN composer dump-autoload --optimize --classmap-authoritative
 
-RUN apk --update upgrade \
-    && apk add --no-cache autoconf automake make gcc g++ bash icu-dev libzip-dev rabbitmq-c rabbitmq-c-dev \
-    && docker-php-ext-install -j$(nproc) \
-        bcmath \
-        intl \
-        zip \
-        pdo_mysql
+FROM nginx:alpine AS nginx

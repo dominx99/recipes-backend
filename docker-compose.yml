@@ -1,6 +1,6 @@
 version: "3"
 services:
-  nginx:
+  recipes_nginx:
     image: nginx:alpine
     volumes:
       - .:/application
@@ -23,7 +23,7 @@ services:
     image: php:latest
     working_dir: /application
     depends_on:
-      - db
+      - recipes_db
     volumes:
       - .:/application
       - ./docker/php/php-ini-overrides.ini:/etc/php/8.2/fpm/conf.d/99-overrides.ini
@@ -31,7 +31,7 @@ services:
       proxy:
         ipv4_address: 10.200.18.3
 
-  db:
+  recipes_db:
     image: mysql
     volumes:
       - ./../data/recipes/mysql:/var/lib/mysql
