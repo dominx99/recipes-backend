@@ -58,7 +58,7 @@ jobs:
             recipes_nginx.platform=linux/arm64
 
       - name: Copy env
-        run: 'envsubst < .env.db.tmpl > .env'
+        run: 'envsubst < .env.db.tmpl > database.env'
 
       - name: copy file via ssh password
         uses: appleboy/scp-action@master

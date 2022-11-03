@@ -35,7 +35,7 @@ services:
     volumes:
       - ./../data/recipes/mysql:/var/lib/mysql
     env_file:
-      - .env
+      - database.env
     networks:
       proxy:
         ipv4_address: 10.200.18.4
