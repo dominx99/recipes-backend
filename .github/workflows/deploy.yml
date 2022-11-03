@@ -11,17 +11,16 @@ permissions:
 jobs:
   my-instances:
     runs-on: ubuntu-latest
-    name: List the display name and shape of the instances in my compartment
+    name: Deploy application
     steps:
       -
-        name: Checkout
+        name: Checkout to current branch
         uses: actions/checkout@v3
-        with:
-          ref: 'oracle-1'
-          path: ''
+
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+
       -
         name: Login to GHCR
         uses: docker/login-action@v2
@@ -30,7 +29,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Import Secrets
+      - name: Import Secrets from self hosted vault
         uses: hashicorp/vault-action@v2
         with:
           url: http://vault.chylo.pl:8880
@@ -43,11 +42,14 @@ jobs:
             secret/data/recipes/backend CORS_ALLOW_ORIGIN | CORS_ALLOW_ORIGIN ;
             secret/data/recipes/backend DATABASE_PASSWORD | DATABASE_PASSWORD ;
 
-      - name: Copy env
+      - name: Copy application environment to .env file
         run: 'envsubst < .env.tmpl > .env'
 
+      - name: Copy database env from environment variables
+        run: 'envsubst < .env.db.tmpl > database.env'
+
       -
-        name: Build and push
+        name: Build and push docker images
         uses: docker/bake-action@v2
         with:
           push: true
@@ -57,10 +59,7 @@ jobs:
             recipes_php.platform=linux/arm64
             recipes_nginx.platform=linux/arm64
 
-      - name: Copy env
-        run: 'envsubst < .env.db.tmpl > database.env'
-
-      - name: copy file via ssh password
+      - name: Copy docker-compose to the OCI instance
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.INSTANCE_HOST }}
@@ -69,7 +68,7 @@ jobs:
           source: "docker-compose.prod.yml,.env"
           target: "/home/opc/workspace/recipes/api/"
 
-      - name: 'Start App'
+      - name: Start application
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.INSTANCE_HOST }}
