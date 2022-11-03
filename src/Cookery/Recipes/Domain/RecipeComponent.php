@@ -11,7 +11,7 @@ use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity()]
-final class RecipeComponent implements RecipeComponentInterface
+class RecipeComponent implements RecipeComponentInterface
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]

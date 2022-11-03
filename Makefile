@@ -1,7 +1,7 @@
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 compose_file := "docker-compose.yml"
-recipes-php-service := "php_recipes"
+recipes-php-service := "recipes_php"
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 recipes-bin-location := "./bin"
 recipes-console-location := "./bin/console"

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity()]
-final class Tag
+class Tag
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
