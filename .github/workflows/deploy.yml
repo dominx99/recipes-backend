@@ -63,7 +63,7 @@ jobs:
           host: ${{ secrets.INSTANCE_HOST }}
           key: ${{ secrets.INSTANCE_PRIVATE_KEY }}
           username: opc
-          source: "docker-compose.prod.yml,database.env"
+          source: "docker-compose.prod.yml,database.env,.env"
           target: "/home/opc/workspace/recipes/api/"
 
       - name: Start application
