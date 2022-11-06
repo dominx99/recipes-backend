@@ -46,6 +46,9 @@ jobs:
       - name: Copy database env from environment variables
         run: 'envsubst < .env.db.tmpl > database.env'
 
+      - name: Test
+        run: 'docker run --rm --privileged multiarch/qemu-user-static --reset -p yes'
+
       -
         name: Build and push docker images
         uses: docker/bake-action@v2
