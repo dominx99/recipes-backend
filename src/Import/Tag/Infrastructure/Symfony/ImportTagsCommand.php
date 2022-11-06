@@ -31,6 +31,13 @@ class ImportTagsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        if ($this->tagRepository->all()->count() > 0) {
+            $io = new SymfonyStyle($input, $output);
+            $io->error('Tags already imported');
+
+            return Command::FAILURE;
+        }
+
         $output = new SymfonyStyle($input, $output);
 
         $tagsToImport = json_decode(file_get_contents('assets/tag-exports/all.json'), true);
