@@ -5,7 +5,6 @@ services:
       context: ./
       target: php
       dockerfile: ./docker/php/Dockerfile-prod
-    entrypoint: "./docker-entrypoint-prod"
     image: ghcr.io/dominx99/recipes-php
     working_dir: /application
     depends_on:

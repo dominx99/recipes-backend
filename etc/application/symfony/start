@@ -1,7 +1,5 @@
 #!/bin/bash
 
-etc/infrastructure/mysql/wait-for-connection
-
 bin/console doctrine:migrations:migrate --no-interaction
 bin/console import:tags:all --no-interaction
 
