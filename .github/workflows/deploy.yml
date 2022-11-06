@@ -76,4 +76,4 @@ jobs:
             cd workspace/recipes/api
             mv docker-compose.prod.yml docker-compose.yml
             docker-compose pull
-            docker-compose up -d
+            docker-compose up -d --no-build

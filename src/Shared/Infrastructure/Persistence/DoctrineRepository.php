@@ -19,10 +19,13 @@ abstract class DoctrineRepository
         return $this->entityManager;
     }
 
-    protected function persist(AggregateRoot $entity): void
+    protected function persist(AggregateRoot $entity, bool $flush = true): void
     {
         $this->entityManager()->persist($entity);
-        $this->entityManager()->flush();
+
+        if ($flush) {
+            $this->entityManager()->flush();
+        }
     }
 
     protected function repository(string $entityClass): EntityRepository

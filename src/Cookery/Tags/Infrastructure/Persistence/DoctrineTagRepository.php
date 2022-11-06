@@ -12,6 +12,11 @@ use Doctrine\Common\Collections\Criteria;
 
 final class DoctrineTagRepository extends DoctrineRepository implements TagRepository
 {
+    public function all(): TagCollection
+    {
+        return new TagCollection($this->repository(Tag::class)->findAll());
+    }
+
     public function mainTags(): TagCollection
     {
         return new TagCollection(
@@ -24,5 +29,10 @@ final class DoctrineTagRepository extends DoctrineRepository implements TagRepos
         return new TagCollection(
             $this->repository(Tag::class)->matching($criteria)->toArray()
         );
+    }
+
+    public function save(Tag $tag): void
+    {
+        $this->persist($tag);
     }
 }

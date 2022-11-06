@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Cookery\Tags\Domain;
 
+use App\Shared\Domain\AggregateRoot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity()]
-class Tag
+class Tag implements AggregateRoot
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]

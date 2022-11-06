@@ -5,7 +5,7 @@ services:
       context: ./
       target: php
       dockerfile: ./docker/php/Dockerfile
-    entrypoint: "./docker-entrypoint.dev"
+    entrypoint: "./docker-entrypoint-dev"
     working_dir: /application
     depends_on:
       - recipes_db
