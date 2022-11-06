@@ -10,6 +10,10 @@ permissions:
 jobs:
   build:
     uses: dominx99/recipes-backend/.github/workflows/build.yml@main
+    secrets:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
