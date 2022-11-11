@@ -1,6 +1,6 @@
 #!/bin/bash
 
 bin/console doctrine:migrations:migrate --no-interaction
-bin/console import:tags:all --no-interaction
+bin/console import:products:all --no-interaction
 
 php-fpm

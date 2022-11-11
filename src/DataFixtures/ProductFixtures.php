@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Cookery\Tags\Domain\Tag;
-use App\Cookery\Tags\Domain\TagCollection;
-use App\Cookery\Tags\Domain\TagName;
+use App\Cookery\Products\Domain\Product;
+use App\Cookery\Products\Domain\ProductCollection;
 use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 use function Lambdish\Phunctional\map;
 
-final class TagFixtures extends Fixture
+final class ProductFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $tags = [
+        $products = [
             'tomato' => ['tomatoes'],
             'milk' => [],
             'bread' => [],
@@ -63,19 +62,19 @@ final class TagFixtures extends Fixture
             'chips' => [],
         ];
 
-        foreach ($tags as $name => $synonyms) {
-            $tag = Tag::new(
+        foreach ($products as $name => $synonyms) {
+            $product = Product::new(
                 (string) Uuid::random(),
-                new TagName($name),
-                new TagCollection(map(fn (string $synonym) => Tag::new(
+                $name,
+                new ProductCollection(map(fn (string $synonym) => Product::new(
                     (string) Uuid::random(),
-                    new TagName($synonym),
+                    $synonym,
                 ),
                     $synonyms
                 ))
             );
 
-            $manager->persist($tag);
+            $manager->persist($product);
         }
 
         $manager->flush();
