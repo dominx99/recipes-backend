@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Cookery\Tags\Domain;
+namespace App\Cookery\Products\Domain;
 
 use App\Shared\Domain\AggregateRoot;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity()]
-class Tag implements AggregateRoot
+class Product implements AggregateRoot
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
@@ -19,20 +19,20 @@ class Tag implements AggregateRoot
     #[ORM\Column(name: 'name', type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\OneToMany(targetEntity: Tag::class, mappedBy: 'parent', cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'parent', cascade: ['persist'], fetch: 'EAGER')]
     #[MaxDepth(2)]
     private Collection $synonyms;
 
-    #[ORM\ManyToOne(targetEntity: Tag::class, inversedBy: 'synonyms')]
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'synonyms')]
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id')]
-    private Tag $parent;
+    private Product $parent;
 
     private function __construct(string $id, string $name, ?Collection $synonyms = null)
     {
         $this->id = $id;
         $this->name = $name;
         if (!$synonyms) {
-            $synonyms = new TagCollection();
+            $synonyms = new ProductCollection();
         }
         $this->synonyms = $synonyms;
 
@@ -41,9 +41,9 @@ class Tag implements AggregateRoot
         }
     }
 
-    public static function new(string $id, string $name, ?Collection $synonyms = null): Tag
+    public static function new(string $id, string $name, ?Collection $synonyms = null): Product
     {
-        return new Tag($id, $name, $synonyms);
+        return new Product($id, $name, $synonyms);
     }
 
     public function id(): string
@@ -56,17 +56,17 @@ class Tag implements AggregateRoot
         return $this->name;
     }
 
-    public function synonyms(): TagCollection
+    public function synonyms(): ProductCollection
     {
         return $this->synonyms;
     }
 
-    public function parent(): Tag
+    public function parent(): Product
     {
         return $this->parent;
     }
 
-    public function setParent(Tag $parent): void
+    public function setParent(Product $parent): void
     {
         $this->parent = $parent;
     }

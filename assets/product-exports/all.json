@@ -1,0 +1,265 @@
+[
+    {
+        "id": "08762973-b542-4197-928e-8ae2092312f2",
+        "name": "beer",
+        "synonyms": []
+    },
+    {
+        "id": "1164953e-9e6c-4147-8865-611779dfb1a0",
+        "name": "potato",
+        "synonyms": [
+            {
+                "id": "40eba838-1e76-4d38-b31d-d7b4285d394e",
+                "name": "potatoes",
+                "synonyms": []
+            }
+        ]
+    },
+    {
+        "id": "129806c5-6428-43d7-97e2-69fe10708935",
+        "name": "bread",
+        "synonyms": []
+    },
+    {
+        "id": "1cb1960f-cfd2-4b3e-be26-7ebb89e22362",
+        "name": "blueberry",
+        "synonyms": []
+    },
+    {
+        "id": "1dfad1d7-32e4-46f4-9578-c36200556c80",
+        "name": "apple",
+        "synonyms": []
+    },
+    {
+        "id": "1e967909-ad23-43a6-8f89-7ec2272dc13c",
+        "name": "chips",
+        "synonyms": []
+    },
+    {
+        "id": "1f4a7dea-33f7-494f-a6a1-440fe8a42858",
+        "name": "strawberry",
+        "synonyms": []
+    },
+    {
+        "id": "201059bd-088c-442a-959e-ed5f889eee61",
+        "name": "chicken",
+        "synonyms": []
+    },
+    {
+        "id": "2b3fdde7-1b30-494b-8379-bf8ced3ab6ce",
+        "name": "raspberry",
+        "synonyms": []
+    },
+    {
+        "id": "2cc4ed23-3567-408f-8185-f7188d0c5506",
+        "name": "chocolate",
+        "synonyms": []
+    },
+    {
+        "id": "2ea7a8b7-92b3-47f2-92c5-549bb33809f6",
+        "name": "tomatoes",
+        "synonyms": [],
+        "parent": {
+            "id": "9a87b9dc-7a7b-4d76-9541-8b0c2cd93a6c",
+            "name": "tomato",
+            "synonyms": []
+        }
+    },
+    {
+        "id": "339f152f-5027-4b29-8554-d9ecf1d5acb8",
+        "name": "oil",
+        "synonyms": []
+    },
+    {
+        "id": "40a166d9-1a39-4526-916d-e05b5672a084",
+        "name": "lettuce",
+        "synonyms": []
+    },
+    {
+        "id": "40eba838-1e76-4d38-b31d-d7b4285d394e",
+        "name": "potatoes",
+        "synonyms": [],
+        "parent": {
+            "id": "1164953e-9e6c-4147-8865-611779dfb1a0",
+            "name": "potato",
+            "synonyms": []
+        }
+    },
+    {
+        "id": "4b971fb5-bea4-4f73-9bc5-a46234a5b2b5",
+        "name": "soda",
+        "synonyms": []
+    },
+    {
+        "id": "4eabec60-dac6-46e8-82c2-9d90bf88b40f",
+        "name": "milkshake",
+        "synonyms": []
+    },
+    {
+        "id": "52617461-853d-4407-a7f5-1d8c4eb930e8",
+        "name": "yogurt",
+        "synonyms": []
+    },
+    {
+        "id": "5b012768-3fc3-425d-97fe-2ecf55eb4ed7",
+        "name": "ice cream",
+        "synonyms": []
+    },
+    {
+        "id": "622d505c-17a2-4856-ab84-e880efbdd483",
+        "name": "pasta",
+        "synonyms": []
+    },
+    {
+        "id": "627fe589-7dd4-4b93-aa57-0b2ccb389a75",
+        "name": "cucumber",
+        "synonyms": []
+    },
+    {
+        "id": "68736a35-c56d-415e-827a-94f66e82696a",
+        "name": "pork",
+        "synonyms": []
+    },
+    {
+        "id": "6a7b959b-49b8-433b-8f0e-74b5b844111c",
+        "name": "coffee",
+        "synonyms": []
+    },
+    {
+        "id": "71c24bca-8ac3-49af-8090-beced31daf67",
+        "name": "rice",
+        "synonyms": []
+    },
+    {
+        "id": "769e7723-614a-41f9-9ec7-bcd880598717",
+        "name": "wine",
+        "synonyms": []
+    },
+    {
+        "id": "7b287a80-d708-47ef-9a67-a84498e888ef",
+        "name": "vinegar",
+        "synonyms": []
+    },
+    {
+        "id": "7d11819f-7626-42e6-bdec-2c1616f052aa",
+        "name": "water",
+        "synonyms": []
+    },
+    {
+        "id": "7d670532-bc4d-4ecd-a172-7b3fbd9fde14",
+        "name": "cheese",
+        "synonyms": []
+    },
+    {
+        "id": "83b0e844-6f68-4973-82b9-ab5f7aa3c5fd",
+        "name": "milk",
+        "synonyms": []
+    },
+    {
+        "id": "86bd41a4-0e19-4fec-a408-b76ec0b22bf5",
+        "name": "salt",
+        "synonyms": []
+    },
+    {
+        "id": "9a87b9dc-7a7b-4d76-9541-8b0c2cd93a6c",
+        "name": "tomato",
+        "synonyms": [
+            {
+                "id": "2ea7a8b7-92b3-47f2-92c5-549bb33809f6",
+                "name": "tomatoes",
+                "synonyms": []
+            }
+        ]
+    },
+    {
+        "id": "a77b50f0-66c8-4464-b5ea-88f32b59111e",
+        "name": "sugar",
+        "synonyms": []
+    },
+    {
+        "id": "a83919fd-45a6-4568-9e2c-c8fa3e33812b",
+        "name": "egg",
+        "synonyms": [
+            {
+                "id": "ad741e8a-1e4a-4c46-9568-969f12a7475e",
+                "name": "eggs",
+                "synonyms": []
+            }
+        ]
+    },
+    {
+        "id": "ad741e8a-1e4a-4c46-9568-969f12a7475e",
+        "name": "eggs",
+        "synonyms": [],
+        "parent": {
+            "id": "a83919fd-45a6-4568-9e2c-c8fa3e33812b",
+            "name": "egg",
+            "synonyms": []
+        }
+    },
+    {
+        "id": "b58c75ea-79b6-428c-b6be-5cd321d92ad1",
+        "name": "banana",
+        "synonyms": []
+    },
+    {
+        "id": "ba0a3c13-3bbf-4454-ba52-e3217cf89942",
+        "name": "juice",
+        "synonyms": []
+    },
+    {
+        "id": "bc3cdecb-5401-44f2-9599-4d40461056eb",
+        "name": "tea",
+        "synonyms": []
+    },
+    {
+        "id": "cfb7a37d-9754-439a-8a13-6c8141984287",
+        "name": "beef",
+        "synonyms": []
+    },
+    {
+        "id": "d03fe15b-639b-47ed-a9a9-2e2e38371dd5",
+        "name": "fish",
+        "synonyms": []
+    },
+    {
+        "id": "d07649ad-043e-4da0-8310-fcff3a1ee7a5",
+        "name": "flour",
+        "synonyms": []
+    },
+    {
+        "id": "d5ab5dd4-f256-4c44-a0a0-2c730d7871bb",
+        "name": "carrot",
+        "synonyms": []
+    },
+    {
+        "id": "ddf73ab1-73da-4dcd-82ac-dce4237c3074",
+        "name": "orange",
+        "synonyms": []
+    },
+    {
+        "id": "de4a0202-9a73-42eb-86d1-2e0f963e5910",
+        "name": "whiskey",
+        "synonyms": []
+    },
+    {
+        "id": "de7bfcc3-5442-4ca2-92fa-8e3abc813971",
+        "name": "pepper",
+        "synonyms": []
+    },
+    {
+        "id": "eb174550-92df-4c2e-b1b1-750bb496b29f",
+        "name": "garlic",
+        "synonyms": []
+    },
+    {
+        "id": "edc8c6a0-3b50-4b6b-866f-b90c56557ec1",
+        "name": "butter",
+        "synonyms": []
+    },
+    {
+        "id": "f77fc12f-7ecf-4f50-8e39-d50df53578d0",
+        "name": "onion",
+        "synonyms": []
+    }
+]

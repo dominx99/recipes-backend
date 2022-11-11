@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Import\Tag\Infrastructure\Symfony;
+namespace App\Import\Products\Infrastructure\Symfony;
 
-use App\Cookery\Tags\Domain\Tag;
-use App\Cookery\Tags\Domain\TagCollection;
-use App\Cookery\Tags\Domain\TagRepository;
+use App\Cookery\Products\Domain\Product;
+use App\Cookery\Products\Domain\ProductCollection;
+use App\Cookery\Products\Domain\ProductRepository;
 use App\Shared\Domain\ValueObject\Uuid;
 use JMS\Serializer\SerializerInterface;
 
@@ -17,13 +17,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'import:tags:all',
-    description: 'Import all tags',
+    name: 'import:products:all',
+    description: 'Import all products',
 )]
-class ImportTagsCommand extends Command
+class ImportProductsCommand extends Command
 {
     public function __construct(
-        private TagRepository $tagRepository,
+        private ProductRepository $productRepository,
         private SerializerInterface $serializer
     ) {
         parent::__construct();
@@ -31,31 +31,31 @@ class ImportTagsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if ($this->tagRepository->all()->count() > 0) {
+        if ($this->productRepository->all()->count() > 0) {
             $io = new SymfonyStyle($input, $output);
-            $io->error('Tags already imported');
+            $io->error('Products already imported');
 
             return Command::FAILURE;
         }
 
         $output = new SymfonyStyle($input, $output);
 
-        $tagsToImport = json_decode(file_get_contents('assets/tag-exports/all.json'), true);
+        $productsToImport = json_decode(file_get_contents('assets/product-exports/all.json'), true);
 
-        foreach ($tagsToImport as $tag) {
-            $tag = Tag::new(
+        foreach ($productsToImport as $product) {
+            $product = Product::new(
                 (string) Uuid::random(),
-                $tag['name'],
-                new TagCollection(map(fn (array $synonym) => Tag::new(
+                $product['name'],
+                new ProductCollection(map(fn (array $synonym) => Product::new(
                     (string) Uuid::random(),
                     $synonym['name'],
-                ), $tag['synonyms']))
+                ), $product['synonyms']))
             );
 
-            $this->tagRepository->save($tag);
+            $this->productRepository->save($product);
         }
 
-        $output->success('Tags imported successfully');
+        $output->success('Products imported successfully');
 
         return Command::SUCCESS;
     }

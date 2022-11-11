@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Export\Tag\Infrastructure\Symfony;
+namespace App\Export\Products\Infrastructure\Symfony;
 
-use App\Cookery\Tags\Domain\TagRepository;
+use App\Cookery\Products\Domain\ProductRepository;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -11,13 +11,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'export:tags:all',
-    description: 'Exports all tags',
+    name: 'export:products:all',
+    description: 'Exports all products',
 )]
-class ExportTagsCommand extends Command
+class ExportProductsCommand extends Command
 {
     public function __construct(
-        private TagRepository $tagRepository,
+        private ProductRepository $productRepository,
         private SerializerInterface $serializer
     ) {
         parent::__construct();
@@ -27,13 +27,13 @@ class ExportTagsCommand extends Command
     {
         $output = new SymfonyStyle($input, $output);
 
-        $tags = $this->tagRepository->all();
+        $products = $this->productRepository->all();
 
-        $serializedTags = $this->serializer->serialize($tags->toArray(), 'json');
+        $serializedProducts = $this->serializer->serialize($products->toArray(), 'json');
 
-        file_put_contents('assets/tag-exports/all.json', $serializedTags);
+        file_put_contents('assets/product-exports/all.json', $serializedProducts);
 
-        $output->success('Tags exported successfully');
+        $output->success('Products exported successfully');
 
         return Command::SUCCESS;
     }
