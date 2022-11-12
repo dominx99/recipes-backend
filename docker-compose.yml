@@ -36,7 +36,7 @@ services:
         ipv4_address: 10.200.18.2
 
   recipes_db:
-    image: mysql
+    image: mysql:8.0.31
     volumes:
       - ./../data/recipes/mysql:/var/lib/mysql
     environment:
