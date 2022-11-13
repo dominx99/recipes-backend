@@ -22,7 +22,10 @@ doctrine:
               is_bundle: false
               dir: '%kernel.project_dir%/src/Cookery/Products/Domain'
               prefix: 'App\Cookery\Products\Domain'
-
+            ProductCategories:
+              is_bundle: false
+              dir: '%kernel.project_dir%/src/Cookery/ProductCategories/Domain'
+              prefix: 'App\Cookery\ProductCategories\Domain'
 
 when@test:
     doctrine:
