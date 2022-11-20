@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Cookery\ProductCategories\Domain;
 
 use App\Cookery\Products\Domain\Product;
+use App\Shared\Domain\AggregateRoot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity()]
-class ProductCategory
+class ProductCategory implements AggregateRoot
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]

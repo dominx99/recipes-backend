@@ -15,4 +15,9 @@ final class DoctrineProductCategoryRepository extends DoctrineRepository impleme
     {
         return new ProductCategoryCollection($this->repository(ProductCategory::class)->findAll());
     }
+
+    public function save(ProductCategory $productCategory, bool $flush = false): void
+    {
+        $this->persist($productCategory, $flush);
+    }
 }

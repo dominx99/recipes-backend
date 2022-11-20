@@ -33,7 +33,7 @@ final class RecipesMatchByProductsGetController extends ApiController
         $products = $request->get('products') ?? [];
 
         $matcher = new RecipesMatcherComposite(
-            new IncompleteRecipesMatcher(1),
+            new IncompleteRecipesMatcher(3),
         );
 
         $products = $this->productRepository->matching(

@@ -1,265 +1,918 @@
 [
     {
-        "id": "08762973-b542-4197-928e-8ae2092312f2",
-        "name": "beer",
-        "synonyms": []
-    },
-    {
-        "id": "1164953e-9e6c-4147-8865-611779dfb1a0",
-        "name": "potato",
-        "synonyms": [
+        "id": "0a204455-d7fd-41a8-be7c-ad21f0d01583",
+        "name": "Other",
+        "products": [
             {
-                "id": "40eba838-1e76-4d38-b31d-d7b4285d394e",
-                "name": "potatoes",
+                "id": "1d742ebc-d39b-4770-8ddb-bc240b778040",
+                "name": "honey",
                 "synonyms": []
-            }
-        ]
-    },
-    {
-        "id": "129806c5-6428-43d7-97e2-69fe10708935",
-        "name": "bread",
-        "synonyms": []
-    },
-    {
-        "id": "1cb1960f-cfd2-4b3e-be26-7ebb89e22362",
-        "name": "blueberry",
-        "synonyms": []
-    },
-    {
-        "id": "1dfad1d7-32e4-46f4-9578-c36200556c80",
-        "name": "apple",
-        "synonyms": []
-    },
-    {
-        "id": "1e967909-ad23-43a6-8f89-7ec2272dc13c",
-        "name": "chips",
-        "synonyms": []
-    },
-    {
-        "id": "1f4a7dea-33f7-494f-a6a1-440fe8a42858",
-        "name": "strawberry",
-        "synonyms": []
-    },
-    {
-        "id": "201059bd-088c-442a-959e-ed5f889eee61",
-        "name": "chicken",
-        "synonyms": []
-    },
-    {
-        "id": "2b3fdde7-1b30-494b-8379-bf8ced3ab6ce",
-        "name": "raspberry",
-        "synonyms": []
-    },
-    {
-        "id": "2cc4ed23-3567-408f-8185-f7188d0c5506",
-        "name": "chocolate",
-        "synonyms": []
-    },
-    {
-        "id": "2ea7a8b7-92b3-47f2-92c5-549bb33809f6",
-        "name": "tomatoes",
-        "synonyms": [],
-        "parent": {
-            "id": "9a87b9dc-7a7b-4d76-9541-8b0c2cd93a6c",
-            "name": "tomato",
-            "synonyms": []
-        }
-    },
-    {
-        "id": "339f152f-5027-4b29-8554-d9ecf1d5acb8",
-        "name": "oil",
-        "synonyms": []
-    },
-    {
-        "id": "40a166d9-1a39-4526-916d-e05b5672a084",
-        "name": "lettuce",
-        "synonyms": []
-    },
-    {
-        "id": "40eba838-1e76-4d38-b31d-d7b4285d394e",
-        "name": "potatoes",
-        "synonyms": [],
-        "parent": {
-            "id": "1164953e-9e6c-4147-8865-611779dfb1a0",
-            "name": "potato",
-            "synonyms": []
-        }
-    },
-    {
-        "id": "4b971fb5-bea4-4f73-9bc5-a46234a5b2b5",
-        "name": "soda",
-        "synonyms": []
-    },
-    {
-        "id": "4eabec60-dac6-46e8-82c2-9d90bf88b40f",
-        "name": "milkshake",
-        "synonyms": []
-    },
-    {
-        "id": "52617461-853d-4407-a7f5-1d8c4eb930e8",
-        "name": "yogurt",
-        "synonyms": []
-    },
-    {
-        "id": "5b012768-3fc3-425d-97fe-2ecf55eb4ed7",
-        "name": "ice cream",
-        "synonyms": []
-    },
-    {
-        "id": "622d505c-17a2-4856-ab84-e880efbdd483",
-        "name": "pasta",
-        "synonyms": []
-    },
-    {
-        "id": "627fe589-7dd4-4b93-aa57-0b2ccb389a75",
-        "name": "cucumber",
-        "synonyms": []
-    },
-    {
-        "id": "68736a35-c56d-415e-827a-94f66e82696a",
-        "name": "pork",
-        "synonyms": []
-    },
-    {
-        "id": "6a7b959b-49b8-433b-8f0e-74b5b844111c",
-        "name": "coffee",
-        "synonyms": []
-    },
-    {
-        "id": "71c24bca-8ac3-49af-8090-beced31daf67",
-        "name": "rice",
-        "synonyms": []
-    },
-    {
-        "id": "769e7723-614a-41f9-9ec7-bcd880598717",
-        "name": "wine",
-        "synonyms": []
-    },
-    {
-        "id": "7b287a80-d708-47ef-9a67-a84498e888ef",
-        "name": "vinegar",
-        "synonyms": []
-    },
-    {
-        "id": "7d11819f-7626-42e6-bdec-2c1616f052aa",
-        "name": "water",
-        "synonyms": []
-    },
-    {
-        "id": "7d670532-bc4d-4ecd-a172-7b3fbd9fde14",
-        "name": "cheese",
-        "synonyms": []
-    },
-    {
-        "id": "83b0e844-6f68-4973-82b9-ab5f7aa3c5fd",
-        "name": "milk",
-        "synonyms": []
-    },
-    {
-        "id": "86bd41a4-0e19-4fec-a408-b76ec0b22bf5",
-        "name": "salt",
-        "synonyms": []
-    },
-    {
-        "id": "9a87b9dc-7a7b-4d76-9541-8b0c2cd93a6c",
-        "name": "tomato",
-        "synonyms": [
+            },
             {
-                "id": "2ea7a8b7-92b3-47f2-92c5-549bb33809f6",
-                "name": "tomatoes",
+                "id": "314647c3-bbcc-4431-a473-2b1db61cef95",
+                "name": "flour",
                 "synonyms": []
-            }
-        ]
-    },
-    {
-        "id": "a77b50f0-66c8-4464-b5ea-88f32b59111e",
-        "name": "sugar",
-        "synonyms": []
-    },
-    {
-        "id": "a83919fd-45a6-4568-9e2c-c8fa3e33812b",
-        "name": "egg",
-        "synonyms": [
+            },
             {
-                "id": "ad741e8a-1e4a-4c46-9568-969f12a7475e",
+                "id": "31e07102-564c-44fa-8c21-979f11df65c9",
+                "name": "olives",
+                "synonyms": []
+            },
+            {
+                "id": "32cb62f0-6963-4b00-8457-670f37c846ea",
+                "name": "syrup",
+                "synonyms": []
+            },
+            {
+                "id": "51bd5343-97af-4a4d-932e-a07c1d875fda",
+                "name": "pickles",
+                "synonyms": []
+            },
+            {
+                "id": "58785d06-e6c9-40df-aa0e-3a30d5d88728",
+                "name": "baking powder",
+                "synonyms": []
+            },
+            {
+                "id": "684e2e1d-8505-42d1-905a-6551cb3c15c1",
+                "name": "jam",
+                "synonyms": []
+            },
+            {
+                "id": "68d1a593-4984-4da7-b07f-2b2f31bbb921",
+                "name": "sauce",
+                "synonyms": []
+            },
+            {
+                "id": "8c189253-39df-493e-8274-e0ec1acda9f1",
+                "name": "nutella",
+                "synonyms": []
+            },
+            {
+                "id": "95938bcd-f817-4b59-8c18-cc7487f15f5f",
+                "name": "vanilla",
+                "synonyms": []
+            },
+            {
+                "id": "a904e9de-4869-4fb0-b755-425e1d1daa0f",
+                "name": "oil",
+                "synonyms": []
+            },
+            {
+                "id": "b8fddeea-02c5-4449-9390-0dd5c6cf7cb0",
+                "name": "baking soda",
+                "synonyms": []
+            },
+            {
+                "id": "ba0619eb-e4cd-4e11-9485-793524491995",
+                "name": "cocoa",
+                "synonyms": []
+            },
+            {
+                "id": "c4951f63-90b4-4a40-a163-347edf6595ca",
                 "name": "eggs",
                 "synonyms": []
+            },
+            {
+                "id": "da297592-5dd6-480c-85d5-553113c8e6ec",
+                "name": "salsa",
+                "synonyms": []
+            },
+            {
+                "id": "e7820b28-82d4-4b29-8bd1-99f7636c99f9",
+                "name": "marmalade",
+                "synonyms": []
+            },
+            {
+                "id": "e9a55cbe-1045-4cb4-aea9-c9a0a19e1504",
+                "name": "chutney",
+                "synonyms": []
+            },
+            {
+                "id": "edbc9358-255a-4ae2-b78b-97b5de003f76",
+                "name": "sugar",
+                "synonyms": []
             }
         ]
     },
     {
-        "id": "ad741e8a-1e4a-4c46-9568-969f12a7475e",
-        "name": "eggs",
-        "synonyms": [],
-        "parent": {
-            "id": "a83919fd-45a6-4568-9e2c-c8fa3e33812b",
-            "name": "egg",
-            "synonyms": []
-        }
+        "id": "25a65e67-0028-4992-a3f2-5c62637c7485",
+        "name": "Vegetables",
+        "products": [
+            {
+                "id": "1706cf65-4b69-480c-8ac2-7ac13381879e",
+                "name": "celery",
+                "synonyms": [
+                    {
+                        "id": "c2bd01b9-95c7-41e2-9d42-09bbd7d5583e",
+                        "name": "celery",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "26c002fd-6588-416f-a638-1b87783709a8",
+                "name": "potato",
+                "synonyms": [
+                    {
+                        "id": "3ee21a38-18b6-4db6-8b5d-7fd5911ebb76",
+                        "name": "potatoes",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "300b3b57-8824-4007-ae5c-c0175dfe018e",
+                "name": "radish",
+                "synonyms": [
+                    {
+                        "id": "24d339c7-c45a-4e87-9727-f9f87476cba6",
+                        "name": "radish",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "348b7cc6-3add-469d-8850-747c968ad7e7",
+                "name": "carrot",
+                "synonyms": [
+                    {
+                        "id": "c5e84d21-3aff-454b-a3a5-a6d04fdcf35b",
+                        "name": "carrots",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "4775f816-fb61-4ad6-8269-bf27cdd2bc15",
+                "name": "asparagus",
+                "synonyms": [
+                    {
+                        "id": "4fd4fad0-6000-4115-a2d1-d5c06c4aa8c4",
+                        "name": "asparagus",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "64164103-0272-4f44-b68b-e985d4826a39",
+                "name": "cucumber",
+                "synonyms": [
+                    {
+                        "id": "259aeab8-9284-46fa-bc44-9380fae9859c",
+                        "name": "cucumbers",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "84685925-ee69-43d5-b848-c7084c3d4595",
+                "name": "garlic",
+                "synonyms": [
+                    {
+                        "id": "864675ea-c55e-4b69-b8e7-a9f9bf612ce2",
+                        "name": "garlic",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "92903b69-4cf4-4be9-851f-579e28026b0e",
+                "name": "mushroom",
+                "synonyms": [
+                    {
+                        "id": "cc872cba-2277-4d7f-b360-64b8b506f00f",
+                        "name": "mushrooms",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "99a04061-fc3d-4379-add5-c4679f0113c2",
+                "name": "beetroot",
+                "synonyms": [
+                    {
+                        "id": "505e470c-4e26-4e8a-9151-10f99e8bc3b3",
+                        "name": "beetroot",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "a5f9220c-ff35-4c34-b9fd-bd767045dc94",
+                "name": "spinach",
+                "synonyms": [
+                    {
+                        "id": "c4aa36c5-3b70-4a6f-93f2-b4a826a02df8",
+                        "name": "spinach",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "b26dbe44-a2ad-4e8d-b6ee-f2f1f612c58d",
+                "name": "tomato",
+                "synonyms": [
+                    {
+                        "id": "60c1ce4d-6f0f-468b-abc5-4fda27df94ad",
+                        "name": "tomatoes",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "b2b85045-ce45-4fa4-9835-7a05c38b2c9d",
+                "name": "cauliflower",
+                "synonyms": [
+                    {
+                        "id": "577d9067-de3f-40d2-a28d-b0f49bcb4f37",
+                        "name": "cauliflower",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "b7f3c2a4-6697-4783-8020-01b09abc7356",
+                "name": "onion",
+                "synonyms": [
+                    {
+                        "id": "3995a1bb-0aab-490b-8b44-f7d1fca2c834",
+                        "name": "onions",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "b8cf3f05-d734-4b1f-aa83-0ba37488a8d9",
+                "name": "lettuce",
+                "synonyms": [
+                    {
+                        "id": "1ce3c199-9ecd-4667-aca3-0f7e1e81d8bd",
+                        "name": "lettuce",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "d2e0ba37-c686-469f-bf73-69beb0302ff4",
+                "name": "broccoli",
+                "synonyms": [
+                    {
+                        "id": "afdb050c-43c8-4238-bd09-65e4cf3c20c1",
+                        "name": "broccoli",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "e3ceb8be-e6de-4747-9043-076adb30aa8b",
+                "name": "cabbage",
+                "synonyms": [
+                    {
+                        "id": "dd694672-7157-4bab-a900-35dd3fded832",
+                        "name": "cabbage",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "f3466fab-2d0a-4ddf-b8df-9743f815d82d",
+                "name": "zucchini",
+                "synonyms": [
+                    {
+                        "id": "d703dd5b-244d-4e56-a8e7-3c6bcb6c186b",
+                        "name": "zucchini",
+                        "synonyms": []
+                    }
+                ]
+            }
+        ]
     },
     {
-        "id": "b58c75ea-79b6-428c-b6be-5cd321d92ad1",
-        "name": "banana",
-        "synonyms": []
+        "id": "2c60364b-dec8-4b2f-b132-5fbb067fcdd7",
+        "name": "Drinks",
+        "products": [
+            {
+                "id": "15c96815-7c4a-40c8-9d89-8db874446daf",
+                "name": "beer",
+                "synonyms": []
+            },
+            {
+                "id": "20e52fa2-1dd7-4786-be73-031d63a3169d",
+                "name": "wine",
+                "synonyms": []
+            },
+            {
+                "id": "21f394a7-8527-4c47-ba2e-6852c5988777",
+                "name": "vodka",
+                "synonyms": []
+            },
+            {
+                "id": "22b3e899-417a-4600-8b90-73104d7b38f2",
+                "name": "water",
+                "synonyms": []
+            },
+            {
+                "id": "45083ce6-c7b0-4cac-b032-afcca460ffda",
+                "name": "juice",
+                "synonyms": []
+            },
+            {
+                "id": "5daaae03-ce12-4a74-b8d9-48d8d12365e3",
+                "name": "coffee",
+                "synonyms": []
+            },
+            {
+                "id": "71d099fd-16e6-413d-8fd3-e200033afe25",
+                "name": "tea",
+                "synonyms": []
+            },
+            {
+                "id": "a1e6a022-dd2a-418d-b140-ca1e1166c0df",
+                "name": "soda",
+                "synonyms": []
+            },
+            {
+                "id": "bf7fe266-7966-4c00-94cc-b2712ac8833c",
+                "name": "whiskey",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "ba0a3c13-3bbf-4454-ba52-e3217cf89942",
-        "name": "juice",
-        "synonyms": []
+        "id": "341bf81c-1618-4a85-8ce3-ae921266d569",
+        "name": "Bakery",
+        "products": [
+            {
+                "id": "07e3e5d2-93d8-433d-961f-e82f70c942da",
+                "name": "bread",
+                "synonyms": []
+            },
+            {
+                "id": "0bd6e33b-b508-4034-b5d2-eb56200e6571",
+                "name": "croissants",
+                "synonyms": []
+            },
+            {
+                "id": "1c566b92-6afe-4aba-9702-e9b3cb338823",
+                "name": "buns",
+                "synonyms": []
+            },
+            {
+                "id": "34ca510d-3613-47e7-b1e8-b73916e8136a",
+                "name": "biscuits",
+                "synonyms": []
+            },
+            {
+                "id": "3d309e81-3837-4b0d-86e3-2dd548f430e9",
+                "name": "bagels",
+                "synonyms": []
+            },
+            {
+                "id": "3fc4bdb1-494d-4001-84d3-691ba4c25ece",
+                "name": "cakes",
+                "synonyms": []
+            },
+            {
+                "id": "9daa76d2-2e98-4890-ba04-0d528ef2a0b0",
+                "name": "rolls",
+                "synonyms": []
+            },
+            {
+                "id": "d9cdcc0b-8295-4fc0-b372-8a56318d34b6",
+                "name": "cookies",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "bc3cdecb-5401-44f2-9599-4d40461056eb",
-        "name": "tea",
-        "synonyms": []
+        "id": "4ee67bae-972f-465c-a97f-eee8e9db6418",
+        "name": "Dairy",
+        "products": [
+            {
+                "id": "0096ead0-a493-4643-a5cf-84626c9ea088",
+                "name": "cheese",
+                "synonyms": []
+            },
+            {
+                "id": "1bcff022-9762-4f8a-848d-7d40b60e957f",
+                "name": "milk",
+                "synonyms": []
+            },
+            {
+                "id": "570dde02-eac6-4cc4-b133-20f122aa6dd9",
+                "name": "yogurt",
+                "synonyms": []
+            },
+            {
+                "id": "7be9362b-8e60-4353-827a-1cc9797d4307",
+                "name": "cream",
+                "synonyms": []
+            },
+            {
+                "id": "9fa19132-c2a9-45e0-9d2d-9b029add2f7b",
+                "name": "butter",
+                "synonyms": []
+            },
+            {
+                "id": "fa85aa03-6bdd-40df-9c83-39065feacb04",
+                "name": "ice cream",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "cfb7a37d-9754-439a-8a13-6c8141984287",
-        "name": "beef",
-        "synonyms": []
+        "id": "94bd4e51-5e45-40fe-bab7-f79d5f26b616",
+        "name": "Meat",
+        "products": [
+            {
+                "id": "0f9bd82c-ac2e-44e3-a64e-a6bf961cc5d4",
+                "name": "turkey",
+                "synonyms": []
+            },
+            {
+                "id": "22268e85-c748-4972-8cd2-36fe25f2c18b",
+                "name": "chicken",
+                "synonyms": []
+            },
+            {
+                "id": "3de44b6e-944a-4860-ba11-bb2474fe27a8",
+                "name": "pork",
+                "synonyms": []
+            },
+            {
+                "id": "4e739dfb-a4ad-451f-b6e2-7d3741bf203f",
+                "name": "duck",
+                "synonyms": []
+            },
+            {
+                "id": "bb541dbc-5446-4066-9d20-f02c0cdbefba",
+                "name": "beef",
+                "synonyms": []
+            },
+            {
+                "id": "f18bb6aa-7446-4e55-9540-d6e285e50d75",
+                "name": "goose",
+                "synonyms": []
+            },
+            {
+                "id": "ff043d93-c182-4e91-9c2b-d2371ebd20c6",
+                "name": "lamb",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "d03fe15b-639b-47ed-a9a9-2e2e38371dd5",
-        "name": "fish",
-        "synonyms": []
+        "id": "95897707-45f9-4302-b168-a9c5782bf7eb",
+        "name": "Fruits",
+        "products": [
+            {
+                "id": "025873e7-8d7c-4c94-bb4d-42937bf4aa34",
+                "name": "cherry",
+                "synonyms": [
+                    {
+                        "id": "11da0546-c871-4402-b8ab-c78d65f2d725",
+                        "name": "cherries",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "11461e24-7630-45a1-8f4b-240a0f334bc5",
+                "name": "watermelon",
+                "synonyms": [
+                    {
+                        "id": "f4b69d61-7430-49b9-b24e-5954c0b850a3",
+                        "name": "watermelons",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "2ed9d7a3-5d98-44bb-85b2-55edbc2a5a51",
+                "name": "pomegranate",
+                "synonyms": [
+                    {
+                        "id": "cf803d96-08b4-4759-8a11-cf4296a57139",
+                        "name": "pomegranates",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "31c1881d-1963-4c24-9b31-286140b6a626",
+                "name": "kiwi",
+                "synonyms": [
+                    {
+                        "id": "8800fa49-14f6-4f74-ad29-59e3bb3d73ed",
+                        "name": "kiwis",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "42dd44e3-0806-4524-ada8-7c8f0b205d9c",
+                "name": "mango",
+                "synonyms": [
+                    {
+                        "id": "d4846689-4108-40cf-b51a-b948b87fd76b",
+                        "name": "mangoes",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "4a7c8ddb-e334-48cc-ba7a-b06d44556587",
+                "name": "orange",
+                "synonyms": [
+                    {
+                        "id": "4cc2e095-2aa2-4794-96cd-a9efe56db34a",
+                        "name": "oranges",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "552f7ab2-10e5-4ead-8d4d-947d1bed4243",
+                "name": "strawberry",
+                "synonyms": [
+                    {
+                        "id": "f9e25e73-f228-4b08-8e12-6358a83b68a0",
+                        "name": "strawberries",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "566799d6-8e59-4876-b422-32a3b6d53ba5",
+                "name": "apple",
+                "synonyms": [
+                    {
+                        "id": "ada03816-1018-4068-b5c2-6bad4b84aef4",
+                        "name": "apples",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "6212368c-29e8-453a-ac67-ea28fcad2ec6",
+                "name": "grape",
+                "synonyms": [
+                    {
+                        "id": "fc42d574-a38a-4554-89bf-91b1da3af131",
+                        "name": "grapes",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "647c5d58-a126-4d2f-a4fc-1f79a5e9aeb7",
+                "name": "banana",
+                "synonyms": [
+                    {
+                        "id": "78026dbc-49e1-46dc-a908-1e75e210868b",
+                        "name": "bananas",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "68234301-3746-4e2e-a793-af28bb80af9d",
+                "name": "lemon",
+                "synonyms": [
+                    {
+                        "id": "479086be-576b-4469-9d38-7f890618320d",
+                        "name": "lemons",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "71d72c80-f970-46c3-aac6-26e7ae03f393",
+                "name": "pineapple",
+                "synonyms": [
+                    {
+                        "id": "7307d94e-f685-499f-a9c6-795543232ced",
+                        "name": "pineapples",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "753e0277-1e44-4b22-b59d-f92deee74d8a",
+                "name": "peach",
+                "synonyms": [
+                    {
+                        "id": "38521d36-5d25-44a3-9998-5431473ed3bb",
+                        "name": "peaches",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "895b2f44-00c5-44d8-947f-1d0dc792163c",
+                "name": "pear",
+                "synonyms": [
+                    {
+                        "id": "fa80d7d6-5834-4b9b-a9e2-319eca78d4d0",
+                        "name": "pears",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "aa8f29a0-e95f-4d38-9afb-7debda7e250f",
+                "name": "apricot",
+                "synonyms": [
+                    {
+                        "id": "0e986b13-58e8-4b1a-8e58-f0452046e2b9",
+                        "name": "apricots",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "b1a5941e-9cfc-40c2-afda-86baec1f4580",
+                "name": "plum",
+                "synonyms": [
+                    {
+                        "id": "6ec7a270-f1ef-4db7-9490-f234340e3328",
+                        "name": "plums",
+                        "synonyms": []
+                    }
+                ]
+            },
+            {
+                "id": "f97a367b-e6b0-4430-aa71-7c5467ebdb2f",
+                "name": "coconut",
+                "synonyms": [
+                    {
+                        "id": "ae52469f-7b44-4d68-854e-589b63f86895",
+                        "name": "coconuts",
+                        "synonyms": []
+                    }
+                ]
+            }
+        ]
     },
     {
-        "id": "d07649ad-043e-4da0-8310-fcff3a1ee7a5",
-        "name": "flour",
-        "synonyms": []
+        "id": "9e738cd9-0fac-4974-a41d-4f988eee012b",
+        "name": "Condiments",
+        "products": [
+            {
+                "id": "521a4f27-ead3-464d-9cce-ebd39059050d",
+                "name": "ketchup",
+                "synonyms": []
+            },
+            {
+                "id": "56be69f8-882d-49bc-9c0b-280607daf76d",
+                "name": "mustard",
+                "synonyms": []
+            },
+            {
+                "id": "749b403a-6c38-47a5-b658-c33619470942",
+                "name": "soy sauce",
+                "synonyms": []
+            },
+            {
+                "id": "a560a442-8ba7-41b3-8712-c415d3773075",
+                "name": "tabasco",
+                "synonyms": []
+            },
+            {
+                "id": "d1240d82-dff8-4e81-9b06-afc0f62b8552",
+                "name": "vinegar",
+                "synonyms": []
+            },
+            {
+                "id": "d59da8af-4342-47f3-8332-7f169571ff9a",
+                "name": "mayonnaise",
+                "synonyms": []
+            },
+            {
+                "id": "ebe009df-be37-4751-b4b0-0a2292dbb3b6",
+                "name": "hot sauce",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "d5ab5dd4-f256-4c44-a0a0-2c730d7871bb",
-        "name": "carrot",
-        "synonyms": []
+        "id": "9f6cc016-3fdb-4b97-9b75-9e6d908e67c0",
+        "name": "Cereals",
+        "products": [
+            {
+                "id": "08b6cd77-6f67-4c87-bcf7-621e0b377bde",
+                "name": "pasta",
+                "synonyms": []
+            },
+            {
+                "id": "4a37167e-8d2d-40f8-a5a7-28e9714cf704",
+                "name": "muesli",
+                "synonyms": []
+            },
+            {
+                "id": "52625bc5-55fc-4776-abed-37d011efaeb5",
+                "name": "bread crumbs",
+                "synonyms": []
+            },
+            {
+                "id": "831cc85b-22c5-46e9-bbac-383731e8d492",
+                "name": "noodles",
+                "synonyms": []
+            },
+            {
+                "id": "8d3257f9-de0c-4025-bef3-7125d1f2ff6f",
+                "name": "granola",
+                "synonyms": []
+            },
+            {
+                "id": "8d556a33-2d36-473b-bf6c-3024c5f5cc34",
+                "name": "cornflakes",
+                "synonyms": []
+            },
+            {
+                "id": "ced85fd1-275e-4eba-9e30-84b480787825",
+                "name": "oats",
+                "synonyms": []
+            },
+            {
+                "id": "de0273d2-10cc-4791-b7bb-e7b4430a255d",
+                "name": "couscous",
+                "synonyms": []
+            },
+            {
+                "id": "fa17b1b1-bc75-499a-8031-ba98c15dcdf2",
+                "name": "rice",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "ddf73ab1-73da-4dcd-82ac-dce4237c3074",
-        "name": "orange",
-        "synonyms": []
+        "id": "d3edf846-6482-41ea-b821-d0d242ac99e4",
+        "name": "Spices",
+        "products": [
+            {
+                "id": "3da0aa58-c7d8-4b5d-b143-3b7916dfef6a",
+                "name": "coriander",
+                "synonyms": []
+            },
+            {
+                "id": "450ff494-d051-454b-9cac-791a85409f96",
+                "name": "ginger",
+                "synonyms": []
+            },
+            {
+                "id": "6a897aa9-084e-4b85-b338-d41e453143c8",
+                "name": "cumin",
+                "synonyms": []
+            },
+            {
+                "id": "ac9130bd-d977-48fc-a3c1-bb884d1483cf",
+                "name": "pepper",
+                "synonyms": []
+            },
+            {
+                "id": "e8814a98-09ec-421c-b2fd-138276692e69",
+                "name": "salt",
+                "synonyms": []
+            },
+            {
+                "id": "ee267d88-da37-466b-850d-dafdce2bf57a",
+                "name": "cinnamon",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "de4a0202-9a73-42eb-86d1-2e0f963e5910",
-        "name": "whiskey",
-        "synonyms": []
+        "id": "e579d4c9-cff0-4649-81c8-a64627e2119c",
+        "name": "Fish",
+        "products": [
+            {
+                "id": "01a4f17d-4b8f-412e-8052-e146edc79f5b",
+                "name": "oysters",
+                "synonyms": []
+            },
+            {
+                "id": "10d1c734-1184-4e59-8d7d-e711d2bb0238",
+                "name": "salmon",
+                "synonyms": []
+            },
+            {
+                "id": "14a8bfc4-0acd-4dd6-a7bd-5fb5257a35b8",
+                "name": "cod",
+                "synonyms": []
+            },
+            {
+                "id": "15943a16-986f-49a7-8f21-0b87e89062ba",
+                "name": "sardines",
+                "synonyms": []
+            },
+            {
+                "id": "24eb7373-ec89-4712-a20d-bade0d458e15",
+                "name": "hake",
+                "synonyms": []
+            },
+            {
+                "id": "32a7b71a-cfb1-409f-b345-bb629a5e37ee",
+                "name": "tuna",
+                "synonyms": []
+            },
+            {
+                "id": "43195581-5128-43aa-94bd-08208d2b8801",
+                "name": "trout",
+                "synonyms": []
+            },
+            {
+                "id": "89490f52-ef35-4792-ae44-11ba5f664e9e",
+                "name": "shrimp",
+                "synonyms": []
+            },
+            {
+                "id": "9cd810b5-57cb-47fc-beb6-bca263b2bd2b",
+                "name": "anchovies",
+                "synonyms": []
+            },
+            {
+                "id": "9e2c4268-1f19-4d78-9524-c636f4a21537",
+                "name": "haddock",
+                "synonyms": []
+            },
+            {
+                "id": "a657ca1c-6d51-49a5-832a-f1835f431fd5",
+                "name": "crab",
+                "synonyms": []
+            },
+            {
+                "id": "d4ee64c8-f047-41e8-a413-964b1cc0d92d",
+                "name": "prawns",
+                "synonyms": []
+            },
+            {
+                "id": "d7ab4d92-079d-42fc-97d4-b05d0d37b31f",
+                "name": "lobster",
+                "synonyms": []
+            },
+            {
+                "id": "ea3ed6ae-6323-4446-82dd-f2a4e5a02874",
+                "name": "mussels",
+                "synonyms": []
+            },
+            {
+                "id": "f237c579-7eef-4004-bea8-0b602dfc761c",
+                "name": "clams",
+                "synonyms": []
+            },
+            {
+                "id": "fbd4bd3a-5c19-4587-a3c4-eb0169be278c",
+                "name": "mackerel",
+                "synonyms": []
+            }
+        ]
     },
     {
-        "id": "de7bfcc3-5442-4ca2-92fa-8e3abc813971",
-        "name": "pepper",
-        "synonyms": []
-    },
-    {
-        "id": "eb174550-92df-4c2e-b1b1-750bb496b29f",
-        "name": "garlic",
-        "synonyms": []
-    },
-    {
-        "id": "edc8c6a0-3b50-4b6b-866f-b90c56557ec1",
-        "name": "butter",
-        "synonyms": []
-    },
-    {
-        "id": "f77fc12f-7ecf-4f50-8e39-d50df53578d0",
-        "name": "onion",
-        "synonyms": []
+        "id": "ebbeccc1-270c-4572-831e-e96a0dc3e775",
+        "name": "Sweets",
+        "products": [
+            {
+                "id": "1cffbad9-1db6-498c-be8d-4b6eb737d030",
+                "name": "candy",
+                "synonyms": []
+            },
+            {
+                "id": "27a464d9-9d15-4419-b742-d0c79c34800c",
+                "name": "gum",
+                "synonyms": []
+            },
+            {
+                "id": "40222237-e310-4752-9168-334cb5f027f8",
+                "name": "caramel",
+                "synonyms": []
+            },
+            {
+                "id": "6fb55a81-2c6d-4e7b-9f5f-40d02eab0db6",
+                "name": "marshmallow",
+                "synonyms": []
+            },
+            {
+                "id": "8ee5a7cd-0477-4978-99a4-1d4562fe9655",
+                "name": "chocolate",
+                "synonyms": []
+            },
+            {
+                "id": "a46a7de4-797f-48b6-bb61-e8d477f33166",
+                "name": "lollipop",
+                "synonyms": []
+            },
+            {
+                "id": "f5311dec-040e-4ed8-8ade-61a78fd17917",
+                "name": "gummy bear",
+                "synonyms": []
+            },
+            {
+                "id": "f6f4d381-b265-4654-9a5c-f4f90e55458e",
+                "name": "ice lolly",
+                "synonyms": []
+            }
+        ]
     }
 ]

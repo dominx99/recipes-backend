@@ -2,11 +2,12 @@
 
 namespace App\Import\Products\Infrastructure\Symfony;
 
+use App\Cookery\ProductCategories\Domain\ProductCategory;
+use App\Cookery\ProductCategories\Domain\ProductCategoryRepository;
 use App\Cookery\Products\Domain\Product;
 use App\Cookery\Products\Domain\ProductCollection;
 use App\Cookery\Products\Domain\ProductRepository;
 use App\Shared\Domain\ValueObject\Uuid;
-use JMS\Serializer\SerializerInterface;
 
 use function Lambdish\Phunctional\map;
 
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 #[AsCommand(
     name: 'import:products:all',
@@ -24,7 +26,8 @@ class ImportProductsCommand extends Command
 {
     public function __construct(
         private ProductRepository $productRepository,
-        private SerializerInterface $serializer
+        private ProductCategoryRepository $categoryRepository,
+        private DenormalizerInterface $denormalizer
     ) {
         parent::__construct();
     }
@@ -40,19 +43,27 @@ class ImportProductsCommand extends Command
 
         $output = new SymfonyStyle($input, $output);
 
-        $productsToImport = json_decode(file_get_contents('assets/product-exports/all.json'), true);
+        $categoriesToAdd = json_decode(file_get_contents('assets/product-exports/all.json'), true);
 
-        foreach ($productsToImport as $product) {
-            $product = Product::new(
-                (string) Uuid::random(),
-                $product['name'],
-                new ProductCollection(map(fn (array $synonym) => Product::new(
+        foreach ($categoriesToAdd as $categoryToAdd) {
+            $products = new ProductCollection(array_map(fn (array $productToAdd) =>
+                Product::new(
                     (string) Uuid::random(),
-                    $synonym['name'],
-                ), $product['synonyms']))
+                    $productToAdd['name'],
+                    new ProductCollection(map(fn (array $synonym) => Product::new(
+                        (string) Uuid::random(),
+                        $synonym['name'],
+                    ), $productToAdd['synonyms']))
+                )
+            , $categoryToAdd['products']));
+
+            $category = new ProductCategory(
+                Uuid::random()->value(),
+                $categoryToAdd['name'],
+                $products
             );
 
-            $this->productRepository->save($product);
+            $this->categoryRepository->save($category, true);
         }
 
         $output->success('Products imported successfully');

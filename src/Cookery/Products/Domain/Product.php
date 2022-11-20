@@ -56,7 +56,7 @@ class Product implements AggregateRoot
         return $this->name;
     }
 
-    public function synonyms(): ProductCollection
+    public function synonyms(): Collection
     {
         return $this->synonyms;
     }

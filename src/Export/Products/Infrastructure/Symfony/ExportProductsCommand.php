@@ -2,6 +2,7 @@
 
 namespace App\Export\Products\Infrastructure\Symfony;
 
+use App\Cookery\ProductCategories\Domain\ProductCategoryRepository;
 use App\Cookery\Products\Domain\ProductRepository;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -18,6 +19,7 @@ class ExportProductsCommand extends Command
 {
     public function __construct(
         private ProductRepository $productRepository,
+        private ProductCategoryRepository $categoryRepository,
         private SerializerInterface $serializer
     ) {
         parent::__construct();
@@ -27,11 +29,10 @@ class ExportProductsCommand extends Command
     {
         $output = new SymfonyStyle($input, $output);
 
-        $products = $this->productRepository->all();
+        $categories = $this->categoryRepository->all();
+        $serializedCategories = $this->serializer->serialize($categories->toArray(), 'json');
 
-        $serializedProducts = $this->serializer->serialize($products->toArray(), 'json');
-
-        file_put_contents('assets/product-exports/all.json', $serializedProducts);
+        file_put_contents('assets/product-exports/all.json', $serializedCategories);
 
         $output->success('Products exported successfully');
 

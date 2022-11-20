@@ -24,7 +24,6 @@ final class ProductFixtures extends Fixture
                 'onion' => ['onions'],
                 'carrot' => ['carrots'],
                 'cucumber' => ['cucumbers'],
-                'pepper' => ['peppers'],
                 'lettuce' => ['lettuce'],
                 'garlic' => ['garlic'],
                 'celery' => ['celery'],
