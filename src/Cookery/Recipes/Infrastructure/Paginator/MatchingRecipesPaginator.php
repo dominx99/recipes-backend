@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Cookery\Recipes\Infrastructure\Paginator;
 
 use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
+use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
+use App\Shared\Domain\ValueObject\PaginationResult;
+use Closure;
 
 final class MatchingRecipesPaginator
 {
@@ -12,28 +15,39 @@ final class MatchingRecipesPaginator
 
     public function __construct(
         private MatchingRecipeCollection $collection,
+        private ?Closure $nextPageUrlCallback,
         private int $perPage = self::ITEMS_PER_PAGE,
+        private ?string $lastId = null,
     ) {
     }
 
-    // TODO: Change return to value object
-    public function paginate(int $page): array
+    public function paginate(): PaginationResult
     {
-        $data = new MatchingRecipeCollection(
-            $this->collection->slice(($page - 1) * $this->perPage, $this->perPage)
+        if (is_null($this->lastId)) {
+            return $this->paginateFromOffset(0);
+        }
+
+        $offset = $this->collection
+            ->map(fn (MatchingRecipe $recipe) => $recipe->recipe()->id())
+            ->indexOf($this->lastId);
+
+        if (false === $offset) {
+            return PaginationResult::empty();
+        }
+
+        return $this->paginateFromOffset($offset + 1);
+    }
+
+    private function paginateFromOffset(int $offset): PaginationResult
+    {
+        $result = array_values($this->collection->slice($offset + 1, $this->perPage));
+        $nextId = isset($result[$this->perPage - 1]) ? $result[$this->perPage - 1]->recipe()->id() : null;
+
+        $nextPageUrl = $nextId ? $this->nextPageUrlCallback->__invoke($nextId) : null;
+
+        return PaginationResult::new(
+            $result,
+            $nextPageUrl,
         );
-
-        $totalPages = (int) ceil($this->collection->count() / $this->perPage);
-
-        return [
-            'data' => $data->toArray(),
-            'meta' => [
-                'currentPage' => $page,
-                'perPage' => $this->perPage,
-                'total' => $this->collection->count(),
-                'totalPages' => $totalPages,
-                'hasNextPage' => $page < $totalPages
-            ],
-        ];
     }
 }

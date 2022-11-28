@@ -11,27 +11,30 @@ use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
 use App\Shared\Domain\Collection\ArrayCollection;
 use App\Shared\Http\Symfony\ApiController;
+use Closure;
 
 use function Lambdish\Phunctional\apply;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class RecipesMatchByProductsGetController extends ApiController
 {
     public function __construct(
         private RecipeRepository $recipeRepository,
         private ProductRepository $productRepository,
+        private UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
-    #[Route('api/v1/recipes/match-by-products', methods: ['GET'])]
+    #[Route('api/v1/recipes/match-by-products', name: 'api_v1_recipes_match_by_products', methods: ['GET'])]
     public function __invoke(Request $request): Response
     {
         $products = new ArrayCollection($request->get('products') ?? []);
-        $page = (int) $request->query->get('page', 1);
         $perPage = (int) $request->query->get('per_page', 12);
+        $lastId = $request->query->get('lastId', null);
 
         $matcher = new RecipesMatcherComposite(
             new IncompleteRecipesMatcher(3),
@@ -41,8 +44,17 @@ final class RecipesMatchByProductsGetController extends ApiController
         $recipes = $this->recipeRepository->all();
 
         $collection = apply($matcher, [$recipes, $products]);
-        $paginator = new MatchingRecipesPaginator($collection, $perPage);
 
-        return $this->respond($paginator->paginate($page));
+        $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_products', [
+            $products->toArray(),
+            $perPage,
+            $nextId,
+        ]);
+
+        $nextPageUrlCallback = Closure::fromCallable($nextPageUrlCallback);
+
+        $paginator = new MatchingRecipesPaginator($collection, $nextPageUrlCallback, $perPage, $lastId);
+
+        return $this->respond($paginator->paginate());
     }
 }
