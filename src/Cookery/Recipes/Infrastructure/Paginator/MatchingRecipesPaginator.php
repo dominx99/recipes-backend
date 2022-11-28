@@ -12,13 +12,28 @@ final class MatchingRecipesPaginator
 
     public function __construct(
         private MatchingRecipeCollection $collection,
+        private int $perPage = self::ITEMS_PER_PAGE,
     ) {
     }
 
-    public function itemsForPage(int $page): MatchingRecipeCollection
+    // TODO: Change return to value object
+    public function paginate(int $page): array
     {
-        return new MatchingRecipeCollection(
-            $this->collection->slice(($page - 1) * self::ITEMS_PER_PAGE, self::ITEMS_PER_PAGE)
+        $data = new MatchingRecipeCollection(
+            $this->collection->slice(($page - 1) * $this->perPage, $this->perPage)
         );
+
+        $totalPages = (int) ceil($this->collection->count() / $this->perPage);
+
+        return [
+            'data' => $data->toArray(),
+            'meta' => [
+                'currentPage' => $page,
+                'perPage' => $this->perPage,
+                'total' => $this->collection->count(),
+                'totalPages' => $totalPages,
+                'hasNextPage' => $page < $totalPages
+            ],
+        ];
     }
 }

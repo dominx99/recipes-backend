@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Cookery\Recipes\Http;
 
+use App\Cookery\Products\Domain\ProductRepository;
 use App\Cookery\Recipes\Application\Match\IncompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
 use App\Cookery\Recipes\Domain\RecipeRepository;
@@ -21,6 +22,7 @@ final class RecipesMatchByProductsGetController extends ApiController
 {
     public function __construct(
         private RecipeRepository $recipeRepository,
+        private ProductRepository $productRepository,
     ) {
     }
 
@@ -28,6 +30,8 @@ final class RecipesMatchByProductsGetController extends ApiController
     public function __invoke(Request $request): Response
     {
         $products = new ArrayCollection($request->get('products') ?? []);
+        $page = (int) $request->query->get('page', 1);
+        $perPage = (int) $request->query->get('per_page', 12);
 
         $matcher = new RecipesMatcherComposite(
             new IncompleteRecipesMatcher(3),
@@ -37,10 +41,8 @@ final class RecipesMatchByProductsGetController extends ApiController
         $recipes = $this->recipeRepository->all();
 
         $collection = apply($matcher, [$recipes, $products]);
-        $paginator = new MatchingRecipesPaginator($collection);
+        $paginator = new MatchingRecipesPaginator($collection, $perPage);
 
-        return $this->respond($paginator->itemsForPage(
-            $request->query->get('page', 1)
-        )->toArray());
+        return $this->respond($paginator->paginate($page));
     }
 }
