@@ -47,16 +47,16 @@ jobs:
         with:
           host: ${{ secrets.INSTANCE_HOST }}
           key: ${{ secrets.INSTANCE_PRIVATE_KEY }}
-          username: opc
+          username: root
           source: "docker-compose.prod.yml,database.env,.env"
-          target: "/home/opc/workspace/recipes/api/"
+          target: "/root/workspace/recipes/api/"
 
       - name: Start application
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.INSTANCE_HOST }}
           key: ${{ secrets.INSTANCE_PRIVATE_KEY }}
-          username: opc
+          username: root
           script: |
             cd workspace/recipes/api
             mv docker-compose.prod.yml docker-compose.yml
