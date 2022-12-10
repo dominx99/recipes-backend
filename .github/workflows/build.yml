@@ -65,5 +65,5 @@ jobs:
           files: 'docker-compose.prod.yml'
           targets: 'recipes_php,recipes_nginx'
           set: |
-            recipes_php.platform=linux/arm64
-            recipes_nginx.platform=linux/arm64
+            recipes_php.platform=linux/amd64
+            recipes_nginx.platform=linux/amd64
