@@ -44,9 +44,11 @@ final class MatchingRecipesPaginator
         $nextId = isset($result[$this->perPage - 1]) ? $result[$this->perPage - 1]->recipe()->id() : null;
 
         $nextPageUrl = $nextId ? $this->nextPageUrlCallback->__invoke($nextId) : null;
+        $isFirstPage = 0 === $offset;
 
         return PaginationResult::new(
             $result,
+            $isFirstPage,
             $nextPageUrl,
         );
     }

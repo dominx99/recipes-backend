@@ -33,7 +33,7 @@ final class RecipesMatchByProductsGetController extends ApiController
     public function __invoke(Request $request): Response
     {
         $products = new ArrayCollection($request->get('products') ?? []);
-        $perPage = (int) $request->query->get('per_page', 12);
+        $perPage = (int) $request->query->get('perPage', 12);
         $lastId = $request->query->get('lastId', null);
 
         $matcher = new RecipesMatcherComposite(
@@ -46,10 +46,10 @@ final class RecipesMatchByProductsGetController extends ApiController
         $collection = apply($matcher, [$recipes, $products]);
 
         $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_products', [
-            $products->toArray(),
-            $perPage,
-            $nextId,
-        ]);
+            'products' => $products->toArray(),
+            'perPage' => $perPage,
+            'lastId' => $nextId,
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $nextPageUrlCallback = Closure::fromCallable($nextPageUrlCallback);
 
