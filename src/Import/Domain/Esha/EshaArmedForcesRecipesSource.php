@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Import\Domain;
+namespace App\Import\Domain\Esha;
 
+use App\Import\Domain\RecipeSource;
 use App\Import\Infrastructure\Importer\EshaImporter;
 
-final class EshaRecipeSource implements RecipeSource
+final class EshaArmedForcesRecipesSource implements RecipeSource
 {
     public function content(): string
     {
