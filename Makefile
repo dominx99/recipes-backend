@@ -9,7 +9,7 @@ env-file := "./.env.local"
 
 # 🐳 Docker Compose
 .PHONY: up
-up: CMD=--env-file $(env-file) up --build -d
+up: CMD=--env-file $(env-file) up -d
 
 .PHONY: stop
 stop: CMD=stop

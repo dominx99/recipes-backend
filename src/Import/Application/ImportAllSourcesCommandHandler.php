@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Import\Application;
 
+use App\Import\Domain\EshaRecipeSource;
 use App\Import\Domain\RecipeSource;
 use App\Import\Domain\TabatkinsRecipeSource;
 
@@ -24,6 +25,7 @@ final class ImportAllSourcesCommandHandler implements MessageHandlerInterface
     {
         $sources = [
             new TabatkinsRecipeSource(),
+            new EshaRecipeSource(),
         ];
 
         each(function (RecipeSource $source) {
