@@ -11,3 +11,5 @@
 /.php-cs-fixer.cache
 
 database.env
+
+/config/jwt/*.pem

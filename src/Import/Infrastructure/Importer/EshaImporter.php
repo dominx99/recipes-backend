@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Import\Infrastructure\Importer;
 
 use App\Cookery\Ingredients\Domain\IngredientCollection;
+use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 use App\Cookery\Recipes\Domain\RecipeInterface;
-use App\Cookery\Recipes\Domain\RecipeCollection;
-use App\Crawler\DOMElementToRecipeAdapter;
 use App\Enum\RootNodeEnum;
 use App\Import\Application\IngredientsImporter;
 use App\Import\Application\RecipesImporter;
 use App\Import\Domain\EshaRecipeAdapter;
 use App\Import\Domain\RecipeImporter;
-use Symfony\Component\DomCrawler\Crawler;
 
 use function Lambdish\Phunctional\apply;
 use function Lambdish\Phunctional\each;
+
+use Symfony\Component\DomCrawler\Crawler;
 
 final class EshaImporter implements RecipeImporter
 {
