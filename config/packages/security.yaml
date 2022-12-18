@@ -29,6 +29,8 @@ security:
 
   access_control:
     - { path: ^/api/v1/(login|token/refresh|register), roles: PUBLIC_ACCESS }
+    - { path: ^/api/v1/recipes/match-by-products, roles: PUBLIC_ACCESS }
+    - { path: ^/api/v1/categories-with-products, roles: PUBLIC_ACCESS }
     - { path: ^/api/v1, roles: ROLE_USER }
 
 when@test:
