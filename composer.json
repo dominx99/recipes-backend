@@ -19,6 +19,7 @@
         "lexik/jwt-authentication-bundle": "^2.16",
         "nelmio/cors-bundle": "^2.2",
         "ramsey/uuid": "^4.5",
+        "sensio/framework-extra-bundle": "^6.2",
         "symfony/console": "6.1.*",
         "symfony/dom-crawler": "6.1.*",
         "symfony/dotenv": "6.1.*",

@@ -2,6 +2,10 @@ controllers:
   resource: ../src/Cookery/**/Http/*
   type: attribute
 
+users_controllers:
+  resource: ../src/Auth/Http/
+  type: attribute
+
 api_login_check:
   path: /api/v1/login
 
