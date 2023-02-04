@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Cookery\Recipes\Http;
 
 use App\Cookery\Products\Domain\ProductRepository;
+use App\Cookery\Recipes\Application\Match\CompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\IncompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
 use App\Cookery\Recipes\Domain\RecipeRepository;
@@ -37,7 +38,7 @@ final class RecipesMatchByProductsGetController extends ApiController
         $lastId = $request->query->get('lastId', null);
 
         $matcher = new RecipesMatcherComposite(
-            new IncompleteRecipesMatcher(3),
+            new CompleteRecipesMatcher(),
         );
 
         // TODO: Below has to be cached

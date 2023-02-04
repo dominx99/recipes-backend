@@ -13,19 +13,23 @@ use App\Cookery\Recipes\Domain\RecipeComponent;
 use App\Cookery\Recipes\Domain\RecipeInterface;
 use App\Cookery\Recipes\Domain\RecipesMatcher;
 use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
+use App\Shared\Application\Compare\StringContains;
+use App\Shared\Domain\Collection\Collection;
 
 use function Lambdish\Phunctional\apply;
 
 final class CompleteRecipesMatcher implements RecipesMatcher
 {
-    public function __invoke(RecipeCollection $recipes, IngredientCollection $ingredients): MatchingRecipeCollection
+    public function __invoke(RecipeCollection $recipes, Collection $ingredients): MatchingRecipeCollection
     {
         return new MatchingRecipeCollection($recipes->filter(function (RecipeInterface $recipe) use ($ingredients) {
             $expression = true;
 
             $recipe->components()->forAll(function ($key, RecipeComponent $component) use ($ingredients, &$expression) {
                 $exists = $ingredients->exists(
-                    fn ($key, IngredientInterface $ingredient) => apply(new IngredientComparator($ingredient, $component->ingredient()), [])
+                    fn ($key, string $element) => apply(
+                        new StringContains($component->ingredient()->name(), $element), []
+                    )
                 );
 
                 if (!$exists) {
