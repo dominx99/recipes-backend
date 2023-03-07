@@ -14,6 +14,10 @@ doctrine:
               is_bundle: false
               dir: '%kernel.project_dir%/src/Cookery/Recipes/Domain'
               prefix: 'App\Cookery\Recipes\Domain'
+            FavoriteRecipes:
+              is_bundle: false
+              dir: '%kernel.project_dir%/src/Cookery/FavoriteRecipes/Domain'
+              prefix: 'App\Cookery\FavoriteRecipes\Domain'
             Ingredients:
               is_bundle: false
               dir: '%kernel.project_dir%/src/Cookery/Ingredients/Domain'
