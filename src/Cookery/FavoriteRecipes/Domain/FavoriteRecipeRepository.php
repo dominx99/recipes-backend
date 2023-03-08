@@ -10,5 +10,5 @@ interface FavoriteRecipeRepository
 {
     public function all(): FavoriteRecipeCollection;
 
-    public function save(AggregateRoot $recipe): void;
+    public function save(AggregateRoot $favoriteRecipe): void;
 }

@@ -12,6 +12,7 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validation;
 
 abstract class ApiController extends AbstractFOSRestController
 {
@@ -35,5 +36,22 @@ abstract class ApiController extends AbstractFOSRestController
     public function throwValidationFailedError(ConstraintViolationListInterface $violations): void
     {
         throw new ValidationFailedError(Utils::formatViolations($violations));
+    }
+
+    /**
+     * @param array<int, mixed> $body
+     */
+    protected function validateRequest(array $body): void
+    {
+        $violations = Validation::createValidator()->validate($body, $this->constraints());
+
+        if ($violations->count()) {
+            $this->throwValidationFailedError($violations);
+        }
+    }
+
+    protected function constraints(): array
+    {
+        return [];
     }
 }

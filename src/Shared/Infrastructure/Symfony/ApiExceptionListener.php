@@ -34,12 +34,13 @@ final class ApiExceptionListener
         );
     }
 
+    /**
+     * @return array<string,array>|array<string,string>
+     */
     private function exceptionMessageFor(Throwable $error): array
     {
-        $validationErrorClass = ValidationFailedError::class;
-
-        return $error instanceof $validationErrorClass
-            ? ['errors' => $error->errors()]
+        return $this->isValidationError($error)
+            ? ['errors' => $this->getValidationError($error)->errors()]
             : ['message' => $error->getMessage()];
     }
 
@@ -50,5 +51,18 @@ final class ApiExceptionListener
         return $error instanceof $domainErrorClass
             ? $error->errorCode()
             : Utils::toSnakeCase(Utils::extractClassName($error));
+    }
+
+    private function isValidationError(Throwable $error): bool
+    {
+        return $error instanceof ValidationFailedError
+            || $error->getPrevious() instanceof ValidationFailedError;
+    }
+
+    private function getValidationError(Throwable $error): ValidationFailedError
+    {
+        return $error instanceof ValidationFailedError
+            ? $error
+            : $error->getPrevious();
     }
 }

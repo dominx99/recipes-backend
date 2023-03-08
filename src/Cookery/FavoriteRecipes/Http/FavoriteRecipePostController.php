@@ -5,34 +5,38 @@ declare(strict_types=1);
 namespace App\Cookery\FavoriteRecipes\Http;
 
 use App\Cookery\FavoriteRecipes\Application\Create\AddRecipeToFavoritesCommand;
-use App\Cookery\FavoriteRecipes\Domain\FavoriteRecipe;
+use App\Shared\Domain\Utils;
 use App\Shared\Http\Symfony\ApiController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Shared\Http\Symfony\SuccessResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class FavoriteRecipePostController extends ApiController
 {
     public function __construct(
         private readonly MessageBusInterface $messageBus,
-        private readonly ValidatorInterface $validator,
+        private readonly TokenStorageInterface $token,
     ) {
     }
 
     #[Route('/api/v1/favorite-recipes', name: 'api_v1_favorite_recipe_post', methods: ['POST'])]
-    #[ParamConverter('favorite_recipe', converter: 'fos_rest.request_body', options: [
-        'validator' => [
-            'groups' => ['POST'],
-        ],
-    ])]
-    public function __invoke(FavoriteRecipe $favoriteRecipe): void
+    public function __invoke(Request $request): JsonResponse
     {
-        $violations = $this->validator->validate($favoriteRecipe);
+        /** @var \App\Auth\Domain\User $user */
+        $user = $this->token->getToken()->getUser();
 
-        $violations->count() > 0
-            ? $this->throwValidationFailedError($violations)
-            : $this->messageBus->dispatch(new AddRecipeToFavoritesCommand($favoriteRecipe))
-        ;
+        $body = Utils::jsonDecode($request->getContent());
+
+        $this->validateRequest($body);
+
+        $this->messageBus->dispatch(new AddRecipeToFavoritesCommand(
+            $body['recipeId'],
+            $user->getId(),
+        ));
+
+        return new SuccessResponse();
     }
 }
