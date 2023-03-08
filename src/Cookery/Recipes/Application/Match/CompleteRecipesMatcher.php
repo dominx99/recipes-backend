@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Cookery\Recipes\Application\Match;
 
-use App\Cookery\Ingredients\Domain\IngredientCollection;
-use App\Cookery\Ingredients\Domain\IngredientComparator;
-use App\Cookery\Ingredients\Domain\IngredientInterface;
 use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeComponent;

@@ -6,7 +6,6 @@ namespace App\Cookery\Recipes\Http;
 
 use App\Cookery\Products\Domain\ProductRepository;
 use App\Cookery\Recipes\Application\Match\CompleteRecipesMatcher;
-use App\Cookery\Recipes\Application\Match\IncompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;

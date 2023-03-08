@@ -6,10 +6,11 @@ namespace App\Shared\Infrastructure\Symfony;
 
 use App\Shared\Domain\ValidationFailedError;
 use InvalidArgumentException;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use function Lambdish\Phunctional\get;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ApiExceptionsHttpStatusCodeMapping
 {

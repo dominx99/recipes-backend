@@ -93,7 +93,10 @@ test-coverage tc:
 	@brave ".coverage/index.html"
 
 migrate:
-	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) doctrine:migrations:migrate
+	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) doctrine:migrations:migrate --no-interaction
+
+migrate-prev:
+	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) doctrine:migrations:migrate prev
 
 diff:
 	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) doctrine:migrations:diff
