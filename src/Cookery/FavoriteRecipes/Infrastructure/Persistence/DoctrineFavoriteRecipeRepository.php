@@ -9,12 +9,18 @@ use App\Cookery\FavoriteRecipes\Domain\FavoriteRecipeCollection;
 use App\Cookery\FavoriteRecipes\Domain\FavoriteRecipeRepository;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Infrastructure\Persistence\DoctrineRepository;
+use Doctrine\Common\Collections\Criteria;
 
 final class DoctrineFavoriteRecipeRepository extends DoctrineRepository implements FavoriteRecipeRepository
 {
     public function all(): FavoriteRecipeCollection
     {
         return new FavoriteRecipeCollection($this->repository(FavoriteRecipe::class)->findAll());
+    }
+
+    public function matching(Criteria $criteria): FavoriteRecipeCollection
+    {
+        return new FavoriteRecipeCollection($this->repository(FavoriteRecipe::class)->matching($criteria)->toArray());
     }
 
     public function save(AggregateRoot $favoriteRecipe): void
