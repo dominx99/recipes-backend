@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints as Assert;
 
 final class FavoriteRecipePostController extends ApiController
 {
@@ -33,10 +35,19 @@ final class FavoriteRecipePostController extends ApiController
         $this->validateRequest($body);
 
         $this->messageBus->dispatch(new AddRecipeToFavoritesCommand(
+            $body['id'],
             $body['recipeId'],
             $user->getId(),
         ));
 
         return new SuccessResponse();
+    }
+
+    protected function constraints(): Constraint
+    {
+        return new Assert\Collection([
+            'id' => new Assert\Uuid(),
+            'recipeId' => new Assert\Uuid(),
+        ]);
     }
 }

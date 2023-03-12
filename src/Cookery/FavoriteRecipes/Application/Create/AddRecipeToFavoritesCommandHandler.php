@@ -8,7 +8,6 @@ use App\Cookery\FavoriteRecipes\Domain\FavoriteRecipe;
 use App\Cookery\FavoriteRecipes\Domain\FavoriteRecipeRepository;
 use App\Shared\Domain\Utils;
 use App\Shared\Domain\ValidationFailedError;
-use App\Shared\Domain\ValueObject\Uuid;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -23,7 +22,7 @@ final class AddRecipeToFavoritesCommandHandler implements MessageHandlerInterfac
     public function __invoke(AddRecipeToFavoritesCommand $command): void
     {
         $favoriteRecipe = new FavoriteRecipe(
-            Uuid::random()->value(),
+            $command->id,
             $command->userId,
             $command->recipeId,
         );
