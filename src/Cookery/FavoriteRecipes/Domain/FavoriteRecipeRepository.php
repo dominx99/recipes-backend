@@ -9,9 +9,13 @@ use Doctrine\Common\Collections\Criteria;
 
 interface FavoriteRecipeRepository
 {
+    public function find(string $id): ?FavoriteRecipe;
+
     public function all(): FavoriteRecipeCollection;
 
     public function matching(Criteria $criteria): FavoriteRecipeCollection;
 
     public function save(AggregateRoot $favoriteRecipe): void;
+
+    public function remove(AggregateRoot $favoriteRecipe): void;
 }

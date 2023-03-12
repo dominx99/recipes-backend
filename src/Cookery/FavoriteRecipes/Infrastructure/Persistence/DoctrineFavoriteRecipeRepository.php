@@ -13,6 +13,11 @@ use Doctrine\Common\Collections\Criteria;
 
 final class DoctrineFavoriteRecipeRepository extends DoctrineRepository implements FavoriteRecipeRepository
 {
+    public function find(string $id): ?FavoriteRecipe
+    {
+        return $this->repository(FavoriteRecipe::class)->find($id);
+    }
+
     public function all(): FavoriteRecipeCollection
     {
         return new FavoriteRecipeCollection($this->repository(FavoriteRecipe::class)->findAll());
