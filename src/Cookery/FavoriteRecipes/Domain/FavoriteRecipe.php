@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity()]
 #[UniqueConstraint(name: 'user_id_recipe_id_uidx', columns: ['user_id', 'recipe_id'])]
 #[UniqueEntity(fields: ['userId', 'recipeId'])]
-final class FavoriteRecipe implements AggregateRoot
+class FavoriteRecipe implements AggregateRoot
 {
     public function __construct(
         #[ORM\Id]
