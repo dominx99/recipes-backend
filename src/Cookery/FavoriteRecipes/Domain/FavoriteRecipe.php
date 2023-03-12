@@ -7,6 +7,7 @@ namespace App\Cookery\FavoriteRecipes\Domain;
 use App\Shared\Domain\AggregateRoot;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use JMS\Serializer\Annotation\Exclude;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity()]
@@ -19,6 +20,7 @@ class FavoriteRecipe implements AggregateRoot
         #[ORM\Column(type: 'uuid', unique: true)]
         private string $id,
         #[ORM\Column(type: 'uuid')]
+        #[Exclude()]
         private string $userId,
         #[ORM\Column(type: 'uuid')]
         private string $recipeId,

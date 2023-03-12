@@ -26,6 +26,6 @@ final class FavoriteRecipesGetController extends ApiController
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq('userId', $user));
 
-        return $this->respond($this->repository->matching($criteria));
+        return $this->respond($this->repository->matching($criteria)->toArray());
     }
 }

@@ -36,7 +36,7 @@ final class FavoriteRecipePostController extends ApiController
 
         $this->messageBus->dispatch(new AddRecipeToFavoritesCommand(
             $body['id'],
-            $body['recipeId'],
+            $body['recipe_id'],
             $user->getId(),
         ));
 
@@ -47,7 +47,7 @@ final class FavoriteRecipePostController extends ApiController
     {
         return new Assert\Collection([
             'id' => new Assert\Uuid(),
-            'recipeId' => new Assert\Uuid(),
+            'recipe_id' => new Assert\Uuid(),
         ]);
     }
 }
