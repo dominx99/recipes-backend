@@ -26,4 +26,19 @@ class FavoriteRecipe implements AggregateRoot
         private string $recipeId,
     ) {
     }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function recipeId(): string
+    {
+        return $this->recipeId;
+    }
+
+    public function userId(): string
+    {
+        return $this->userId;
+    }
 }

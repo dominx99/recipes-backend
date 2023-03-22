@@ -40,7 +40,7 @@ final class MatchingRecipesPaginator
 
     private function paginateFromOffset(int $offset): PaginationResult
     {
-        $result = array_values($this->collection->slice($offset + 1, $this->perPage));
+        $result = array_values($this->collection->slice($offset, $this->perPage));
         $nextId = isset($result[$this->perPage - 1]) ? $result[$this->perPage - 1]->recipe()->id() : null;
 
         $nextPageUrl = $nextId ? $this->nextPageUrlCallback->__invoke($nextId) : null;

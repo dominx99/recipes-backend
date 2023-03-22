@@ -13,6 +13,7 @@ use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 use App\Cookery\Recipes\Domain\RecipeInterface;
 use App\Shared\Domain\ValueObject\Uuid;
 use InvalidArgumentException;
+use Symfony\Component\Uid\Uuid as SymfonyUuid;
 
 final class RecipesToCreateDeterminer
 {
@@ -51,6 +52,6 @@ final class RecipesToCreateDeterminer
             );
         });
 
-        return Recipe::new((string) Uuid::random(), $recipe->externalIdentifier(), $recipe->name(), $components);
+        return Recipe::new(SymfonyUuid::v4()->toBinary(), $recipe->externalIdentifier(), $recipe->name(), $components);
     }
 }

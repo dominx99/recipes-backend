@@ -9,6 +9,7 @@ use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Infrastructure\Persistence\DoctrineRepository;
+use Doctrine\Common\Collections\Criteria;
 
 final class DoctrineRecipeRepository extends DoctrineRepository implements RecipeRepository
 {
@@ -20,5 +21,18 @@ final class DoctrineRecipeRepository extends DoctrineRepository implements Recip
     public function save(AggregateRoot $recipe): void
     {
         $this->persist($recipe);
+    }
+
+    public function matching(Criteria $criteria): RecipeCollection
+    {
+        return new RecipeCollection($this->repository(Recipe::class)->matching($criteria)->toArray());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findMany(array $ids): RecipeCollection
+    {
+        return new RecipeCollection($this->repository(Recipe::class)->findBy(['id' => $ids]));
     }
 }
