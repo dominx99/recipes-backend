@@ -47,6 +47,9 @@ jobs:
             secret/data/recipes/backend DATABASE_URL | DATABASE_URL ;
             secret/data/recipes/backend CORS_ALLOW_ORIGIN | CORS_ALLOW_ORIGIN ;
             secret/data/recipes/backend DATABASE_PASSWORD | DATABASE_PASSWORD ;
+            secret/data/recipes/backend JWT_SECRET_KEY | JWT_SECRET_KEY ;
+            secret/data/recipes/backend JWT_PUBLIC_KEY | JWT_PUBLIC_KEY ;
+            secret/data/recipes/backend JWT_PASSPHRASE | JWT_PASSPHRASE ;
 
       - name: Copy application environment to .env file
         run: 'envsubst < .env.tmpl > .env'
