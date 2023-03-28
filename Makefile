@@ -110,7 +110,8 @@ console:
 	docker-compose exec $(recipes-php-service) $(recipes-console-location) $(CMD)
 
 .PHONY: bash
-	docker-compose exec $(recipes-php-service) $(recipes-console-location) bash
+bash:
+	docker-compose exec $(recipes-php-service) bash
 
 .PHONY: remove-database
 remove-database:
