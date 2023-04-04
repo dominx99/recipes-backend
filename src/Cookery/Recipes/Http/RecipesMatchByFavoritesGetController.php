@@ -12,7 +12,6 @@ use App\Cookery\Recipes\Domain\Recipe;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
 use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
-use App\Shared\Domain\Utils;
 use App\Shared\Http\Symfony\ApiController;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
@@ -37,10 +36,8 @@ final class RecipesMatchByFavoritesGetController extends ApiController
     {
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
-        $body = Utils::jsonDecode($request->getContent());
-
-        $perPage = (int) ($body['per_page'] ?? 12);
-        $lastId = $body['last_id'] ?? null;
+        $perPage = (int) $request->query->get('perPage', 12);
+        $lastId = $request->query->get('lastId', null);
 
         $criteria = Criteria::create()->where(Criteria::expr()->eq('userId', $user->getId()));
 
@@ -56,7 +53,7 @@ final class RecipesMatchByFavoritesGetController extends ApiController
             fn (Recipe $recipe) => new MatchingRecipe($recipe, $recipe->components()->count())
         )->toArray());
 
-        $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_products', [
+        $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_favorites', [
             'favorite_recipes' => $favoriteRecipes->toArray(),
             'perPage' => $perPage,
             'lastId' => $nextId,

@@ -16,7 +16,6 @@ use Closure;
 use function Lambdish\Phunctional\apply;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -27,7 +26,6 @@ final class RecipesMatchByProductsGetController extends ApiController
         private RecipeRepository $recipeRepository,
         private ProductRepository $productRepository,
         private UrlGeneratorInterface $urlGenerator,
-        private RequestStack $requestStack,
     ) {
     }
 
@@ -37,8 +35,6 @@ final class RecipesMatchByProductsGetController extends ApiController
         $products = new ArrayCollection($request->get('products') ?? []);
         $perPage = (int) $request->query->get('perPage', 12);
         $lastId = $request->query->get('lastId', null);
-
-        $this->requestStack->getSession()->set('products', $products->toArray());
 
         $matcher = new RecipesMatcherComposite(
             new CompleteRecipesMatcher(),
