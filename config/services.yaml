@@ -15,3 +15,12 @@ services:
   App\Shared\Infrastructure\Symfony\ApiExceptionListener:
     tags:
       - { name: kernel.event_listener, event: kernel.exception, method: onException }
+
+  app.redis_cache_provider:
+    class: Doctrine\Common\Cache\RedisCache
+    factory: ['App\Shared\Infrastructure\Cache\Redis\RedisProviderFactory', 'create']
+    arguments:
+      $host: '%env(REDIS_HOST)%'
+      $port: '%env(REDIS_PORT)%'
+      $databaseNumber: '%env(REDIS_DATABASE_NUMBER)%'
+      $prefix: '%env(REDIS_PREFIX)%'

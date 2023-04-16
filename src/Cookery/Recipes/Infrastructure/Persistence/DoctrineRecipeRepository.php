@@ -9,23 +9,35 @@ use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Infrastructure\Persistence\DoctrineRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Persistence\ManagerRegistry;
 
-final class DoctrineRecipeRepository extends DoctrineRepository implements RecipeRepository
+final class DoctrineRecipeRepository extends ServiceEntityRepository implements RecipeRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Recipe::class);
+    }
+
     public function all(): RecipeCollection
     {
-        return new RecipeCollection($this->repository(Recipe::class)->findAll());
+        return new RecipeCollection($this->createQueryBuilder('r')
+            ->getQuery()
+            ->enableResultCache(900)
+            ->setCacheable(true)
+            ->getResult()
+        );
     }
 
     public function save(AggregateRoot $recipe): void
     {
-        $this->persist($recipe);
+        $this->getEntityManager()->persist($recipe);
     }
 
     public function matching(Criteria $criteria): RecipeCollection
     {
-        return new RecipeCollection($this->repository(Recipe::class)->matching($criteria)->toArray());
+        return new RecipeCollection($this->matching($criteria)->toArray());
     }
 
     /**
@@ -33,6 +45,6 @@ final class DoctrineRecipeRepository extends DoctrineRepository implements Recip
      */
     public function findMany(array $ids): RecipeCollection
     {
-        return new RecipeCollection($this->repository(Recipe::class)->findBy(['id' => $ids]));
+        return new RecipeCollection($this->findBy(['id' => $ids]));
     }
 }

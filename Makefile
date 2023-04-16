@@ -67,6 +67,7 @@ fix:
 	@docker-compose exec $(recipes-php-service) php vendor/bin/php-cs-fixer fix src --allow-risky=yes
 
 clear:
+	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) cache:pool:clear cache.default_pool
 	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) cache:clear
 	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) doctrine:cache:clear-metadata
 	@docker-compose exec $(recipes-php-service) php $(recipes-console-location) doctrine:cache:clear-query

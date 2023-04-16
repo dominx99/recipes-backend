@@ -9,9 +9,11 @@ use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use JsonSerializable;
 
 #[ORM\Entity()]
-class Recipe implements RecipeInterface, AggregateRoot
+#[ORM\Cache(usage: 'READ_ONLY')]
+class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
@@ -96,5 +98,13 @@ class Recipe implements RecipeInterface, AggregateRoot
         $this->components = new RecipeComponentCollection($this->components->toArray());
 
         return $this->components;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id(),
+            'name' => $this->name(),
+        ];
     }
 }
