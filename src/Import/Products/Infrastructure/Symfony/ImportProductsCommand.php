@@ -46,19 +46,17 @@ class ImportProductsCommand extends Command
         $categoriesToAdd = json_decode(file_get_contents('assets/product-exports/all.json'), true);
 
         foreach ($categoriesToAdd as $categoryToAdd) {
-            $products = new ProductCollection(array_map(fn (array $productToAdd) =>
-                Product::new(
-                    (string) Uuid::random(),
+            $products = new ProductCollection(array_map(fn (array $productToAdd) => Product::new(
+                    Uuid::random(),
                     $productToAdd['name'],
                     new ProductCollection(map(fn (array $synonym) => Product::new(
-                        (string) Uuid::random(),
+                        Uuid::random(),
                         $synonym['name'],
                     ), $productToAdd['synonyms']))
-                )
-            , $categoryToAdd['products']));
+                ), $categoryToAdd['products']));
 
             $category = new ProductCategory(
-                Uuid::random()->value(),
+                Uuid::random()->toString(),
                 $categoryToAdd['name'],
                 $products
             );

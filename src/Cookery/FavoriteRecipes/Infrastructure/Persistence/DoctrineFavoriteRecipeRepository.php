@@ -10,10 +10,11 @@ use App\Cookery\FavoriteRecipes\Domain\FavoriteRecipeRepository;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Infrastructure\Persistence\DoctrineRepository;
 use Doctrine\Common\Collections\Criteria;
+use Ramsey\Uuid\UuidInterface;
 
 final class DoctrineFavoriteRecipeRepository extends DoctrineRepository implements FavoriteRecipeRepository
 {
-    public function find(string $id): ?FavoriteRecipe
+    public function find(UuidInterface $id): ?FavoriteRecipe
     {
         return $this->repository(FavoriteRecipe::class)->find($id);
     }

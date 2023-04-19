@@ -7,12 +7,13 @@ namespace App\Cookery\Recipes\Http;
 use App\Cookery\Products\Domain\ProductRepository;
 use App\Cookery\Recipes\Application\Match\CompleteRecipesMatcher;
 use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
-use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
 use App\Shared\Domain\Collection\ArrayCollection;
 use App\Shared\Http\Symfony\ApiController;
 use Closure;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\CompositeExpression;
 
 use function Lambdish\Phunctional\apply;
 
@@ -41,8 +42,20 @@ final class RecipesMatchByProductsGetController extends ApiController
             new CompleteRecipesMatcher(),
         );
 
-        // TODO: Below has to be cached
-        $recipes = $this->recipeRepository->all();
+        $expressions = [];
+
+        foreach ($products as $product) {
+            $expressions[] = Criteria::expr()->contains('i.name', $product);
+        }
+
+        $compositeExpression = new CompositeExpression(
+            CompositeExpression::TYPE_OR,
+            $expressions
+        );
+
+        $criteria = new Criteria($compositeExpression);
+
+        $recipes = $this->recipeRepository->matchByIngredients($criteria);
 
         $collection = apply($matcher, [$recipes, $products]);
 

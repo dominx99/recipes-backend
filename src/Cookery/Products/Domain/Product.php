@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace App\Cookery\Products\Domain;
 
 use App\Shared\Domain\AggregateRoot;
+use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\MaxDepth;
+use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
 class Product implements AggregateRoot
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private string $id;
+    #[ORM\Column(type: 'uuid_string', unique: true)]
+    private UuidInterface $id;
 
     #[ORM\Column(name: 'name', type: 'string', length: 255)]
     private string $name;
@@ -27,7 +29,7 @@ class Product implements AggregateRoot
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id')]
     private Product $parent;
 
-    private function __construct(string $id, string $name, ?Collection $synonyms = null)
+    private function __construct(UuidInterface $id, string $name, ?Collection $synonyms = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -41,12 +43,12 @@ class Product implements AggregateRoot
         }
     }
 
-    public static function new(string $id, string $name, ?Collection $synonyms = null): Product
+    public static function new(UuidInterface $id, string $name, ?Collection $synonyms = null): Product
     {
         return new Product($id, $name, $synonyms);
     }
 
-    public function id(): string
+    public function id(): Uuid
     {
         return $this->id;
     }

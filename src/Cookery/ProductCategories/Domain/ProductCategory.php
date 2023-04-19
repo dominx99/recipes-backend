@@ -8,13 +8,14 @@ use App\Cookery\Products\Domain\Product;
 use App\Shared\Domain\AggregateRoot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
 class ProductCategory implements AggregateRoot
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private string $id;
+    #[ORM\Column(type: 'uuid_string', unique: true)]
+    private UuidInterface $id;
 
     #[ORM\Column(name: 'name', type: 'string', length: 255)]
     private string $name;
@@ -29,19 +30,19 @@ class ProductCategory implements AggregateRoot
     ]
     private Collection $products;
 
-    public function __construct(string $id, string $name, Collection $products)
+    public function __construct(UuidInterface $id, string $name, Collection $products)
     {
         $this->id = $id;
         $this->name = $name;
         $this->products = $products;
     }
 
-    public static function new(string $id, string $name, Collection $products): self
+    public static function new(UuidInterface $id, string $name, Collection $products): self
     {
         return new self($id, $name, $products);
     }
 
-    public function id(): string
+    public function id(): UuidInterface
     {
         return $this->id;
     }

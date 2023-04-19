@@ -46,12 +46,12 @@ final class RecipesToCreateDeterminer
             }
 
             return RecipeComponent::new(
-                (string) Uuid::random(),
+                Uuid::random(),
                 $ingredientEntitiesMap[$component->ingredient()->name()],
                 $component->measure(),
             );
         });
 
-        return Recipe::new(SymfonyUuid::v4()->toBinary(), $recipe->externalIdentifier(), $recipe->name(), $components);
+        return Recipe::new(Uuid::random(), $recipe->externalIdentifier(), $recipe->name(), $components);
     }
 }

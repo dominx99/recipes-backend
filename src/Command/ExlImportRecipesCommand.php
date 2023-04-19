@@ -51,7 +51,7 @@ class ExlImportRecipesCommand extends Command
                     $adapter = new DOMElementToRecipeAdapter($secondaryElement);
 
                     $recipe = Recipe::new(
-                        (string) Uuid::random(),
+                        Uuid::random(),
                         $adapter->name(),
                         $adapter->ingredients(),
                     );

@@ -175,10 +175,10 @@ final class ProductFixtures extends Fixture
         foreach ($categories as $categoryName => $products) {
             $productEntities = map(function ($synonyms, $name) {
                 $product = Product::new(
-                    (string) Uuid::random(),
+                    Uuid::random(),
                     $name,
                     new ProductCollection(map(fn (string $synonym) => Product::new(
-                        (string) Uuid::random(),
+                        Uuid::random(),
                         $synonym,
                     ),
                         $synonyms,
@@ -189,7 +189,7 @@ final class ProductFixtures extends Fixture
             }, $products);
 
             $category = ProductCategory::new(
-                (string) Uuid::random(),
+                Uuid::random(),
                 $categoryName,
                 new ProductCollection($productEntities)
             );

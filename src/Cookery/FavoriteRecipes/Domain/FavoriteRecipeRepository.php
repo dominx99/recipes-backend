@@ -6,10 +6,11 @@ namespace App\Cookery\FavoriteRecipes\Domain;
 
 use App\Shared\Domain\AggregateRoot;
 use Doctrine\Common\Collections\Criteria;
+use Ramsey\Uuid\UuidInterface;
 
 interface FavoriteRecipeRepository
 {
-    public function find(string $id): ?FavoriteRecipe;
+    public function find(UuidInterface $id): ?FavoriteRecipe;
 
     public function all(): FavoriteRecipeCollection;
 
