@@ -15,6 +15,8 @@ interface RecipeRepository
 
     public function matching(Criteria $criteria): RecipeCollection;
 
+    public function matchByIngredients(Criteria $criteria): RecipeCollection;
+
     /** @param array<int,string> $ids */
     public function findMany(array $ids): RecipeCollection;
 }

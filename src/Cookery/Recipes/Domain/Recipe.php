@@ -10,14 +10,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use JsonSerializable;
+use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
 #[ORM\Cache(usage: 'READ_ONLY')]
 class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private string $id;
+    #[ORM\Column(type: 'uuid_string', unique: true)]
+    private UuidInterface $id;
 
     #[ORM\Column(name: 'externalIdentifier', type: 'string')]
     private string $externalIdentifier;
@@ -29,7 +30,7 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
     private Collection $components;
 
     private function __construct(
-        string $id,
+        UuidInterface $id,
         string $externalIdentifier,
         string $name,
         RecipeComponentCollection $components
@@ -41,7 +42,7 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
     }
 
     public static function new(
-        string $id,
+        UuidInterface $id,
         string $externalIdentifier,
         string $name,
         Collection $components
@@ -65,7 +66,7 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
     public static function fromRecipe(RecipeInterface $recipe): RecipeInterface
     {
         return self::new(
-            (string) Uuid::random(),
+            Uuid::random(),
             $recipe->externalIdentifier(),
             $recipe->name(),
             $recipe->components()->map(
@@ -74,7 +75,7 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
         );
     }
 
-    public function id(): string
+    public function id(): UuidInterface
     {
         return $this->id;
     }

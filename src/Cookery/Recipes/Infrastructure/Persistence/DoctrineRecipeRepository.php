@@ -8,7 +8,6 @@ use App\Cookery\Recipes\Domain\Recipe;
 use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Shared\Domain\AggregateRoot;
-use App\Shared\Infrastructure\Persistence\DoctrineRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
@@ -46,5 +45,18 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
     public function findMany(array $ids): RecipeCollection
     {
         return new RecipeCollection($this->findBy(['id' => $ids]));
+    }
+
+    public function matchByIngredients(Criteria $criteria): RecipeCollection
+    {
+        return new RecipeCollection(
+            $this->createQueryBuilder('r')
+                ->join('r.components', 'c')
+                ->join('c.ingredient', 'i')
+                ->addCriteria($criteria)
+                ->getQuery()
+                ->enableResultCache(900)
+                ->getResult()
+        );
     }
 }

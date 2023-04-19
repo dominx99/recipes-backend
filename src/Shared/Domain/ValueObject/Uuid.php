@@ -6,38 +6,26 @@ namespace App\Shared\Domain\ValueObject;
 
 use InvalidArgumentException;
 use Ramsey\Uuid\Uuid as RamseyUuid;
+use Ramsey\Uuid\UuidInterface;
 use Stringable;
 
-class Uuid implements Stringable
+class Uuid extends RamseyUuid implements Stringable
 {
-    public function __construct(protected string $value)
+    public static function fromString(string $id): UuidInterface
     {
-        $this->ensureIsValidUuid($value);
+        self::ensureIsValidUuid($id);
+
+        return parent::fromString($id);
     }
 
-    public static function random(): self
+    public static function random(): UuidInterface
     {
-        return new static(RamseyUuid::uuid4()->toString());
+        return parent::uuid4();
     }
 
-    public function value(): string
+    private static function ensureIsValidUuid(string $id): void
     {
-        return $this->value;
-    }
-
-    public function equals(Uuid $other): bool
-    {
-        return $this->value() === $other->value();
-    }
-
-    public function __toString(): string
-    {
-        return $this->value();
-    }
-
-    private function ensureIsValidUuid(string $id): void
-    {
-        if (!RamseyUuid::isValid($id)) {
+        if (!parent::isValid($id)) {
             throw new InvalidArgumentException(sprintf('<%s> does not allow the value <%s>.', static::class, $id));
         }
     }

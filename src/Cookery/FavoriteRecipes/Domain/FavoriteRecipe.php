@@ -8,6 +8,7 @@ use App\Shared\Domain\AggregateRoot;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use JMS\Serializer\Annotation\Exclude;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity()]
@@ -17,12 +18,12 @@ class FavoriteRecipe implements AggregateRoot
 {
     public function __construct(
         #[ORM\Id]
-        #[ORM\Column(type: 'uuid', unique: true)]
-        private string $id,
-        #[ORM\Column(type: 'uuid')]
+        #[ORM\Column(type: 'uuid_string', unique: true)]
+        private UuidInterface $id,
+        #[ORM\Column(type: 'uuid_string')]
         #[Exclude()]
         private string $userId,
-        #[ORM\Column(type: 'uuid')]
+        #[ORM\Column(type: 'uuid_string')]
         private string $recipeId,
     ) {
     }

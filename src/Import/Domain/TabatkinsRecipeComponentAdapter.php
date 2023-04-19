@@ -42,7 +42,7 @@ final class TabatkinsRecipeComponentAdapter implements RecipeComponentInterface
 
     private function evaluateIngredient(string $name): IngredientInterface
     {
-        return Ingredient::new((string) Uuid::random(), $name);
+        return Ingredient::new(Uuid::random(), $name);
     }
 
     private function evaluateMeasure(?string $fraction, ?string $unit): ?Measure

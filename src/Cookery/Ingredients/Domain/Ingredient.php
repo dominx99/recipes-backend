@@ -8,19 +8,20 @@ use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
 class Ingredient implements IngredientInterface, AggregateRoot
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private string $id;
+    #[ORM\Column(type: 'uuid_string', unique: true)]
+    private UuidInterface $id;
 
     #[ORM\Column(name: 'name', type: 'string')]
     private string $name;
 
     private function __construct(
-        ?string $id,
+        ?UuidInterface $id,
         ?string $name,
     ) {
         $this->id = $id;
@@ -28,7 +29,7 @@ class Ingredient implements IngredientInterface, AggregateRoot
     }
 
     public static function new(
-        ?string $id,
+        ?UuidInterface $id,
         ?string $name,
     ): Ingredient {
         if (!$name || strlen($name) < 2) {
@@ -40,10 +41,10 @@ class Ingredient implements IngredientInterface, AggregateRoot
 
     public static function fromIngredient(IngredientInterface $ingredient): Ingredient
     {
-        return new Ingredient((string) Uuid::random(), $ingredient->name());
+        return new Ingredient(Uuid::random(), $ingredient->name());
     }
 
-    public function id(): string
+    public function id(): UuidInterface
     {
         return $this->id;
     }
