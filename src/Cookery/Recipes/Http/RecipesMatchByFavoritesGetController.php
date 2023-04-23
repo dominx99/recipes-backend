@@ -45,7 +45,7 @@ final class RecipesMatchByFavoritesGetController extends ApiController
         $favoriteRecipes = $this->favoriteRecipeRepository->matching($criteria);
 
         $recipeIds = $favoriteRecipes->map(
-            fn (FavoriteRecipe $favoriteRecipe) => uuid_parse($favoriteRecipe->recipeId()),
+            fn (FavoriteRecipe $favoriteRecipe) => $favoriteRecipe->recipeId(),
         )->toArray();
 
         $recipes = $this->recipeRepository->findMany($recipeIds);

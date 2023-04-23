@@ -6,6 +6,7 @@ namespace App\Cookery\FavoriteRecipes\Http;
 
 use App\Cookery\FavoriteRecipes\Application\Create\AddRecipeToFavoritesCommand;
 use App\Shared\Domain\Utils;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
 use App\Shared\Http\Symfony\SuccessResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,8 +36,8 @@ final class FavoriteRecipePostController extends ApiController
         $this->validateRequest($body);
 
         $this->messageBus->dispatch(new AddRecipeToFavoritesCommand(
-            $body['id'],
-            $body['recipe_id'],
+            Uuid::fromString($body['id']),
+            Uuid::fromString($body['recipe_id']),
             $user->getId(),
         ));
 

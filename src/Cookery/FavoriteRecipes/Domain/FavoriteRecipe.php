@@ -24,23 +24,24 @@ class FavoriteRecipe implements AggregateRoot
         private UuidInterface $id,
         #[ORM\Column(type: 'uuid_string')]
         #[Exclude()]
-        private string $userId,
+        private UuidInterface $userId,
         #[ORM\Column(type: 'uuid_string')]
-        private string $recipeId,
+        #[JMS\Type(name: 'string')]
+        private UuidInterface $recipeId,
     ) {
     }
 
-    public function id(): string
+    public function id(): UuidInterface
     {
         return $this->id;
     }
 
-    public function recipeId(): string
+    public function recipeId(): UuidInterface
     {
         return $this->recipeId;
     }
 
-    public function userId(): string
+    public function userId(): UuidInterface
     {
         return $this->userId;
     }
