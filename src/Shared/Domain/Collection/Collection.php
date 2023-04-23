@@ -12,4 +12,12 @@ abstract class Collection extends ArrayCollection
     {
         return new static(array_merge($this->toArray(), $collection->toArray()));
     }
+
+    public function pop(): Collection
+    {
+        $array = $this->toArray();
+        array_pop($array);
+
+        return new static($array);
+    }
 }

@@ -11,10 +11,7 @@ use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\Recipe;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
-use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
-use Closure;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +34,15 @@ final class RecipesMatchByFavoritesGetController extends ApiController
     {
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
-        $perPage = (int) $request->query->get('perPage', 12);
-        $lastId = $request->query->get('lastId', null);
+        $page = (int) $request->query->get('page', 1) ?? 1;
+        $offset = ($page * 24) - 24;
+        $limit = 24;
 
-        $criteria = Criteria::create()->where(Criteria::expr()->eq('userId', $user->getId()));
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('userId', $user->getId()))
+            ->setFirstResult($offset)
+            ->setMaxResults($limit + 1)
+        ;
 
         $favoriteRecipes = $this->favoriteRecipeRepository->matching($criteria);
 
@@ -51,24 +53,15 @@ final class RecipesMatchByFavoritesGetController extends ApiController
         $recipes = $this->recipeRepository->findMany($recipeIds);
 
         $matchingRecipes = new MatchingRecipeCollection($recipes->map(
-            fn (Recipe $recipe) => new MatchingRecipe($recipe, $recipe->components()->count())
+            fn (Recipe $recipe) => new MatchingRecipe($recipe, $recipe->componentsCount())
         )->toArray());
 
-        $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_favorites', [
-            'favorite_recipes' => $favoriteRecipes->toArray(),
-            'perPage' => $perPage,
-            'lastId' => $nextId,
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
-
-        $nextPageUrlCallback = Closure::fromCallable($nextPageUrlCallback);
-
-        $paginator = new MatchingRecipesPaginator(
-            $matchingRecipes,
-            $nextPageUrlCallback,
-            $perPage,
-            is_string($lastId) ? Uuid::fromString($lastId) : null
-        );
-
-        return $this->respond($paginator->paginate());
+        return $this->respond([
+            'data' => $matchingRecipes->pop()->toArray(),
+            'meta' => [
+                'page' => $page,
+                'has_next_page' => $matchingRecipes->count() > $limit,
+            ],
+        ]);
     }
 }

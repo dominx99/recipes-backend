@@ -54,7 +54,7 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
     /**
      * @param array<int,string> $ingredients
      */
-    public function matchByIngredients(array $ingredients): MatchingRecipeCollection
+    public function matchByIngredients(array $ingredients, int $offset = 0, int $limit = 24): MatchingRecipeCollection
     {
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata(Recipe::class, 'r');
@@ -64,26 +64,28 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
             ->getEntityManager()
             ->getConnection()
             ->createQueryBuilder()
-            ->select('r.*, count(rc.id) as matchingRecipeCount')
+            ->select('r.*, count(DISTINCT rc.id) as matchingRecipeCount')
             ->from('recipe_component', 'rc')
             ->join('rc', 'recipe', 'r', 'r.id = rc.recipe_id')
             ->where('rc.ingredient_id IN (
-                SELECT i.id FROM ingredient i
+                SELECT DISTINCT i.id FROM ingredient i
                 WHERE i.name REGEXP :ingredients
             )')
             ->groupBy('rc.recipe_id')
             ->orderBy('(count(rc.id) / r.componentsCount)', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
         ;
 
-        $recipes = $this->getEntityManager()
+        $query = $this
+            ->getEntityManager()
             ->createNativeQuery($query->getSQL(), $rsm)
             ->setParameter('ingredients', implode('|', $ingredients))
-            ->execute()
         ;
 
         return new MatchingRecipeCollection(array_map(
             fn (array $row) => new MatchingRecipe($row[0], $row['matchingRecipeCount']),
-            $recipes
+            $query->execute()
         ));
     }
 }

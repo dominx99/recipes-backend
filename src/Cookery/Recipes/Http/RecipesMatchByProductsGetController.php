@@ -7,11 +7,8 @@ namespace App\Cookery\Recipes\Http;
 use App\Cookery\Products\Domain\ProductRepository;
 use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
-use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
 use App\Shared\Domain\Collection\ArrayCollection;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
-use Closure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,28 +27,21 @@ final class RecipesMatchByProductsGetController extends ApiController
     public function __invoke(Request $request): Response
     {
         $products = new ArrayCollection($request->get('products') ?? []);
-        $perPage = (int) $request->query->get('perPage', 12);
-        $lastId = $request->query->get('lastId', null);
+        $page = (int) $request->query->get('page', 1) ?? 1;
+
+        $offset = ($page * 24) - 24;
+        $limit = 24;
 
         $matchingRecipes = !$products->isEmpty()
-            ? $this->recipeRepository->matchByIngredients($products->toArray())
+            ? $this->recipeRepository->matchByIngredients($products->toArray(), $offset, $limit + 1)
             : new MatchingRecipeCollection();
 
-        $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_products', [
-            'products' => $products->toArray(),
-            'perPage' => $perPage,
-            'lastId' => $nextId,
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
-
-        $nextPageUrlCallback = Closure::fromCallable($nextPageUrlCallback);
-
-        $paginator = new MatchingRecipesPaginator(
-            $matchingRecipes,
-            $nextPageUrlCallback,
-            $perPage,
-            is_string($lastId) ? Uuid::fromString($lastId) : null,
-        );
-
-        return $this->respond($paginator->paginate());
+        return $this->respond([
+            'data' => $matchingRecipes->pop()->toArray(),
+            'meta' => [
+                'page' => $page,
+                'has_next_page' => $matchingRecipes->count() > $limit,
+            ],
+        ]);
     }
 }
