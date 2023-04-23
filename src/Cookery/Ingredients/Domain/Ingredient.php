@@ -8,6 +8,7 @@ use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
@@ -15,6 +16,7 @@ class Ingredient implements IngredientInterface, AggregateRoot
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid_string', unique: true)]
+    #[JMS\Type(name: 'string')]
     private UuidInterface $id;
 
     #[ORM\Column(name: 'name', type: 'string')]

@@ -8,6 +8,7 @@ use App\Cookery\Products\Domain\Product;
 use App\Shared\Domain\AggregateRoot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
@@ -15,6 +16,7 @@ class ProductCategory implements AggregateRoot
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid_string', unique: true)]
+    #[JMS\Type(name: 'string')]
     private UuidInterface $id;
 
     #[ORM\Column(name: 'name', type: 'string', length: 255)]

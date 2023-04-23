@@ -9,15 +9,18 @@ use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use JMS\Serializer\Annotation as JMS;
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
+#[ORM\Table(name: 'recipe')]
 #[ORM\Cache(usage: 'READ_ONLY')]
 class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid_string', unique: true)]
+    #[JMS\Type(name: 'string')]
     private UuidInterface $id;
 
     #[ORM\Column(name: 'externalIdentifier', type: 'string')]
@@ -29,18 +32,26 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
     #[OneToMany(targetEntity: RecipeComponent::class, mappedBy: 'recipe', cascade: ['persist', 'remove'], fetch: 'EAGER')]
     private Collection $components;
 
+    #[ORM\Column(name: 'componentsCount', type: 'integer')]
+    private int $componentsCount;
+
     private function __construct(
         UuidInterface $id,
         string $externalIdentifier,
         string $name,
-        RecipeComponentCollection $components
+        RecipeComponentCollection $components,
+        int $componentsCount
     ) {
         $this->id = $id;
         $this->externalIdentifier = $externalIdentifier;
         $this->name = $name;
         $this->components = $components;
+        $this->componentsCount = $componentsCount;
     }
 
+    /**
+     * @param Collection<array-key,RecipeComponent> $components
+     */
     public static function new(
         UuidInterface $id,
         string $externalIdentifier,
@@ -51,7 +62,8 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
             $id,
             $externalIdentifier,
             $name,
-            $components
+            $components,
+            $components->count()
         );
 
         $components->forAll(function ($key, RecipeComponent $recipeComponent) use ($recipe) {
@@ -101,10 +113,15 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
         return $this->components;
     }
 
+    public function componentsCount(): int
+    {
+        return $this->componentsCount;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [
-            'id' => $this->id(),
+            'id' => 'abc',
             'name' => $this->name(),
         ];
     }

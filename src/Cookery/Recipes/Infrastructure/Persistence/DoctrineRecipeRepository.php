@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Cookery\Recipes\Infrastructure\Persistence;
 
+use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\Recipe;
 use App\Cookery\Recipes\Domain\RecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
+use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
 use App\Shared\Domain\AggregateRoot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 final class DoctrineRecipeRepository extends ServiceEntityRepository implements RecipeRepository
@@ -21,11 +24,12 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
 
     public function all(): RecipeCollection
     {
-        return new RecipeCollection($this->createQueryBuilder('r')
-            ->getQuery()
-            ->enableResultCache(900)
-            ->setCacheable(true)
-            ->getResult()
+        return new RecipeCollection(
+            $this->createQueryBuilder('r')
+                ->getQuery()
+                ->enableResultCache(900)
+                ->setCacheable(true)
+                ->getResult()
         );
     }
 
@@ -47,16 +51,37 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
         return new RecipeCollection($this->findBy(['id' => $ids]));
     }
 
-    public function matchByIngredients(Criteria $criteria): RecipeCollection
+    /**
+     * @param array<int,string> $ingredients
+     */
+    public function matchByIngredients(array $ingredients): MatchingRecipeCollection
     {
-        return new RecipeCollection(
-            $this->createQueryBuilder('r')
-                ->join('r.components', 'c')
-                ->join('c.ingredient', 'i')
-                ->addCriteria($criteria)
-                ->getQuery()
-                ->enableResultCache(900)
-                ->getResult()
-        );
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(Recipe::class, 'r');
+        $rsm->addScalarResult('matchingRecipeCount', 'matchingRecipeCount');
+
+        $query = $this
+            ->getEntityManager()
+            ->getConnection()
+            ->createQueryBuilder()
+            ->select('r.*, count(rc.id) as matchingRecipeCount')
+            ->from('recipe_component', 'rc')
+            ->join('rc', 'recipe', 'r', 'r.id = rc.recipe_id')
+            ->where('rc.ingredient_id IN (
+                SELECT i.id FROM ingredient i
+                WHERE i.name REGEXP :ingredients
+            )')
+            ->groupBy('rc.recipe_id');
+
+        $recipes = $this->getEntityManager()
+            ->createNativeQuery($query->getSQL(), $rsm)
+            ->setParameter('ingredients', implode('|', $ingredients))
+            ->execute()
+        ;
+
+        return new MatchingRecipeCollection(array_map(
+            fn (array $row) => new MatchingRecipe($row[0], $row['matchingRecipeCount']),
+            $recipes
+        ));
     }
 }

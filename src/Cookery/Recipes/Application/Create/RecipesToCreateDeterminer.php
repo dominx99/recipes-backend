@@ -13,7 +13,6 @@ use App\Cookery\Recipes\Domain\RecipeComponentInterface;
 use App\Cookery\Recipes\Domain\RecipeInterface;
 use App\Shared\Domain\ValueObject\Uuid;
 use InvalidArgumentException;
-use Symfony\Component\Uid\Uuid as SymfonyUuid;
 
 final class RecipesToCreateDeterminer
 {

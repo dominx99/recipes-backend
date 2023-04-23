@@ -5,18 +5,12 @@ declare(strict_types=1);
 namespace App\Cookery\Recipes\Http;
 
 use App\Cookery\Products\Domain\ProductRepository;
-use App\Cookery\Recipes\Application\Match\CompleteRecipesMatcher;
-use App\Cookery\Recipes\Application\Match\RecipesMatcherComposite;
+use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
 use App\Shared\Domain\Collection\ArrayCollection;
 use App\Shared\Http\Symfony\ApiController;
 use Closure;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Expr\CompositeExpression;
-
-use function Lambdish\Phunctional\apply;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,26 +32,10 @@ final class RecipesMatchByProductsGetController extends ApiController
         $perPage = (int) $request->query->get('perPage', 12);
         $lastId = $request->query->get('lastId', null);
 
-        $matcher = new RecipesMatcherComposite(
-            new CompleteRecipesMatcher(),
-        );
-
-        $expressions = [];
-
-        foreach ($products as $product) {
-            $expressions[] = Criteria::expr()->contains('i.name', $product);
-        }
-
-        $compositeExpression = new CompositeExpression(
-            CompositeExpression::TYPE_OR,
-            $expressions
-        );
-
-        $criteria = new Criteria($compositeExpression);
-
-        $recipes = $this->recipeRepository->matchByIngredients($criteria);
-
-        $collection = apply($matcher, [$recipes, $products]);
+        $matchingRecipes = !$products->isEmpty()
+            ? $this->recipeRepository->matchByIngredients($products->toArray())
+            : new MatchingRecipeCollection()
+        ;
 
         $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_products', [
             'products' => $products->toArray(),
@@ -67,7 +45,7 @@ final class RecipesMatchByProductsGetController extends ApiController
 
         $nextPageUrlCallback = Closure::fromCallable($nextPageUrlCallback);
 
-        $paginator = new MatchingRecipesPaginator($collection, $nextPageUrlCallback, $perPage, $lastId);
+        $paginator = new MatchingRecipesPaginator($matchingRecipes, $nextPageUrlCallback, $perPage, $lastId);
 
         return $this->respond($paginator->paginate());
     }
