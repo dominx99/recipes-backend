@@ -6,6 +6,7 @@ namespace App\Auth\Application\Create;
 
 use App\Auth\Domain\User;
 use App\Auth\Infrastructure\Persistence\UserRepository;
+use App\Shared\Domain\ValueObject\Uuid;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UserCreator
@@ -16,10 +17,14 @@ final class UserCreator
     ) {
     }
 
-    public function __invoke(User $user)
+    public function __invoke(User $userForm): void
     {
-        $user->setPassword($this->hasher->hashPassword($user, $user->getPlainPassword()));
-        $user->setRoles(['ROLE_USER']);
+        $user = new User(
+            Uuid::random(),
+            $userForm->getEmail(),
+            $this->hasher->hashPassword($userForm, $userForm->getPlainPassword()),
+            ['ROLE_USER']
+        );
 
         $this->repository->save($user);
     }

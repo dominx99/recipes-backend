@@ -39,6 +39,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Exclude()]
     private array $roles = [];
 
+    /**
+     * @param array<int,string> $roles
+     */
+    public function __construct(
+        UuidInterface $id,
+        string $email,
+        string $password,
+        array $roles = [],
+    ) {
+        $this->id = $id;
+        $this->email = $email;
+        $this->password = $password;
+        $this->roles = $roles;
+    }
+
     public function getId(): ?UuidInterface
     {
         return $this->id;
@@ -97,7 +112,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setRoles(array $roles): self
+    /**
+     * @param array<int,string> $roles
+     */
+    public function setRoles(array $roles): User
     {
         $this->roles = $roles;
 
