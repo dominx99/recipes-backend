@@ -10,13 +10,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use JMS\Serializer\Annotation as JMS;
-use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
 #[ORM\Table(name: 'recipe')]
 #[ORM\Cache(usage: 'READ_ONLY')]
-class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
+class Recipe implements RecipeInterface, AggregateRoot
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid_string', unique: true)]
@@ -116,13 +115,5 @@ class Recipe implements RecipeInterface, AggregateRoot, JsonSerializable
     public function componentsCount(): int
     {
         return $this->componentsCount;
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'id' => 'abc',
-            'name' => $this->name(),
-        ];
     }
 }
