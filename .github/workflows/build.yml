@@ -50,6 +50,10 @@ jobs:
             secret/data/recipes/backend JWT_SECRET_KEY | JWT_SECRET_KEY ;
             secret/data/recipes/backend JWT_PUBLIC_KEY | JWT_PUBLIC_KEY ;
             secret/data/recipes/backend JWT_PASSPHRASE | JWT_PASSPHRASE ;
+            secret/data/recipes/backend REDIS_HOST | REDIS_HOST ;
+            secret/data/recipes/backend REDIS_PORT | REDIS_PORT ;
+            secret/data/recipes/backend REDIS_PREFIX | REDIS_PREFIX ;
+            secret/data/recipes/backend REDIS_DATABASE_NUMBER | REDIS_DATABASE_NUMBER ;
 
       - name: Copy application environment to .env file
         run: 'envsubst < .env.tmpl > .env'
