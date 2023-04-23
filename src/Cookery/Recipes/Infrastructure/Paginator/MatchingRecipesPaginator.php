@@ -8,6 +8,7 @@ use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
 use App\Shared\Domain\ValueObject\PaginationResult;
 use Closure;
+use Ramsey\Uuid\UuidInterface;
 
 final class MatchingRecipesPaginator
 {
@@ -17,7 +18,7 @@ final class MatchingRecipesPaginator
         private MatchingRecipeCollection $collection,
         private ?Closure $nextPageUrlCallback,
         private int $perPage = self::ITEMS_PER_PAGE,
-        private ?string $lastId = null,
+        private ?UuidInterface $lastId = null,
     ) {
     }
 
@@ -28,8 +29,8 @@ final class MatchingRecipesPaginator
         }
 
         $offset = $this->collection
-            ->map(fn (MatchingRecipe $recipe) => $recipe->recipe()->id())
-            ->indexOf($this->lastId);
+            ->map(fn (MatchingRecipe $recipe) => $recipe->recipe()->id()->toString())
+            ->indexOf($this->lastId->toString());
 
         if (false === $offset) {
             return PaginationResult::empty();

@@ -12,6 +12,7 @@ use App\Cookery\Recipes\Domain\Recipe;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Domain\ValueObject\MatchingRecipe;
 use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
@@ -61,7 +62,12 @@ final class RecipesMatchByFavoritesGetController extends ApiController
 
         $nextPageUrlCallback = Closure::fromCallable($nextPageUrlCallback);
 
-        $paginator = new MatchingRecipesPaginator($matchingRecipes, $nextPageUrlCallback, $perPage, $lastId);
+        $paginator = new MatchingRecipesPaginator(
+            $matchingRecipes,
+            $nextPageUrlCallback,
+            $perPage,
+            is_string($lastId) ? Uuid::fromString($lastId) : null
+        );
 
         return $this->respond($paginator->paginate());
     }

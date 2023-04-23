@@ -9,6 +9,7 @@ use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Cookery\Recipes\Infrastructure\Paginator\MatchingRecipesPaginator;
 use App\Shared\Domain\Collection\ArrayCollection;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
 use Closure;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +35,7 @@ final class RecipesMatchByProductsGetController extends ApiController
 
         $matchingRecipes = !$products->isEmpty()
             ? $this->recipeRepository->matchByIngredients($products->toArray())
-            : new MatchingRecipeCollection()
-        ;
+            : new MatchingRecipeCollection();
 
         $nextPageUrlCallback = fn (string $nextId) => $this->urlGenerator->generate('api_v1_recipes_match_by_products', [
             'products' => $products->toArray(),
@@ -45,7 +45,12 @@ final class RecipesMatchByProductsGetController extends ApiController
 
         $nextPageUrlCallback = Closure::fromCallable($nextPageUrlCallback);
 
-        $paginator = new MatchingRecipesPaginator($matchingRecipes, $nextPageUrlCallback, $perPage, $lastId);
+        $paginator = new MatchingRecipesPaginator(
+            $matchingRecipes,
+            $nextPageUrlCallback,
+            $perPage,
+            is_string($lastId) ? Uuid::fromString($lastId) : null,
+        );
 
         return $this->respond($paginator->paginate());
     }
