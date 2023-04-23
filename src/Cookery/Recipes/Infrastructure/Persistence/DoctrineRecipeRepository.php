@@ -71,7 +71,9 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
                 SELECT i.id FROM ingredient i
                 WHERE i.name REGEXP :ingredients
             )')
-            ->groupBy('rc.recipe_id');
+            ->groupBy('rc.recipe_id')
+            ->orderBy('(count(rc.id) / r.componentsCount)', 'DESC')
+        ;
 
         $recipes = $this->getEntityManager()
             ->createNativeQuery($query->getSQL(), $rsm)
