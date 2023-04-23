@@ -56,7 +56,7 @@ class ImportProductsCommand extends Command
                 ), $categoryToAdd['products']));
 
             $category = new ProductCategory(
-                Uuid::random()->toString(),
+                Uuid::random(),
                 $categoryToAdd['name'],
                 $products
             );
