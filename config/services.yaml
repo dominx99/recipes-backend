@@ -21,6 +21,6 @@ services:
     factory: ['App\Shared\Infrastructure\Cache\Redis\RedisProviderFactory', 'create']
     arguments:
       $host: '%env(REDIS_HOST)%'
-      $port: '%env(REDIS_PORT)%'
-      $databaseNumber: '%env(REDIS_DATABASE_NUMBER)%'
+      $port: '%env(int:REDIS_PORT)%'
+      $databaseNumber: '%env(int:REDIS_DATABASE_NUMBER)%'
       $prefix: '%env(REDIS_PREFIX)%'
