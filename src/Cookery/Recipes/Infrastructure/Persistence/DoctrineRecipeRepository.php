@@ -24,13 +24,7 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
 
     public function all(): RecipeCollection
     {
-        return new RecipeCollection(
-            $this->createQueryBuilder('r')
-                ->getQuery()
-                ->enableResultCache(900)
-                ->setCacheable(true)
-                ->getResult()
-        );
+        return new RecipeCollection($this->findAll());
     }
 
     public function save(AggregateRoot $recipe): void
