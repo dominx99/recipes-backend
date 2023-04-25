@@ -14,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity()]
 #[ORM\Table(name: 'recipe')]
-#[ORM\Cache('READ_ONLY')]
+#[ORM\Cache('NONSTRICT_READ_WRITE')]
 class Recipe implements RecipeInterface, AggregateRoot
 {
     #[ORM\Id]
