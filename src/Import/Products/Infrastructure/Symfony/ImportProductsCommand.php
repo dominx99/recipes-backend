@@ -47,13 +47,13 @@ class ImportProductsCommand extends Command
 
         foreach ($categoriesToAdd as $categoryToAdd) {
             $products = new ProductCollection(array_map(fn (array $productToAdd) => Product::new(
+                Uuid::random(),
+                $productToAdd['name'],
+                new ProductCollection(map(fn (array $synonym) => Product::new(
                     Uuid::random(),
-                    $productToAdd['name'],
-                    new ProductCollection(map(fn (array $synonym) => Product::new(
-                        Uuid::random(),
-                        $synonym['name'],
-                    ), $productToAdd['synonyms']))
-                ), $categoryToAdd['products']));
+                    $synonym['name'],
+                ), $productToAdd['synonyms']))
+            ), $categoryToAdd['products']));
 
             $category = new ProductCategory(
                 Uuid::random(),
