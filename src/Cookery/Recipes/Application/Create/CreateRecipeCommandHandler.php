@@ -20,6 +20,7 @@ final class CreateRecipeCommandHandler implements MessageHandlerInterface
             id: $command->id,
             name: $command->name,
             components: new RecipeComponentCollection(),
+            ownerId: $command->ownerId,
         );
 
         $this->creator->__invoke($recipe);

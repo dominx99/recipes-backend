@@ -23,10 +23,10 @@ class Recipe implements RecipeInterface, AggregateRoot
 
     #[ORM\Column(type: 'uuid_string', nullable: true)]
     #[JMS\Type(name: 'string')]
-    private UuidInterface $ownerId;
+    private ?UuidInterface $ownerId = null;
 
     #[ORM\Column(name: 'externalIdentifier', type: 'string', nullable: true)]
-    private ?string $externalIdentifier;
+    private ?string $externalIdentifier = null;
 
     #[ORM\Column(name: 'name', type: 'string')]
     private string $name;
@@ -43,12 +43,14 @@ class Recipe implements RecipeInterface, AggregateRoot
         RecipeComponentCollection $components,
         int $componentsCount,
         ?string $externalIdentifier = null,
+        ?UuidInterface $ownerId = null,
     ) {
         $this->id = $id;
         $this->externalIdentifier = $externalIdentifier;
         $this->name = $name;
         $this->components = $components;
         $this->componentsCount = $componentsCount;
+        $this->ownerId = $ownerId;
     }
 
     /**
@@ -59,6 +61,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         string $name,
         Collection $components,
         ?string $externalIdentifier = null,
+        ?UuidInterface $ownerId = null,
     ): RecipeInterface {
         $recipe = new Recipe(
             $id,
@@ -66,6 +69,7 @@ class Recipe implements RecipeInterface, AggregateRoot
             $components,
             $components->count(),
             $externalIdentifier,
+            $ownerId,
         );
 
         $components->forAll(function ($key, RecipeComponent $recipeComponent) use ($recipe) {
@@ -118,5 +122,10 @@ class Recipe implements RecipeInterface, AggregateRoot
     public function componentsCount(): int
     {
         return $this->componentsCount;
+    }
+
+    public function ownerId(): UuidInterface
+    {
+        return $this->ownerId;
     }
 }

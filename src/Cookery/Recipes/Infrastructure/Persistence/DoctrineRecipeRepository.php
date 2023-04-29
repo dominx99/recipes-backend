@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Cookery\Recipes\Infrastructure\Persistence;
 
+use App\Auth\Domain\User;
 use App\Cookery\Recipes\Domain\MatchingRecipeCollection;
 use App\Cookery\Recipes\Domain\Recipe;
 use App\Cookery\Recipes\Domain\RecipeCollection;
@@ -91,5 +92,15 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
             fn (array $row) => new MatchingRecipe($row[0], $row['matchingRecipeCount']),
             $query->execute()
         ));
+    }
+
+    public function matchByOwner(User $user, int $offset, int $limit): RecipeCollection
+    {
+        return new RecipeCollection($this->createQueryBuilder('r')
+            ->where('r.ownerId = :ownerId')
+            ->setParameter('ownerId', $user->getId())
+            ->getQuery()
+            ->getResult()
+        );
     }
 }
