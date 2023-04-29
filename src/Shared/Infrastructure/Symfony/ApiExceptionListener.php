@@ -41,7 +41,7 @@ final class ApiExceptionListener
     {
         return $this->isValidationError($error)
             ? ['errors' => $this->getValidationError($error)->errors()]
-            : ['message' => $error->getMessage()];
+            : ['message' => (string) $error];
     }
 
     private function exceptionCodeFor(Throwable $error): string

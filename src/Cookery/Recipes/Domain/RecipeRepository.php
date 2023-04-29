@@ -6,6 +6,7 @@ namespace App\Cookery\Recipes\Domain;
 
 use App\Shared\Domain\AggregateRoot;
 use Doctrine\Common\Collections\Criteria;
+use Ramsey\Uuid\UuidInterface;
 
 interface RecipeRepository
 {
@@ -22,4 +23,6 @@ interface RecipeRepository
 
     /** @param array<int,string> $ids */
     public function findMany(array $ids): RecipeCollection;
+
+    public function findOne(UuidInterface $id): ?Recipe;
 }

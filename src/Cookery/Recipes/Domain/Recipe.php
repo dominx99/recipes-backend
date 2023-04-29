@@ -21,8 +21,12 @@ class Recipe implements RecipeInterface, AggregateRoot
     #[JMS\Type(name: 'string')]
     private UuidInterface $id;
 
-    #[ORM\Column(name: 'externalIdentifier', type: 'string')]
-    private string $externalIdentifier;
+    #[ORM\Column(type: 'uuid_string', nullable: true)]
+    #[JMS\Type(name: 'string')]
+    private UuidInterface $ownerId;
+
+    #[ORM\Column(name: 'externalIdentifier', type: 'string', nullable: true)]
+    private ?string $externalIdentifier;
 
     #[ORM\Column(name: 'name', type: 'string')]
     private string $name;
@@ -35,10 +39,10 @@ class Recipe implements RecipeInterface, AggregateRoot
 
     private function __construct(
         UuidInterface $id,
-        string $externalIdentifier,
         string $name,
         RecipeComponentCollection $components,
-        int $componentsCount
+        int $componentsCount,
+        ?string $externalIdentifier = null,
     ) {
         $this->id = $id;
         $this->externalIdentifier = $externalIdentifier;
@@ -52,16 +56,16 @@ class Recipe implements RecipeInterface, AggregateRoot
      */
     public static function new(
         UuidInterface $id,
-        string $externalIdentifier,
         string $name,
-        Collection $components
+        Collection $components,
+        ?string $externalIdentifier = null,
     ): RecipeInterface {
         $recipe = new Recipe(
             $id,
-            $externalIdentifier,
             $name,
             $components,
-            $components->count()
+            $components->count(),
+            $externalIdentifier,
         );
 
         $components->forAll(function ($key, RecipeComponent $recipeComponent) use ($recipe) {
@@ -77,11 +81,11 @@ class Recipe implements RecipeInterface, AggregateRoot
     {
         return self::new(
             Uuid::random(),
-            $recipe->externalIdentifier(),
             $recipe->name(),
             $recipe->components()->map(
                 fn (RecipeComponentInterface $component) => RecipeComponent::fromComponent($component),
-            )
+            ),
+            $recipe->externalIdentifier(),
         );
     }
 

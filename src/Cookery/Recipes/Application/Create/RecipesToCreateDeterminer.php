@@ -31,8 +31,7 @@ final class RecipesToCreateDeterminer
         return $newRecipes->filter(fn (RecipeInterface $newRecipe) => !$existingRecipes->exists(
             fn ($key, RecipeInterface $existingRecipe) => $newRecipe->externalIdentifier() === $existingRecipe->externalIdentifier()
         ))
-            ->map(fn (RecipeInterface $recipe) => $this->replaceComponentsIngredients($recipe, $ingredientEntitiesMap))
-        ;
+            ->map(fn (RecipeInterface $recipe) => $this->replaceComponentsIngredients($recipe, $ingredientEntitiesMap));
     }
 
     private function replaceComponentsIngredients(
@@ -51,6 +50,11 @@ final class RecipesToCreateDeterminer
             );
         });
 
-        return Recipe::new(Uuid::random(), $recipe->externalIdentifier(), $recipe->name(), $components);
+        return Recipe::new(
+            Uuid::random(),
+            $recipe->name(),
+            $components,
+            $recipe->externalIdentifier(),
+        );
     }
 }

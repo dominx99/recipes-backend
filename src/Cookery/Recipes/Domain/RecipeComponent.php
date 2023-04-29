@@ -38,7 +38,7 @@ class RecipeComponent implements RecipeComponentInterface
         $this->measure = $measure;
     }
 
-    public static function new(UuidInterface $id, IngredientInterface $ingredient, ?Measure $measure): RecipeComponentInterface
+    public static function new(UuidInterface $id, IngredientInterface $ingredient, ?Measure $measure): RecipeComponent
     {
         return new RecipeComponent($id, $ingredient, $measure);
     }

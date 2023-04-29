@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Cookery\Recipes\Application\Create;
+
+use App\Cookery\Recipes\Domain\Recipe;
+use App\Cookery\Recipes\Domain\RecipeComponentCollection;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+
+final class CreateRecipeCommandHandler implements MessageHandlerInterface
+{
+    public function __construct(private readonly RecipeCreator $creator)
+    {
+    }
+
+    public function __invoke(CreateRecipeCommand $command): void
+    {
+        $recipe = Recipe::new(
+            id: $command->id,
+            name: $command->name,
+            components: new RecipeComponentCollection(),
+        );
+
+        $this->creator->__invoke($recipe);
+    }
+}

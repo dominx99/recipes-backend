@@ -14,6 +14,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 final class DoctrineRecipeRepository extends ServiceEntityRepository implements RecipeRepository
 {
@@ -27,9 +28,13 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
         return new RecipeCollection($this->findAll());
     }
 
-    public function save(AggregateRoot $recipe): void
+    public function save(AggregateRoot $recipe, bool $flush = true): void
     {
         $this->getEntityManager()->persist($recipe);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function matching(Criteria $criteria): RecipeCollection
@@ -43,6 +48,11 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
     public function findMany(array $ids): RecipeCollection
     {
         return new RecipeCollection($this->findBy(['id' => $ids]));
+    }
+
+    public function findOne(UuidInterface $id): ?Recipe
+    {
+        return $this->find($id);
     }
 
     /**
