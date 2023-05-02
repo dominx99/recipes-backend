@@ -7,6 +7,7 @@ namespace App\Cookery\Recipes\Http;
 use App\Auth\Domain\User;
 use App\Cookery\RecipeComponents\Application\Create\CreateRecipeComponentCommand;
 use App\Cookery\Recipes\Application\Create\CreateRecipeCommand;
+use App\Cookery\Recipes\Application\Update\UpdateRecipeComponentsCountCommand;
 use App\Shared\Domain\Utils;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
@@ -57,6 +58,8 @@ final class RecipePostController extends ApiController
                 )
             );
         }
+
+        $this->messageBus->dispatch(new UpdateRecipeComponentsCountCommand($id, count($body['components'] ?? [])));
 
         return new JsonResponse([
             'id' => $id->toString(),

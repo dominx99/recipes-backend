@@ -124,6 +124,11 @@ class Recipe implements RecipeInterface, AggregateRoot
         return $this->componentsCount;
     }
 
+    public function setComponentsCount(int $componentsCount): void
+    {
+        $this->componentsCount = $componentsCount;
+    }
+
     public function ownerId(): UuidInterface
     {
         return $this->ownerId;
