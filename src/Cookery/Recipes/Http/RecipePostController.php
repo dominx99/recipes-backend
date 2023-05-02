@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Cookery\Recipes\Http;
 
 use App\Auth\Domain\User;
+use App\Cookery\RecipeComponents\Application\Create\CreateRecipeComponentCommand;
 use App\Cookery\Recipes\Application\Create\CreateRecipeCommand;
 use App\Shared\Domain\Utils;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -44,6 +45,18 @@ final class RecipePostController extends ApiController
                 $user->getId(),
             )
         );
+
+        foreach (($body['components'] ?? []) as $component) {
+            $this->messageBus->dispatch(
+                new CreateRecipeComponentCommand(
+                    Uuid::random(),
+                    $id,
+                    $component['name'],
+                    $component['quantity'],
+                    $component['unit'],
+                )
+            );
+        }
 
         return new JsonResponse([
             'id' => $id->toString(),
