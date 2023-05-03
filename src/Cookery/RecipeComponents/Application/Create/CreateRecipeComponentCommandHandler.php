@@ -35,7 +35,7 @@ final class CreateRecipeComponentCommandHandler implements MessageHandlerInterfa
         $recipe = $this->recipeRepository->findOne($command->recipeId);
         $measure = new Measure(
             Unit::from($command->unit),
-            (new Fraction((string) $command->quantity))->toNumber(),
+            (new Fraction($command->quantity))->toNumber(),
             (string) round((float) $command->quantity, 2),
         );
 
