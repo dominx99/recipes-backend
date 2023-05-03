@@ -16,6 +16,10 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.exception, method: onException }
 
+  App\Shared\Http\Symfony\RequestResolver:
+    tags:
+      - { name: controller.argument_value_resolver, priority: 50 }
+
   app.redis_cache_provider:
     class: Doctrine\Common\Cache\RedisCache
     factory: ['App\Shared\Infrastructure\Cache\Redis\RedisProviderFactory', 'create']

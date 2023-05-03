@@ -12,7 +12,7 @@ final class CreateRecipeComponentCommand
         public readonly UuidInterface $id,
         public readonly UuidInterface $recipeId,
         public readonly string $name,
-        public readonly string $quantity,
+        public readonly float $quantity,
         public readonly string $unit,
     ) {
     }
