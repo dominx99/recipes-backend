@@ -36,11 +36,18 @@ final class RecipesMatchByProductsGetController extends ApiController
             ? $this->recipeRepository->matchByIngredients($products->toArray(), $offset, $limit + 1)
             : new MatchingRecipeCollection();
 
+        $hasNextPage = false;
+
+        if ($matchingRecipes->count() > $limit) {
+            $matchingRecipes = $matchingRecipes->pop();
+            $hasNextPage = true;
+        }
+
         return $this->respond([
-            'data' => $matchingRecipes->pop()->toArray(),
+            'data' => $matchingRecipes->toArray(),
             'meta' => [
                 'page' => $page,
-                'has_next_page' => $matchingRecipes->count() > $limit,
+                'has_next_page' => $hasNextPage,
             ],
         ]);
     }
