@@ -24,8 +24,8 @@ final class MyRecipesGetController extends ApiController
     public function __invoke(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
-        $offset = $request->query->getInt('offset', 1) ?? 1;
-        $limit = $request->query->getInt('limit', 24) ?? 24;
+        $offset = $page > 1 ? ($page - 1) * 24 : 0;
+        $limit = 24;
         $user = $this->tokenStorage->getToken()?->getUser();
         $hasNextPage = false;
 
