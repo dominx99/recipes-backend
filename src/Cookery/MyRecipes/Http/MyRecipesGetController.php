@@ -35,7 +35,7 @@ final class MyRecipesGetController extends ApiController
 
         $recipes = $this->recipeRepository->matchByOwner($user, $offset, $limit + 1);
 
-        if ($recipes->count() > ($limit + 1)) {
+        if ($recipes->count() > $limit) {
             $hasNextPage = true;
             $recipes = $recipes->pop();
         }

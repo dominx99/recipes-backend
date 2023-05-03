@@ -99,6 +99,8 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
         return new RecipeCollection($this->createQueryBuilder('r')
             ->where('r.ownerId = :ownerId')
             ->setParameter('ownerId', $user->getId())
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         );
