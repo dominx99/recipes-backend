@@ -59,7 +59,7 @@ final class RecipePostController extends ApiController
             );
         }
 
-        $this->messageBus->dispatch(new UpdateRecipeComponentsCountCommand($id, count($body['components'] ?? [])));
+        $this->messageBus->dispatch(new UpdateRecipeComponentsCountCommand($id, count($request->components)));
 
         return new JsonResponse([
             'id' => $id->toString(),
