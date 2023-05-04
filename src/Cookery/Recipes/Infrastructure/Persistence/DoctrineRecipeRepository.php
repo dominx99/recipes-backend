@@ -105,4 +105,12 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
             ->getResult()
         );
     }
+
+    public function remove(Recipe $recipe, bool $flush = true): void
+    {
+        $this->getEntityManager()->remove($recipe);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 }

@@ -8,7 +8,6 @@ use App\Cookery\FavoriteRecipes\Application\Remove\RemoveRecipeFromFavoritesComm
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
 use App\Shared\Http\Symfony\SuccessResponse;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;

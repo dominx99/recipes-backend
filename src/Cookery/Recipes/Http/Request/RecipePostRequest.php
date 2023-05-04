@@ -6,7 +6,6 @@ namespace App\Cookery\Recipes\Http\Request;
 
 use App\Shared\Domain\Enum\Unit;
 use App\Shared\Http\Symfony\AbstractRequest;
-use PhpParser\Node\Expr\Assign;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class RecipePostRequest extends AbstractRequest
@@ -19,7 +18,7 @@ final class RecipePostRequest extends AbstractRequest
         return [
             new Assert\Collection([
                 'name' => new Assert\Required([
-                    new Assert\NotBlank()
+                    new Assert\NotBlank(),
                 ]),
                 'components' => new Assert\Required([
                     new Assert\NotBlank(),
@@ -27,7 +26,7 @@ final class RecipePostRequest extends AbstractRequest
                     new Assert\All(
                         new Assert\Collection([
                             'name' => new Assert\Required([
-                                new Assert\NotBlank()
+                                new Assert\NotBlank(),
                             ]),
                             'quantity' => new Assert\Required([
                                 new Assert\NotBlank(),

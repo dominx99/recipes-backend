@@ -28,4 +28,6 @@ interface RecipeRepository
     public function findMany(array $ids): RecipeCollection;
 
     public function findOne(UuidInterface $id): ?Recipe;
+
+    public function remove(Recipe $recipe): void;
 }
