@@ -23,7 +23,7 @@ final class RecipesMatchByProductsGetController extends ApiController
     ) {
     }
 
-    #[Route('api/v1/recipes/match-by-products', name: 'api_v1_recipes_match_by_products', methods: ['GET'])]
+    #[Route('api/v1/recipes/match-by-products', name: 'api_v1_recipes_match_by_products', methods: ['GET'], priority: 100)]
     public function __invoke(Request $request): Response
     {
         $products = new ArrayCollection($request->get('products') ?? []);

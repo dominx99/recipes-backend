@@ -29,7 +29,7 @@ final class RecipesMatchByFavoritesGetController extends ApiController
     ) {
     }
 
-    #[Route('/api/v1/recipes/match-by-favorites', name: 'api_v1_recipes_match_by_favorites', methods: ['GET'])]
+    #[Route('/api/v1/recipes/match-by-favorites', name: 'api_v1_recipes_match_by_favorites', methods: ['GET'], priority: 100)]
     public function __invoke(Request $request): Response
     {
         /** @var User $user */
