@@ -108,6 +108,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         return $this->name;
     }
 
+    /** @var RecipeComponentCollection<int, RecipeComponent> */
     public function components(): RecipeComponentCollection
     {
         if ($this->components instanceof RecipeComponentCollection) {
@@ -132,5 +133,13 @@ class Recipe implements RecipeInterface, AggregateRoot
     public function ownerId(): UuidInterface
     {
         return $this->ownerId;
+    }
+
+    public function update(
+        string $name,
+        RecipeComponentCollection $components,
+    ): void {
+        $this->name = $name;
+        $this->components = $components;
     }
 }

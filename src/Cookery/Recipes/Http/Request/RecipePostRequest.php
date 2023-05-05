@@ -17,6 +17,10 @@ final class RecipePostRequest extends AbstractRequest
     {
         return [
             new Assert\Collection([
+                'id' => new Assert\Optional([
+                    new Assert\NotBlank(),
+                    new Assert\Uuid(),
+                ]),
                 'name' => new Assert\Required([
                     new Assert\NotBlank(),
                 ]),

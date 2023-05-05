@@ -8,6 +8,7 @@ use App\Cookery\RecipeComponents\Domain\RecipeComponentRepository;
 use App\Cookery\Recipes\Domain\RecipeComponent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 final class DoctrineRecipeComponentRepository extends ServiceEntityRepository implements RecipeComponentRepository
 {
@@ -23,5 +24,19 @@ final class DoctrineRecipeComponentRepository extends ServiceEntityRepository im
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function remove(RecipeComponent $component, bool $flush = true): void
+    {
+        $this->getEntityManager()->remove($component);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function findOne(UuidInterface $id): ?RecipeComponent
+    {
+        return $this->find($id);
     }
 }
