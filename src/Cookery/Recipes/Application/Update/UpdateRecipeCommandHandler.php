@@ -45,5 +45,7 @@ final class UpdateRecipeCommandHandler
                 $component['unit'],
             ));
         }
+
+        $this->messageBus->dispatch(new UpdateRecipeComponentsCountCommand($command->id, count($command->request->components)));
     }
 }
