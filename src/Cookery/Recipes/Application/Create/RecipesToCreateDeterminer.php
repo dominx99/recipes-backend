@@ -51,10 +51,11 @@ final class RecipesToCreateDeterminer
         });
 
         return Recipe::new(
-            Uuid::random(),
-            $recipe->name(),
-            $components,
-            $recipe->externalIdentifier(),
+            id: Uuid::random(),
+            name: $recipe->name(),
+            components: $components,
+            externalIdentifier: $recipe->externalIdentifier(),
+            published: true,
         );
     }
 }

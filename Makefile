@@ -139,9 +139,10 @@ update-permissions:
 .PHONY: deploy
 deploy: down refresh-repository prod deps migrate clear update-permissions
 
-command import:
+command import import-products:
 	docker-compose exec $(recipes-php-service) $(recipes-console-location) $(CMD)
 
 import: CMD=import:all
+import-products: CMD=import:products:all
 
 restart: down up

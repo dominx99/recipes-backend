@@ -72,7 +72,8 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
             ->select('r.*, count(DISTINCT rc.id) as matchingRecipeCount')
             ->from('recipe_component', 'rc')
             ->join('rc', 'recipe', 'r', 'r.id = rc.recipe_id')
-            ->where('rc.ingredient_id IN (
+            ->andWhere('r.published = 1')
+            ->andWhere('rc.ingredient_id IN (
                 SELECT DISTINCT i.id FROM ingredient i
                 WHERE i.name REGEXP :ingredients
             )')

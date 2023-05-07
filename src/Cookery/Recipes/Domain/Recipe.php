@@ -37,6 +37,9 @@ class Recipe implements RecipeInterface, AggregateRoot
     #[ORM\Column(name: 'componentsCount', type: 'integer')]
     private int $componentsCount;
 
+    #[ORM\Column(name: 'published', type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $published = false;
+
     private function __construct(
         UuidInterface $id,
         string $name,
@@ -44,6 +47,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         int $componentsCount,
         ?string $externalIdentifier = null,
         ?UuidInterface $ownerId = null,
+        bool $published = false,
     ) {
         $this->id = $id;
         $this->externalIdentifier = $externalIdentifier;
@@ -51,6 +55,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         $this->components = $components;
         $this->componentsCount = $componentsCount;
         $this->ownerId = $ownerId;
+        $this->published = $published;
     }
 
     /**
@@ -62,6 +67,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         Collection $components,
         ?string $externalIdentifier = null,
         ?UuidInterface $ownerId = null,
+        bool $published = false,
     ): RecipeInterface {
         $recipe = new Recipe(
             $id,
@@ -70,6 +76,7 @@ class Recipe implements RecipeInterface, AggregateRoot
             $components->count(),
             $externalIdentifier,
             $ownerId,
+            $published
         );
 
         $components->forAll(function ($key, RecipeComponent $recipeComponent) use ($recipe) {
@@ -133,6 +140,11 @@ class Recipe implements RecipeInterface, AggregateRoot
     public function ownerId(): UuidInterface
     {
         return $this->ownerId;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published;
     }
 
     public function update(
