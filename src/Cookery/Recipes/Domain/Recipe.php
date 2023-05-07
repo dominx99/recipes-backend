@@ -154,4 +154,9 @@ class Recipe implements RecipeInterface, AggregateRoot
         $this->name = $name;
         $this->components = $components;
     }
+
+    public function publish(): void
+    {
+        $this->published = true;
+    }
 }

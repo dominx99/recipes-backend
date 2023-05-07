@@ -8,7 +8,6 @@ use App\Auth\Domain\User;
 use App\Cookery\Publishing\Application\Create\CreatePublishRecipeRequestCommand;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Http\Symfony\ApiController;
-use App\Shared\Http\Symfony\SuccessResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,13 +23,14 @@ final class PublishRecipeRequestPostController extends ApiController
     {
         /** @var User $user */
         $user = $this->getUser();
+        $id = Uuid::random();
 
         $this->messageBus->dispatch(new CreatePublishRecipeRequestCommand(
-            Uuid::random(),
+            $id,
             $user->getId(),
             Uuid::fromString($recipeId),
         ));
 
-        return new SuccessResponse();
+        return new JsonResponse(['id' => $id]);
     }
 }
