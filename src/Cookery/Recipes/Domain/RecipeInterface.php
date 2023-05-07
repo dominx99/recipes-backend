@@ -6,7 +6,7 @@ namespace App\Cookery\Recipes\Domain;
 
 interface RecipeInterface
 {
-    public function externalIdentifier(): string;
+    public function externalIdentifier(): ?string;
 
     public function name(): string;
 

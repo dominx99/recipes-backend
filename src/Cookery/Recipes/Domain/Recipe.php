@@ -105,7 +105,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         return $this->id;
     }
 
-    public function externalIdentifier(): string
+    public function externalIdentifier(): ?string
     {
         return $this->externalIdentifier;
     }
