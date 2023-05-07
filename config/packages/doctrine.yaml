@@ -51,6 +51,10 @@ doctrine:
               is_bundle: false
               dir: '%kernel.project_dir%/src/Cookery/ProductCategories/Domain'
               prefix: 'App\Cookery\ProductCategories\Domain'
+            Publishing:
+              is_bundle: false
+              dir: '%kernel.project_dir%/src/Cookery/Publishing/Domain'
+              prefix: 'App\Cookery\Publishing\Domain'
 
 when@test:
     doctrine:
