@@ -6,6 +6,7 @@ namespace App\Cookery\Publishing\Infrastructure\Persistence;
 
 use App\Cookery\Publishing\Domain\PublishRecipeRequest;
 use App\Cookery\Publishing\Domain\PublishRecipeRequestRepository;
+use App\Shared\Domain\Collection\ArrayCollection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
@@ -38,5 +39,10 @@ final class DoctrinePublishRecipeRequestRepository extends ServiceEntityReposito
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function all(): ArrayCollection
+    {
+        return new ArrayCollection($this->findAll());
     }
 }
