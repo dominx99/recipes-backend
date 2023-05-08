@@ -24,6 +24,8 @@ interface RecipeRepository
 
     public function matchByOwner(User $user, int $offset, int $limit): RecipeCollection;
 
+    public function matchByIds(array $ids, int $offset, int $limit): RecipeCollection;
+
     /** @param array<int,string> $ids */
     public function findMany(array $ids): RecipeCollection;
 

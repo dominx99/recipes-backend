@@ -114,4 +114,16 @@ final class DoctrineRecipeRepository extends ServiceEntityRepository implements 
             $this->getEntityManager()->flush();
         }
     }
+
+    public function matchByIds(array $ids, int $offset, int $limit): RecipeCollection
+    {
+        return new RecipeCollection($this->createQueryBuilder('r')
+            ->where('r.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        );
+    }
 }
