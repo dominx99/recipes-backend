@@ -16,7 +16,7 @@ final class RejectPublishRecipeRequestCommandHandler
 
     public function __invoke(RejectPublishRecipeRequestCommand $command): void
     {
-        $request = $this->repository->findOne($command->id);
+        $request = $this->repository->findOneBy(['recipeId' => $command->recipeId]);
 
         $this->repository->remove($request);
     }

@@ -20,10 +20,10 @@ final class RejectPublishRecipeRequestPostController extends ApiController
     {
     }
 
-    #[Route('/api/v1/publish-recipe-requests/{id}/reject', methods: ['POST'])]
-    public function __invoke(string $id): JsonResponse
+    #[Route('/api/v1/publish-recipe-requests/{recipeId}/reject', methods: ['POST'])]
+    public function __invoke(string $recipeId): JsonResponse
     {
-        $this->messageBus->dispatch(new RejectPublishRecipeRequestCommand(Uuid::fromString($id)));
+        $this->messageBus->dispatch(new RejectPublishRecipeRequestCommand(Uuid::fromString($recipeId)));
 
         return new SuccessResponse();
     }

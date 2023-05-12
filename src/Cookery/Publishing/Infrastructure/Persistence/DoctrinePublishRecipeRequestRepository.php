@@ -45,4 +45,9 @@ final class DoctrinePublishRecipeRequestRepository extends ServiceEntityReposito
     {
         return new ArrayCollection($this->findAll());
     }
+
+    public function allPaginated(int $offset = 0, int $limit = 24): ArrayCollection
+    {
+        return new ArrayCollection($this->findBy([], null, $limit, $offset));
+    }
 }

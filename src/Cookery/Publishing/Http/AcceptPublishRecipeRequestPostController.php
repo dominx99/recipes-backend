@@ -19,10 +19,10 @@ final class AcceptPublishRecipeRequestPostController extends ApiController
     {
     }
 
-    #[Route('/api/v1/publish-recipe-request/{id}/accept', name: 'api_v1_publish_recipe_request_accept', methods: ['POST'])]
-    public function __invoke(string $id): JsonResponse
+    #[Route('/api/v1/publish-recipe-request/{recipeId}/accept', name: 'api_v1_publish_recipe_request_accept', methods: ['POST'])]
+    public function __invoke(string $recipeId): JsonResponse
     {
-        $this->messageBus->dispatch(new AcceptPublishRecipeRequestCommand($id));
+        $this->messageBus->dispatch(new AcceptPublishRecipeRequestCommand($recipeId));
 
         return new SuccessResponse();
     }

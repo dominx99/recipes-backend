@@ -8,7 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class RejectPublishRecipeRequestCommand
 {
-    public function __construct(public readonly UuidInterface $id)
+    public function __construct(public readonly UuidInterface $recipeId)
     {
     }
 }

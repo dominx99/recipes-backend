@@ -6,7 +6,7 @@ namespace App\Cookery\Publishing\Application\Update;
 
 final class AcceptPublishRecipeRequestCommand
 {
-    public function __construct(public readonly string $id)
+    public function __construct(public readonly string $recipeId)
     {
     }
 }
