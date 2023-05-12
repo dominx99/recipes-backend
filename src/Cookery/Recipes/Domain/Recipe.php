@@ -159,4 +159,9 @@ class Recipe implements RecipeInterface, AggregateRoot
     {
         $this->published = true;
     }
+
+    public function unpublish(): void
+    {
+        $this->published = false;
+    }
 }

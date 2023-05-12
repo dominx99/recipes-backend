@@ -24,6 +24,7 @@ final class UpdateRecipeCommandHandler
     public function __invoke(UpdateRecipeCommand $command): void
     {
         $recipe = $this->repository->findOne($command->id);
+        $recipe->unpublish();
 
         foreach ($recipe->components() as $component) {
             $this->messageBus->dispatch(new DeleteRecipeComponentCommand($component->id()));
