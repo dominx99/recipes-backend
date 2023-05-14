@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 final class RecipePostRequest extends AbstractRequest
 {
     public string $name;
+    public string $instructions;
     public array $components = [];
 
     public function rules(): array
@@ -23,6 +24,10 @@ final class RecipePostRequest extends AbstractRequest
                 ]),
                 'name' => new Assert\Required([
                     new Assert\NotBlank(),
+                ]),
+                'instructions' => new Assert\Required([
+                    new Assert\NotBlank(),
+                    new Assert\Length(min: 10),
                 ]),
                 'components' => new Assert\Required([
                     new Assert\NotBlank(),

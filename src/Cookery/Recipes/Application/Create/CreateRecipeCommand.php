@@ -11,6 +11,7 @@ final class CreateRecipeCommand
     public function __construct(
         public readonly UuidInterface $id,
         public readonly string $name,
+        public readonly string $instructions,
         public readonly ?UuidInterface $ownerId,
     ) {
     }

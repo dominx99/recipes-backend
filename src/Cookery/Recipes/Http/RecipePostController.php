@@ -41,6 +41,7 @@ final class RecipePostController extends ApiController
             new CreateRecipeCommand(
                 $id,
                 $request->name,
+                $request->instructions,
                 $user->getId(),
             )
         );

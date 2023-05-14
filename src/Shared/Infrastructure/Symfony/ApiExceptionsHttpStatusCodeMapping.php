@@ -37,7 +37,7 @@ final class ApiExceptionsHttpStatusCodeMapping
         }
 
         $exceptionClass = get_class($exception);
-        $statusCode = get($exception, $this->exceptions, self::DEFAULT_STATUS_CODE);
+        $statusCode = get($exceptionClass, $this->exceptions, self::DEFAULT_STATUS_CODE);
 
         if (null === $statusCode) {
             throw new InvalidArgumentException("There are no status code mapping for <$exceptionClass>");

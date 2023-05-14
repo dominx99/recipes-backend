@@ -38,7 +38,7 @@ class Recipe implements RecipeInterface, AggregateRoot
     private int $componentsCount;
 
     #[ORM\Column(name: 'instructions', type: 'text', nullable: true)]
-    private string $instructions;
+    private ?string $instructions;
 
     #[ORM\Column(name: 'published', type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $published = false;
@@ -156,9 +156,11 @@ class Recipe implements RecipeInterface, AggregateRoot
 
     public function update(
         string $name,
+        string $instructions,
         RecipeComponentCollection $components,
     ): void {
         $this->name = $name;
+        $this->instructions = $instructions;
         $this->components = $components;
     }
 

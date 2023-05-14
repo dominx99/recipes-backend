@@ -25,9 +25,9 @@ final class ImportAllSourcesCommandHandler implements MessageHandlerInterface
     public function __invoke(ImportAllSourcesCommand $command): void
     {
         $sources = [
-            // new TabatkinsRecipeSource(),
+            new TabatkinsRecipeSource(),
             new EshaCommonRecipesSource(),
-            // new EshaArmedForcesRecipesSource(),
+            new EshaArmedForcesRecipesSource(),
         ];
 
         each(function (RecipeSource $source) {

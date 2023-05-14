@@ -19,6 +19,7 @@ final class CreateRecipeCommandHandler implements MessageHandlerInterface
         $recipe = Recipe::new(
             id: $command->id,
             name: $command->name,
+            instructions: $command->instructions,
             components: new RecipeComponentCollection(),
             ownerId: $command->ownerId,
             published: false,

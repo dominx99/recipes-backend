@@ -32,6 +32,7 @@ final class UpdateRecipeCommandHandler
 
         $recipe->update(
             $command->request->name,
+            $command->request->instructions,
             new RecipeComponentCollection(),
         );
 
