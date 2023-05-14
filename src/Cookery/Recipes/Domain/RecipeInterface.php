@@ -11,4 +11,6 @@ interface RecipeInterface
     public function name(): string;
 
     public function components(): RecipeComponentCollection;
+
+    public function instructions(): ?string;
 }

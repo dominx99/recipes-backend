@@ -29,7 +29,7 @@ final class ApiExceptionListener
                     ],
                     $this->exceptionMessageFor($exception)
                 ),
-                $this->exceptionHandler->statusCodeFor(get_class($exception))
+                $this->exceptionHandler->statusCodeFor($exception)
             )
         );
     }

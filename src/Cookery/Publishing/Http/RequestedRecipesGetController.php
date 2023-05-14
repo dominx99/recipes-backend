@@ -8,10 +8,12 @@ use App\Cookery\Publishing\Domain\PublishRecipeRequest;
 use App\Cookery\Publishing\Domain\PublishRecipeRequestRepository;
 use App\Cookery\Recipes\Domain\RecipeRepository;
 use App\Shared\Http\Symfony\ApiController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted('ROLE_BACKOFFICE', statusCode: Response::HTTP_UNAUTHORIZED)]
 final class RequestedRecipesGetController extends ApiController
 {
     public function __construct(

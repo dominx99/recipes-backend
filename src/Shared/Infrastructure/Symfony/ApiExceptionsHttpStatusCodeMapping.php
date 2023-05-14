@@ -7,10 +7,13 @@ namespace App\Shared\Infrastructure\Symfony;
 use App\Shared\Domain\ValidationFailedError;
 use InvalidArgumentException;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use function Lambdish\Phunctional\get;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 final class ApiExceptionsHttpStatusCodeMapping
 {
@@ -27,9 +30,14 @@ final class ApiExceptionsHttpStatusCodeMapping
         $this->exceptions[$exceptionClass] = $statusCode;
     }
 
-    public function statusCodeFor(string $exceptionClass): int
+    public function statusCodeFor(Throwable $exception): int
     {
-        $statusCode = get($exceptionClass, $this->exceptions, self::DEFAULT_STATUS_CODE);
+        if ($exception instanceof HttpExceptionInterface) {
+            return $exception->getStatusCode();
+        }
+
+        $exceptionClass = get_class($exception);
+        $statusCode = get($exception, $this->exceptions, self::DEFAULT_STATUS_CODE);
 
         if (null === $statusCode) {
             throw new InvalidArgumentException("There are no status code mapping for <$exceptionClass>");

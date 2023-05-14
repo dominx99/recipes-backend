@@ -6,6 +6,7 @@ namespace App\Import\Domain;
 
 use App\Cookery\Recipes\Domain\RecipeComponentCollection;
 use App\Cookery\Recipes\Domain\RecipeInterface;
+use App\Enum\RootNodeEnum;
 use App\Import\Domain\Esha\EshaRecipeComponentAdapter;
 use DOMElement;
 
@@ -42,5 +43,16 @@ final class EshaRecipeAdapter implements RecipeInterface
     public function externalIdentifier(): string
     {
         return sprintf('%s.%s', 'esha', $this->element->attributes->getNamedItem('primaryKey')->nodeValue);
+    }
+
+    public function instructions(): ?string
+    {
+        foreach ($this->element->childNodes as $childNode) {
+            if (RootNodeEnum::INSTRUCTIONS->value === $childNode->nodeName) {
+                return $childNode->nodeValue;
+            }
+        }
+
+        return null;
     }
 }

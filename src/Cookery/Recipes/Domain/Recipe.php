@@ -37,6 +37,9 @@ class Recipe implements RecipeInterface, AggregateRoot
     #[ORM\Column(name: 'componentsCount', type: 'integer')]
     private int $componentsCount;
 
+    #[ORM\Column(name: 'instructions', type: 'text', nullable: true)]
+    private string $instructions;
+
     #[ORM\Column(name: 'published', type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $published = false;
 
@@ -45,6 +48,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         string $name,
         RecipeComponentCollection $components,
         int $componentsCount,
+        ?string $instructions,
         ?string $externalIdentifier = null,
         ?UuidInterface $ownerId = null,
         bool $published = false,
@@ -54,6 +58,7 @@ class Recipe implements RecipeInterface, AggregateRoot
         $this->name = $name;
         $this->components = $components;
         $this->componentsCount = $componentsCount;
+        $this->instructions = $instructions;
         $this->ownerId = $ownerId;
         $this->published = $published;
     }
@@ -65,18 +70,20 @@ class Recipe implements RecipeInterface, AggregateRoot
         UuidInterface $id,
         string $name,
         Collection $components,
+        ?string $instructions = null,
         ?string $externalIdentifier = null,
         ?UuidInterface $ownerId = null,
         bool $published = false,
     ): RecipeInterface {
         $recipe = new Recipe(
-            $id,
-            $name,
-            $components,
-            $components->count(),
-            $externalIdentifier,
-            $ownerId,
-            $published
+            id: $id,
+            name: $name,
+            components: $components,
+            componentsCount: $components->count(),
+            instructions: $instructions,
+            externalIdentifier: $externalIdentifier,
+            ownerId: $ownerId,
+            published: $published
         );
 
         $components->forAll(function ($key, RecipeComponent $recipeComponent) use ($recipe) {
@@ -163,5 +170,10 @@ class Recipe implements RecipeInterface, AggregateRoot
     public function unpublish(): void
     {
         $this->published = false;
+    }
+
+    public function instructions(): string
+    {
+        return $this->instructions;
     }
 }

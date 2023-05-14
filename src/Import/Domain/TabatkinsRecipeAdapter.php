@@ -33,4 +33,9 @@ final class TabatkinsRecipeAdapter implements RecipeInterface
     {
         return sprintf('%s.%s', 'tabatkins', $this->recipe['id']);
     }
+
+    public function instructions(): ?string
+    {
+        return $this->recipe['instructions'] ?? null;
+    }
 }

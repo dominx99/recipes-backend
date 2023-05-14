@@ -8,4 +8,5 @@ enum RootNodeEnum: string
 {
     case RECIPE = 'recipe';
     case INGREDIENT = 'ingredient';
+    case INSTRUCTIONS = 'XML_MEMO1';
 }

@@ -60,6 +60,7 @@ final class RecipesToCreateDeterminer
             name: $recipe->name(),
             components: $components,
             externalIdentifier: $recipe->externalIdentifier(),
+            instructions: $recipe->instructions(),
             published: true,
         );
     }
