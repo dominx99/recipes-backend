@@ -28,27 +28,32 @@ final class RecipesToCreateDeterminer
             $ingredientEntities->map(fn (IngredientInterface $ingredient) => $ingredient)->toArray(),
         );
 
-        return $newRecipes->filter(fn (RecipeInterface $newRecipe) => !$existingRecipes->exists(
-            fn ($key, RecipeInterface $existingRecipe) => $newRecipe->externalIdentifier() === $existingRecipe->externalIdentifier()
-        ))
-            ->map(fn (RecipeInterface $recipe) => $this->replaceComponentsIngredients($recipe, $ingredientEntitiesMap));
+        return $newRecipes
+            ->filter(fn (RecipeInterface $newRecipe) => !$existingRecipes->exists(
+                fn ($key, RecipeInterface $existingRecipe) => $newRecipe->externalIdentifier() === $existingRecipe->externalIdentifier()
+            ))
+            ->filter(fn (RecipeInterface $newRecipe) => $newRecipe->name() !== '')
+            ->filter(fn (RecipeInterface $newRecipe) => $newRecipe->name() !== 'test')
+            ->map(fn (RecipeInterface $recipe) => $this->replaceComponentsIngredients($recipe, $ingredientEntitiesMap))
+        ;
     }
 
     private function replaceComponentsIngredients(
         RecipeInterface $recipe,
         array $ingredientEntitiesMap
     ): RecipeInterface {
-        $components = $recipe->components()->map(function (RecipeComponentInterface $component) use ($ingredientEntitiesMap) {
-            if (!array_key_exists($component->ingredient()->name(), $ingredientEntitiesMap)) {
-                throw new InvalidArgumentException('Ingredients should be in database before recipes');
-            }
-
-            return RecipeComponent::new(
-                Uuid::random(),
-                $ingredientEntitiesMap[$component->ingredient()->name()],
-                $component->measure(),
-            );
-        });
+        $components = $recipe->components()
+            ->filter(fn (RecipeComponentInterface $component) =>
+                array_key_exists($component->ingredient()->name(), $ingredientEntitiesMap)
+            )
+            ->map(function (RecipeComponentInterface $component) use ($ingredientEntitiesMap) {
+                return RecipeComponent::new(
+                    Uuid::random(),
+                    $ingredientEntitiesMap[$component->ingredient()->name()],
+                    $component->measure(),
+                );
+            })
+        ;
 
         return Recipe::new(
             id: Uuid::random(),
