@@ -45,12 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct(
         UuidInterface $id,
         string $email,
-        string $password,
         array $roles = [],
     ) {
         $this->id = $id;
         $this->email = $email;
-        $this->password = $password;
         $this->roles = $roles;
     }
 

@@ -16,7 +16,6 @@ use function Lambdish\Phunctional\map;
 final class EshaRecipeAdapter implements RecipeInterface
 {
     private RecipeComponentCollection $components;
-
     public function __construct(private DOMElement $element)
     {
         $ingredientElements = array_values(filter(
@@ -29,22 +28,18 @@ final class EshaRecipeAdapter implements RecipeInterface
             $ingredientElements
         ));
     }
-
     public function name(): string
     {
         return $this->element->attributes->getNamedItem('description')->nodeValue;
     }
-
     public function components(): RecipeComponentCollection
     {
         return $this->components;
     }
-
     public function externalIdentifier(): string
     {
         return sprintf('%s.%s', 'esha', $this->element->attributes->getNamedItem('primaryKey')->nodeValue);
     }
-
     public function instructions(): ?string
     {
         foreach ($this->element->childNodes as $childNode) {

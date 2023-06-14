@@ -10,7 +10,6 @@ use App\Cookery\Recipes\Domain\RecipeInterface;
 final class TabatkinsRecipeAdapter implements RecipeInterface
 {
     private RecipeComponentCollection $components;
-
     public function __construct(private array $recipe)
     {
         $this->components = new RecipeComponentCollection(array_map(
@@ -18,22 +17,18 @@ final class TabatkinsRecipeAdapter implements RecipeInterface
             $recipe['ingredients']
         ));
     }
-
     public function name(): string
     {
         return $this->recipe['name'];
     }
-
     public function components(): RecipeComponentCollection
     {
         return $this->components;
     }
-
     public function externalIdentifier(): string
     {
         return sprintf('%s.%s', 'tabatkins', $this->recipe['id']);
     }
-
     public function instructions(): ?string
     {
         return $this->recipe['instructions'] ?? null;

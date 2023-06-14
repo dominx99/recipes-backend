@@ -3,6 +3,7 @@
 namespace App\Auth\Infrastructure\Symfony\Command;
 
 use App\Auth\Domain\User;
+use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -43,12 +44,15 @@ class AuthAddUserCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         try {
-            $user = (new User())
-                ->setEmail($input->getOption('email'))
-                ->setRoles($input->getOption('roles'))
-            ;
+            $user = new User(
+                Uuid::random(),
+                $input->getOption('email'),
+                explode(', ', $input->getOption('roles')),
+            );
 
-            $user->setPassword($this->passwordHasher->hashPassword($user, $input->getOption('password')));
+            $user->setPassword(
+                $this->passwordHasher->hashPassword($user, $input->getOption('password')),
+            );
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();

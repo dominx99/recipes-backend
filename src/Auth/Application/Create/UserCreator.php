@@ -22,9 +22,10 @@ final class UserCreator
         $user = new User(
             Uuid::random(),
             $userForm->getEmail(),
-            $this->hasher->hashPassword($userForm, $userForm->getPlainPassword()),
             ['ROLE_USER']
         );
+
+        $user->setPassword($this->hasher->hashPassword($userForm, $userForm->getPlainPassword()));
 
         $this->repository->save($user);
     }
