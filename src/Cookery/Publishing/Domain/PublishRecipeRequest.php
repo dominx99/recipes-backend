@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity]
-final class PublishRecipeRequest
+class PublishRecipeRequest
 {
     public function __construct(
         #[ORM\Id]
