@@ -22,12 +22,17 @@ final class IngredientsImporter
     ) {
     }
 
-    public function __invoke(IngredientCollection $ingredients)
+    public function __invoke(IngredientCollection $ingredients, callable $onProgress = null, callable $onFinish): void
     {
         $existingIngredients = $this->repository->all();
 
         $ingredientsToCreate = apply($this->ingredientsToCreateDeterminer, [$existingIngredients, $ingredients]);
 
-        each(fn (IngredientInterface $ingredient) => apply($this->creator, [$ingredient]), $ingredientsToCreate);
+        each(function (IngredientInterface $ingredient) use ($onProgress) {
+            $this->creator->__invoke($ingredient);
+            $onProgress();
+        }, $ingredientsToCreate);
+
+        $onFinish();
     }
 }

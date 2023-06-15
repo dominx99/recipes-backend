@@ -18,6 +18,11 @@ use function Lambdish\Phunctional\apply;
 use function Lambdish\Phunctional\each;
 use function Lambdish\Phunctional\map;
 
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 final class TabatkinsImporter implements RecipeImporter
 {
     public function __construct(
@@ -45,7 +50,22 @@ final class TabatkinsImporter implements RecipeImporter
             $recipes
         );
 
-        apply($this->ingredientsImporter, [$ingredients->unique()]);
-        apply($this->recipesImporter, [$recipes]);
+        $style = new SymfonyStyle(new ArgvInput(), new ConsoleOutput());
+
+        $ingredientsProgressBar = new ProgressBar($style, $ingredients->unique()->count());
+        $recipesProgressBar = new ProgressBar($style, $recipes->count());
+
+        $style->info('[Tabatkins] Importing ingredients...');
+        apply($this->ingredientsImporter, [
+            $ingredients->unique(),
+            fn () => $ingredientsProgressBar->advance(),
+            fn () => $ingredientsProgressBar->finish(),
+        ]);
+        $style->info('[Tabatkins] Importing recipes...');
+        apply($this->recipesImporter, [
+            $recipes,
+            fn () => $recipesProgressBar->advance(),
+            fn () => $recipesProgressBar->finish(),
+        ]);
     }
 }

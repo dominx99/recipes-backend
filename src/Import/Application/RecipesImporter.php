@@ -26,14 +26,19 @@ final class RecipesImporter
     ) {
     }
 
-    public function __invoke(RecipeCollection $recipes): void
+    public function __invoke(RecipeCollection $recipes, callable $onProgress, callable $onFinish): void
     {
         $existingRecipes = $this->repository->all();
 
         $recipesToCreate = apply($this->recipesToCreateDeterminer, [$existingRecipes, $recipes]);
         $recipesToUpdate = apply($this->recipesToUpdateDeterminer, [$existingRecipes, $recipes]);
 
-        each(fn (RecipeInterface $recipe) => apply($this->creator, [$recipe]), $recipesToCreate);
+        each(function (RecipeInterface $recipe) use ($onProgress) {
+            apply($this->creator, [$recipe]);
+            $onProgress();
+        }, $recipesToCreate);
         each(fn (RecipeInterface $recipe) => apply($this->updator, [$recipe]), $recipesToUpdate);
+
+        $onFinish();
     }
 }

@@ -17,6 +17,10 @@ use App\Import\Domain\RecipeImporter;
 use function Lambdish\Phunctional\apply;
 use function Lambdish\Phunctional\each;
 
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DomCrawler\Crawler;
 
 final class EshaImporter implements RecipeImporter
@@ -55,7 +59,22 @@ final class EshaImporter implements RecipeImporter
             $recipes
         );
 
-        apply($this->ingredientsImporter, [$ingredients->unique()]);
-        apply($this->recipesImporter, [$recipes]);
+        $style = new SymfonyStyle(new ArgvInput(), new ConsoleOutput());
+
+        $ingredientsProgressBar = new ProgressBar($style, $ingredients->unique()->count());
+        $recipesProgressBar = new ProgressBar($style, $recipes->count());
+
+        $style->info('[Esha] Importing ingredients...');
+        apply($this->ingredientsImporter, [
+            $ingredients->unique(),
+            fn () => $ingredientsProgressBar->advance(),
+            fn () => $ingredientsProgressBar->finish(),
+        ]);
+        $style->info('[Esha] Importing recipes...');
+        apply($this->recipesImporter, [
+            $recipes,
+            fn () => $recipesProgressBar->advance(),
+            fn () => $ingredientsProgressBar->finish(),
+        ]);
     }
 }
